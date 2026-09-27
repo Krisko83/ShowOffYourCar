@@ -9,7 +9,8 @@
     "lint": "eslint .",
     "preview": "vite preview"
   },
-  "dependencies": {   
+  "dependencies": {
+    "@fortawesome/fontawesome-free": "^7.3.1",
     "@tailwindcss/vite": "^4.3.3",
     "bootstrap": "^5.3.8",
     "class-variance-authority": "^0.7.1",
