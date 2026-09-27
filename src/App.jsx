@@ -1,6 +1,13 @@
+import { Route, Routes } from 'react-router'
 import Footer from './components/Footer.jsx'
 import Header from './components/Header.jsx'
 import Main from './components/Main.jsx'
+import Banner from './components/Banner.jsx'
+import Gallery from './components/Gallery.jsx'
+import About from './components/About.jsx'
+import Contact from './components/Contacts.jsx'
+import AddCar from './components/AddCar.jsx'
+
 
 
 function App() {
@@ -9,8 +16,14 @@ function App() {
     <>
       <Header />
 
-      <Main />
-
+      <Routes>
+        <Route index element={<Main />} />
+        <Route path='/gallery' element={<Gallery />} />
+        <Route path='/about' element={<About />} />
+        <Route path='/contacts' element={<Contact />} />
+        <Route path='/add-car' element={<AddCar />} />
+      </Routes>
+      <Banner />
       <Footer />
     </>
   )
