@@ -11,7 +11,7 @@ export default function AddCar() {
 
         const formData = new FormData(e.target)
         console.log(formData);
-        
+
         const car = {
             imageUrl: formData.get('imageUrl'),
             manufacturer: formData.get('manufacturer'),
@@ -23,11 +23,12 @@ export default function AddCar() {
             fuel: formData.get('fuel'),
             mileage: formData.get('mileage'),
             cubic: formData.get('cubic'),
-            driveType: formData.get('driveType')
+            driveType: formData.get('driveType'),
+            description: formData.get('description')
         }
 
         console.log(car);
-        
+
         try {
             await fetch('https://ggordfryvhhohlcicpdu.supabase.co/rest/v1/cars', {
                 method: 'POST',
@@ -41,10 +42,10 @@ export default function AddCar() {
         } catch (error) {
             console.log(error);
 
-        } finally{
+        } finally {
 
             navigate('/')
-        } 
+        }
     }
 
     return (
@@ -109,6 +110,10 @@ export default function AddCar() {
                             <option value="all wheel">All-Wheel Drive (AWD)</option>
                             <option value="four wheel">Four-Wheel Drive (4WD)</option>
                         </select>
+                    </div>
+                    <div className="ad-part">
+                        <label htmlFor="description">Description:</label>
+                        <input type="textarea" id="description" name="description" />
                     </div>
                 </div>
                 <button className="submit-btn" formMethod='submit'>Add Car</button>
