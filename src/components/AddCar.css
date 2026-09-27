@@ -1,9 +1,9 @@
-/* :root {
-    --yellow: #F9FF12;
-    --black: #1D1C0C;
-    --white: #FCFAEA;
-    --font-family: 'Encode Sans Expanded', sans-serif;
-} */
+    :root {
+        --yellow: white;
+        --black: #1D1C0C;
+        --white: #FCFAEA;
+        --font-family: 'Encode Sans Expanded', sans-serif;
+    }
 
 * {
     box-sizing: border-box;
