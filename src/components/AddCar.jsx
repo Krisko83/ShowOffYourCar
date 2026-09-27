@@ -45,10 +45,8 @@ export default function AddCar() {
 
             navigate('/')
         } 
-      
-
     }
-    
+
     return (
         <section className="new-ad">
             <h1>Show us your Car</h1>

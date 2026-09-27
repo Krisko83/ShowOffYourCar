@@ -2,8 +2,8 @@ export default function About() {
 
     return (
         <section className="container margin-bottom-50">
-            <div class="hero-content">
-                <div class="about-us-container">
+            <div className="hero-content">
+                <div className="about-us-container">
                     <h1>About AutoHub</h1>
                     <p>
                         Welcome to AutoHub, your trusted destination for browsing and buying

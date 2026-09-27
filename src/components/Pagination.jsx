@@ -7,8 +7,7 @@ export default function Pagination({
     setLimit,
     totalPages,
 }) {
-    console.log('from pagi:',page);
-    
+     
     const setPageLimit = (e) => {
         setLimit(Number(e.target.value));
         setPage(1);
