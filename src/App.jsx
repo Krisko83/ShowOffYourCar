@@ -8,6 +8,8 @@ import About from './components/About.jsx'
 import Contact from './components/Contacts.jsx'
 import AddCar from './components/AddCar.jsx'
 import NotFound from './components/NotFound.jsx'
+import Login from './components/Login.jsx'
+import Register from './components/Register.jsx'
  
 
 
@@ -24,6 +26,10 @@ function App() {
         <Route path='/about' element={<About />} />
         <Route path='/contacts' element={<Contact />} />
         <Route path='/add-car' element={<AddCar />} />
+        <Route path='/login' element={<Login />} />
+        <Route path='/register' element={<Register />} />
+
+
         <Route path='*' element={<NotFound />} />
 
       </Routes>

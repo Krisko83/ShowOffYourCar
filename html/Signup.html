@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="author" content="Patrick" />
+    <meta
+      name="description"
+      content="Sign Up page for the Cars Dealership website."
+    />
+    <meta
+      name="keywords"
+      content="cars, dealership, sign up, username, password"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <title>SignUp Page</title>
+    <link rel="stylesheet" href="../Style/Style.css" />
+  </head>
+  <body class="background-signup">
+    <div class="signup-box">
+      <h2 class="signup-title">SignUp</h2>
+
+      <!-- Email Input -->
+      <div>
+        <input
+          class="input-email"
+          id="email"
+          placeholder="Email"
+          required
+          type="email"
+        />
+        <div class="line" id="Eline"></div>
+      </div>
+
+      <!-- Username Input -->
+      <div>
+        <input
+          class="input-username"
+          id="username"
+          placeholder="Username"
+          required
+        />
+        <div class="line" id="Uline"></div>
+      </div>
+
+      <!-- Password with Eye -->
+      <div class="password-wrapper">
+        <input
+          class="input-password"
+          id="passwordInput"
+          placeholder="Password"
+          type="password"
+          minlength="8"
+          required
+        />
+        <span class="eyebox" id="toggleEye">
+          <i class="fas fa-eye" id="eyeIcon"></i>
+        </span>
+      </div>
+      <div class="line" id="Pline"></div>
+
+      <!-- Confirm Password with Eye -->
+      <div class="password-wrapper">
+        <input
+          class="input-confpassword"
+          id="confirmPassword"
+          placeholder="Confirm Password"
+          type="password"
+          minlength="8"
+          required
+        />
+        <span class="eyebox" id="toggleEye2">
+          <i class="fas fa-eye" id="eyeIcon2"></i>
+        </span>
+      </div>
+      <div class="line" id="cPline"></div>
+
+      <div>
+        <p class="action" id="action">Awaiting Action...</p>
+      </div>
+      <div>
+        <button class="signup-btn">SignUp</button>
+      </div>
+      <div class="login-section">
+        <a class="login-link" href="Login.html">Have An Account? Login! </a>
+        <div class="forgot-section">
+          <a class="forgot-link" href="SendOTP.html">Forgot Password?</a>
+        </div>
+      </div>
+    </div>
+    <script src="../Script/Script.js"></script>
+  </body>
+</html>
