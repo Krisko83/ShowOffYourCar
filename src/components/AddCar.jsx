@@ -33,7 +33,7 @@ export default function AddCar() {
                 method: 'POST',
                 headers: {
                     'Content-type': 'application/json',
-                    apikey: 'sb_publishable_25uCGYdn_bFi0wGD_6vPQA_g8loF2HB '
+                    apikey: 'sb_publishable_25uCGYdn_bFi0wGD_6vPQA_g8loF2HB'
                 },
                 body: JSON.stringify(car)
             })
