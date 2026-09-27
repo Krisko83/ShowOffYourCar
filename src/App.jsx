@@ -7,6 +7,8 @@ import Gallery from './components/Gallery.jsx'
 import About from './components/About.jsx'
 import Contact from './components/Contacts.jsx'
 import AddCar from './components/AddCar.jsx'
+import NotFound from './components/NotFound.jsx'
+ 
 
 
 
@@ -22,6 +24,8 @@ function App() {
         <Route path='/about' element={<About />} />
         <Route path='/contacts' element={<Contact />} />
         <Route path='/add-car' element={<AddCar />} />
+        <Route path='*' element={<NotFound />} />
+
       </Routes>
       <Banner />
       <Footer />
