@@ -1,3 +1,4 @@
+import request from '../../utils/request.js';
 import './AddCar.css';
 import { useNavigate } from 'react-router';
 
@@ -8,8 +9,7 @@ export default function AddCar() {
     const clickSubmitHandler = async (e) => {
         e.preventDefault();
 
-        const formData = new FormData(e.target)
-        console.log(formData);
+        const formData = new FormData(e.target);
 
         const car = {
             imageUrl: formData.get('imageUrl'),
@@ -26,25 +26,14 @@ export default function AddCar() {
             description: formData.get('description')
         }
 
-        console.log(car);
-
         try {
-            await fetch('https://ggordfryvhhohlcicpdu.supabase.co/rest/v1/cars', {
-                method: 'POST',
-                headers: {
-                    'Content-type': 'application/json',
-                    apikey: 'sb_publishable_25uCGYdn_bFi0wGD_6vPQA_g8loF2HB'
-                },
-                body: JSON.stringify(car)
-            })
+            await request('/cars', 'POST', car);
 
+            navigate('/');
         } catch (error) {
             console.log(error);
-
-        } finally {
-
-            navigate('/')
         }
+
     }
 
     return (

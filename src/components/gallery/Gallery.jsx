@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import Pagination from "./Pagination.jsx";
 import GalleryItem from "./GalleryItem.jsx";
+import request from "../../utils/request.js";
 
 export default function Gallery() {
     const [page, setPage] = useState(1);
@@ -10,17 +11,12 @@ export default function Gallery() {
     useEffect(() => {
         const abortController = new AbortController();
 
-        fetch('https://ggordfryvhhohlcicpdu.supabase.co/rest/v1/cars', {
-            signal: abortController.signal,
-            headers: {
-                apikey: 'sb_publishable_25uCGYdn_bFi0wGD_6vPQA_g8loF2HB'
-            }
-        }).then(res => res.json())
-            .then(data => setCars(data))
+        request('/cars','GET', null, { signal: abortController.signal })
+            .then(setCars)
             .catch(error => console.log(error))
 
         return () => {
-            abortController.abort();
+            abortController.abort('Unmounted element');
         }
     }, []);
 
@@ -38,7 +34,7 @@ export default function Gallery() {
                 <div className="tm-gallery col-lg-12">
                     {paginatedCars.map(car => <GalleryItem key={car.id} car={car} />)}
                 </div>
-                
+
             </div>
 
             <Pagination page={page} setPage={setPage} limit={limit} setLimit={setLimit} totalPages={totalPages} />

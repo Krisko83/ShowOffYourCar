@@ -1,10 +1,10 @@
 export function showHidePassHandler(e) {
-    const passInput = e.target.parentElement.previousElementSibling;
+    const passInputElement = e.target.parentElement.previousElementSibling;
 
-    passInput.type = 'text';
+    passInputElement.type = 'text';
 
     setTimeout(() => {
-        passInput.type = 'password';
+        passInputElement.type = 'password';
     }, 1500)
 }
 

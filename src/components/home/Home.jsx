@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import HomeItem from "./HomeItem.jsx";
+import request from "../../utils/request.js";
 
 export default function Home() {
     const [cars, setCars] = useState([]);
@@ -7,17 +8,12 @@ export default function Home() {
     useEffect(() => {
         const abortController = new AbortController();
 
-        fetch('https://ggordfryvhhohlcicpdu.supabase.co/rest/v1/cars', {
-            signal: abortController.signal,
-            headers: {
-                apikey: 'sb_publishable_25uCGYdn_bFi0wGD_6vPQA_g8loF2HB'
-            }
-        }).then(res => res.json())
-            .then(data => setCars(data))
-            .catch(error => console.log(error))
+        request('/cars?order=createdAt.desc&limit=3', 'GET', null, { signal: abortController.signal })
+            .then(setCars)
+            .catch(err => console.log(err));             
 
         return () => {
-            abortController.abort();
+            abortController.abort('Unmounted element');
         }
     }, [])
 
