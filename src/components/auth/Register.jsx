@@ -1,6 +1,7 @@
 import { Link, useNavigate } from 'react-router';
 import './LoginRegister.css'
 import { useState } from 'react';
+import { showHidePassHandler } from '../../utils/utils.js';
 
 
 export default function Register() {
@@ -43,9 +44,9 @@ export default function Register() {
         } catch (error) {
             console.log(error);            
         }
-      console.log(user);
-       
+        
     };
+         
 
     return (
         <section className='background-register'>
@@ -109,7 +110,7 @@ export default function Register() {
                             required={true}
                             name='password'
                         />
-                        <span className="eyebox" id="toggleEye">
+                        <span className="eyebox" id="toggleEye" onClick={showHidePassHandler}>
                             <i className="fas fa-eye" id="eyeIcon" />
                         </span>
                     </div>
@@ -125,7 +126,7 @@ export default function Register() {
                             required={true}
                             name='confirmPassword'
                         />
-                        <span className="eyebox" id="toggleEye2">
+                        <span className="eyebox" id="toggleEye2" onClick={showHidePassHandler}>
                             <i className="fas fa-eye" id="eyeIcon2" />
                         </span>
                     </div>

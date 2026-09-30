@@ -1,6 +1,7 @@
 import { Link, useNavigate } from 'react-router';
 import { useState } from 'react';
 import './LoginRegister.css'
+import { showHidePassHandler } from '../../utils/utils.js';
 
 
 export default function Login() {
@@ -12,8 +13,8 @@ export default function Login() {
 
         const formData = new FormData(e.target);
         const { email, password } = Object.fromEntries(formData);
- 
-        
+
+
         try {
             const res = await fetch(`https://ggordfryvhhohlcicpdu.supabase.co/rest/v1/users?email=eq.${email}`, {
                 headers: {
@@ -22,22 +23,20 @@ export default function Login() {
             })
 
             const userData = await res.json();
-           
-            
-            if(userData[0].password !== password) {
-               return alert('Email or password are not valid!')
+
+
+            if (userData[0].password !== password) {
+                return alert('Email or password are not valid!')
             }
 
             setUser(userData)
             navigate('/');
 
         } catch (error) {
-            console.log(error);            
+            console.log(error);
         }
     }
-    
-    console.log(user);
-    
+ 
 
     return (
         <section className='background-login'>
@@ -68,12 +67,10 @@ export default function Login() {
                             required={true}
                         />
                         <span className="eyebox" id="toggleEye">
-                            <i className="fas fa-eye" id="eyeIcon" />
+                            <i className="fas fa-eye" id="eyeIcon" onClick={showHidePassHandler} />
                         </span>
                     </div>
                     <div className="line" id="Pline" />
-
-
 
                     <div>
                         <button type="submit" className="login-btn">

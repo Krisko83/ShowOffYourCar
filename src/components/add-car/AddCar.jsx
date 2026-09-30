@@ -1,4 +1,3 @@
-// import { useEffect } from 'react';
 import './AddCar.css';
 import { useNavigate } from 'react-router';
 
