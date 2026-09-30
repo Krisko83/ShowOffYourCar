@@ -8,7 +8,7 @@ export default function AddCar() {
 
     const clickSubmitHandler = async (e) => {
         e.preventDefault();
-
+        const owner_id = '454545'
         const formData = new FormData(e.target);
 
         const car = {
@@ -23,7 +23,8 @@ export default function AddCar() {
             mileage: formData.get('mileage'),
             cubic: formData.get('cubic'),
             driveType: formData.get('driveType'),
-            description: formData.get('description')
+            description: formData.get('description'),
+            owner_id
         }
 
         try {

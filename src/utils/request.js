@@ -1,7 +1,7 @@
 const url = import.meta.env.VITE_BASE_URL;
 const apikey = import.meta.env.VITE_API_KEY; 
  
-export default async function request(path = '/', method = 'GET', data ,opts = {}) {
+export default async function request(path = '/', method = 'GET', data = {} ,opts = {}) {
 
     const options = {
     headers: {
@@ -18,7 +18,7 @@ export default async function request(path = '/', method = 'GET', data ,opts = {
         options.headers['Content-type'] = 'application/json'
         options.body = JSON.stringify(data)
     }
-
+ 
     const response = await fetch(`${url}${path}`, options)
 
     if(!response.ok) {

@@ -2,6 +2,7 @@ import { Link, useNavigate } from 'react-router';
 import './LoginRegister.css'
 import { useState } from 'react';
 import { showHidePassHandler } from '../../utils/utils.js';
+import request from '../../utils/request.js';
 
 
 export default function Register() {
@@ -27,17 +28,8 @@ export default function Register() {
         }
 
         try {
-            const response = await fetch('https://ggordfryvhhohlcicpdu.supabase.co/rest/v1/users', {
-                method: 'POST',
-                headers: {
-                    'Content-type': 'application/json',
-                    apikey: 'sb_publishable_25uCGYdn_bFi0wGD_6vPQA_g8loF2HB',
-                    Prefer: 'return=representation'
-                },
-                body: JSON.stringify(userFormData)
-            })
-            const userData = await response.json();
-            
+            const userData = await request('/users', 'POST' , userFormData)
+             
             setUser(userData);
             navigate('/');
 

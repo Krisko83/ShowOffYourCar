@@ -2,6 +2,7 @@ import { Link, useNavigate } from 'react-router';
 import { useState } from 'react';
 import './LoginRegister.css'
 import { showHidePassHandler } from '../../utils/utils.js';
+import request from '../../utils/request.js';
 
 
 export default function Login() {
@@ -16,14 +17,7 @@ export default function Login() {
 
 
         try {
-            const res = await fetch(`https://ggordfryvhhohlcicpdu.supabase.co/rest/v1/users?email=eq.${email}`, {
-                headers: {
-                    apikey: 'sb_publishable_25uCGYdn_bFi0wGD_6vPQA_g8loF2HB'
-                }
-            })
-
-            const userData = await res.json();
-
+            const userData = await request(`/users?email=eq.${email}`);         
 
             if (userData[0].password !== password) {
                 return alert('Email or password are not valid!')
