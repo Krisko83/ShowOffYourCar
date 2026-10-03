@@ -1,11 +1,12 @@
 const url = import.meta.env.VITE_BASE_URL;
 const apikey = import.meta.env.VITE_API_KEY; 
  
-export default async function request(path = '/', method = 'GET', data = {} ,opts = {}) {
+export default async function request(path = '/', method = 'GET', data = null ,opts = {}) {
 
     const options = {
     headers: {
-            apikey
+            apikey,
+            "Prefer": 'return=representation'
         }, 
         ...opts
     }

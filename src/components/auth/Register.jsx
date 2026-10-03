@@ -1,141 +1,464 @@
 import { Link, useNavigate } from 'react-router';
-import './LoginRegister.css'
 import { useState } from 'react';
-import { showHidePassHandler } from '../../utils/utils.js';
 import request from '../../utils/request.js';
+import "./Register.css";
+// import showHidePassHandler from './utils.js';
+
+const initialValues = {
+    id: '',
+    fullName: '',
+    username: '',
+    email: '',
+    age: '',
+    country: '',
+    city: '',
+    gender: 'male',
+    password: '',
+    repeatPassword: ''
+}
+
+const visibilityInitials = {
+    password: false,
+    repeatPassword: false
+}
 
 
 export default function Register() {
-    const [user, setUser] = useState(null);
+    const [userData, setUserData] = useState(initialValues);
+    const [isPasswordsVisible, setIsPasswordsVisible] = useState(visibilityInitials);
     const navigate = useNavigate();
 
-    const clickSubmitHandler = async (e) => {
-        e.preventDefault();
+    const actionHandler = async () => {
 
-        const formData = new FormData(e.target);
-        const { username, email, country, city, password, confirmPassword } = Object.fromEntries(formData);
+        const { fullName, username, email, age, country, city, gender, password, repeatPassword } = userData;
+        // console.log(username, email, country, city, password, repeatPassword);
 
-        if(password !== confirmPassword) {
+        if (password !== repeatPassword) {
             return alert('Passwords must match!')
         }
 
         const userFormData = {
-            username: username,
-            email: email,
-            country: country,
-            city: city,
-            password: password
+            fullName,
+            username,
+            email,
+            age,
+            country,
+            city,
+            gender,
+            password
         }
 
         try {
-            const userData = await request('/users', 'POST' , userFormData)
-             
-            setUser(userData);
-            navigate('/');
+           const response = await request('/users', 'POST', userFormData);
+           console.log(response);
+           
+            setUserData(state => ({
+                ...state,
+                id: response[0].id
+            }));
 
+            console.log(userData);
+            
+            navigate('/');
         } catch (error) {
-            console.log(error);            
+            console.log(error);
         }
-        
+
     };
-         
+
+    const changeHandler = (e) => {
+
+        setUserData(state => ({
+            ...state,
+            [e.target.name]: e.target.value
+        }))
+    };
+
+
+    const showHidePassHandler = (field) => {
+
+        setIsPasswordsVisible(state => ({
+            ...state,
+            [field]: isPasswordsVisible[field] ? false : true
+        }))
+    };
+
 
     return (
-        <section className='background-register'>
-            <form onSubmit={clickSubmitHandler}>
+        <div className="register-page">
+            <div className="register-container">
+                <h2>Create Account</h2>
 
-                <div className="signup-box">
-                    <h2 className="signup-title">Register</h2>
+                <p className="register-subtitle">
+                    Please fill in the information below
+                </p>
 
-                    <div>
+                <form className="register-form" action={actionHandler}>
+                    <div className="form-group">
+                        <label htmlFor="fullName">Full Name</label>
                         <input
-                            className="input-email"
-                            id="email"
-                            placeholder="Email"
-                            required={true}
-                            type="email"
-                            name='email'
+                            id="fullName"
+                            type="text"
+                            name="fullName"
+                            placeholder="Enter your full name"
+                            value={userData.fullName}
+                            onChange={changeHandler}
                         />
-                        <div className="line" id="Eline" />
                     </div>
 
-                    <div>
+                    <div className="form-group">
+                        <label htmlFor="username">Username</label>
                         <input
-                            className="input-username"
                             id="username"
-                            placeholder="Username"
-                            required={true}
-                            name='username'
+                            type="text"
+                            name="username"
+                            placeholder="Choose a username"
+                            value={userData.username}
+                            onChange={changeHandler}
                         />
-                        <div className="line" id="Uline" />
                     </div>
 
-                    <div>
+                    <div className="form-group">
+                        <label htmlFor="email">Email</label>
                         <input
-                            className="input-country"
-                            id="country"
-                            placeholder="Country"
-                            required={true}
-                            name='country'
+                            id="email"
+                            type="email"
+                            name="email"
+                            placeholder="you@example.com"
+                            value={userData.email}
+                            onChange={changeHandler}
                         />
-                        <div className="line" id="Uline" />
                     </div>
 
-                    <div>
+                    <div className="form-group">
+                        <label htmlFor="age">Age</label>
                         <input
-                            className="input-city"
-                            id="city"
-                            placeholder="City"
-                            required={true}
-                            name='city'
+                            id="age"
+                            type="text"
+                            name="age"
+                            placeholder="18"
+                            value={userData.age}
+                            onChange={changeHandler}
                         />
-                        <div className="line" id="Uline" />
                     </div>
 
-                    <div className="password-wrapper">
-                        <input
-                            className="input-password"
-                            id="passwordInput"
-                            placeholder="Password"
-                            type="password"
-                            minLength={8}
-                            required={true}
-                            name='password'
-                        />
-                        <span className="eyebox" id="toggleEye" onClick={showHidePassHandler}>
-                            <i className="fas fa-eye" id="eyeIcon" />
-                        </span>
-                    </div>
-                    <div className="line" id="Pline" />
+                    <div className="form-row">
+                        <div className="form-group">
+                            <label htmlFor="country">Country</label>
+                            <input
+                                id="country"
+                                type="text"
+                                name="country"
+                                placeholder="Country"
+                                value={userData.country}
+                                onChange={changeHandler}
+                            />
+                        </div>
 
-                    <div className="password-wrapper">
-                        <input
-                            className="input-confpassword"
-                            id="confirmPassword"
-                            placeholder="Confirm Password"
-                            type="password"
-                            minLength={8}
-                            required={true}
-                            name='confirmPassword'
-                        />
-                        <span className="eyebox" id="toggleEye2" onClick={showHidePassHandler}>
-                            <i className="fas fa-eye" id="eyeIcon2" />
-                        </span>
+                        <div className="form-group">
+                            <label htmlFor="city">City</label>
+                            <input
+                                id="city"
+                                type="text"
+                                name="city"
+                                placeholder="City"
+                                value={userData.city}
+                                onChange={changeHandler}
+                            />
+                        </div>
                     </div>
-                    <div className="line" id="cPline" />
-                    <div>
-                        <button className="signup-btn" type='submit'>Register</button>
+
+                    <fieldset className="gender-group">
+                        <legend>Gender</legend>
+
+                        <label className="gender-option">
+                            <input
+                                type="radio"
+                                name="gender"
+                                value='male'
+                                onChange={changeHandler}
+                                checked={userData.gender === 'male'}
+                            />
+                            <span>Male</span>
+                        </label>
+
+                        <label className="gender-option">
+                            <input
+                                type="radio"
+                                name="gender"
+                                value='female'
+                                onChange={changeHandler}
+                                checked={userData.gender === 'female'}
+                            />
+                            <span>Female</span>
+                        </label>
+
+                        <label className="gender-option">
+                            <input
+                                type="radio"
+                                name="gender"
+                                value='other'
+                                onChange={changeHandler}
+                                checked={userData.gender === 'other'}
+                            />
+                            <span>Other</span>
+                        </label>
+                    </fieldset>
+
+                    <div className="form-group">
+                        <label htmlFor="password">Password</label>
+
+                        <div className="password-wrapper">
+                            <input
+                                id="password"
+                                type={isPasswordsVisible['password'] ? 'text' : 'password'}
+                                name="password"
+                                placeholder="Create a password"
+                                value={userData.password}
+                                onChange={changeHandler}
+                            />
+
+                            <button
+                                onClick={() => showHidePassHandler('password')}
+                                type="button"
+                                className="password-toggle"
+                                aria-label="Show password"
+                            >
+                                <svg
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    strokeWidth="2"
+                                >
+                                    <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z" />
+                                    <circle cx="12" cy="12" r="3" />
+                                </svg>
+                            </button>
+                        </div>
                     </div>
-                    <div className="login-section">
-                        <Link className="login-link" to="/login">
-                            Have An Account? Login!{" "}
-                        </Link>
 
+                    <div className="form-group">
+                        <label htmlFor="repeatPassword">
+                            Repeat Password
+                        </label>
+
+                        <div className="password-wrapper">
+                            <input
+                                id="repeatPassword"
+                                type={isPasswordsVisible['repeatPassword'] ? 'text' : 'password'}
+                                name="repeatPassword"
+                                placeholder="Repeat your password"
+                                value={userData.repeatPassword}
+                                onChange={changeHandler}
+                            />
+
+                            <button
+                                onClick={() => showHidePassHandler('repeatPassword')}
+                                type="button"
+                                className="password-toggle"
+                                aria-label="Show password"
+                            >
+                                <svg
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    strokeWidth="2"
+                                >
+                                    <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z" />
+                                    <circle cx="12" cy="12" r="3" />
+                                </svg>
+                            </button>
+                        </div>
                     </div>
-                </div>
-            </form>
 
+                    <button type="submit" className="register-button">
+                        Create Account
+                    </button>
+                </form>
 
-        </section>
+                <p className="login-link">
+                    Already have an account?{" "}
+                    <Link to="/auth/login">Login</Link>
+                </p>
+            </div>
+        </div>
     );
+
+
 }
+
+
+// import "./Register.css";
+
+// export default function Register() {
+
+//     return (
+//         <div className="register-page">
+//             <div className="register-container">
+//                 <h2>Create Account</h2>
+
+//                 <p className="register-subtitle">
+//                     Please fill in the information below
+//                 </p>
+
+//                 <form className="register-form">
+//                     <div className="form-group">
+//                         <label htmlFor="fullName">Full Name</label>
+//                         <input
+//                             id="fullName"
+//                             type="text"
+//                             name="fullName"
+//                             placeholder="Enter your full name"
+//                         />
+//                     </div>
+
+//                     <div className="form-group">
+//                         <label htmlFor="username">Username</label>
+//                         <input
+//                             id="username"
+//                             type="text"
+//                             name="username"
+//                             placeholder="Choose a username"
+//                         />
+//                     </div>
+
+//                     <div className="form-group">
+//                         <label htmlFor="email">Email</label>
+//                         <input
+//                             id="email"
+//                             type="email"
+//                             name="email"
+//                             placeholder="you@example.com"
+//                         />
+//                     </div>
+
+//                     <div className="form-row">
+//                         <div className="form-group">
+//                             <label htmlFor="country">Country</label>
+//                             <input
+//                                 id="country"
+//                                 type="text"
+//                                 name="country"
+//                                 placeholder="Country"
+//                             />
+//                         </div>
+
+//                         <div className="form-group">
+//                             <label htmlFor="city">City</label>
+//                             <input
+//                                 id="city"
+//                                 type="text"
+//                                 name="city"
+//                                 placeholder="City"
+//                             />
+//                         </div>
+//                     </div>
+
+//                     <fieldset className="gender-group">
+//                         <legend>Gender</legend>
+
+//                         <label className="gender-option">
+//                             <input
+//                                 type="radio"
+//                                 name="gender"
+//                                 value="male"
+//                             />
+//                             <span>Male</span>
+//                         </label>
+
+//                         <label className="gender-option">
+//                             <input
+//                                 type="radio"
+//                                 name="gender"
+//                                 value="female"
+//                             />
+//                             <span>Female</span>
+//                         </label>
+
+//                         <label className="gender-option">
+//                             <input
+//                                 type="radio"
+//                                 name="gender"
+//                                 value="other"
+//                             />
+//                             <span>Other</span>
+//                         </label>
+//                     </fieldset>
+
+//                     <div className="form-group">
+//                         <label htmlFor="password">Password</label>
+
+//                         <div className="password-wrapper">
+//                             <input
+//                                 id="password"
+//                                 type="password"
+//                                 name="password"
+//                                 placeholder="Create a password"
+//                             />
+
+//                             <button
+//                                 type="button"
+//                                 className="password-toggle"
+//                                 aria-label="Show password"
+//                             >
+//                                 <svg
+//                                     viewBox="0 0 24 24"
+//                                     fill="none"
+//                                     stroke="currentColor"
+//                                     strokeWidth="2"
+//                                 >
+//                                     <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z" />
+//                                     <circle cx="12" cy="12" r="3" />
+//                                 </svg>
+//                             </button>
+//                         </div>
+//                     </div>
+
+//                     <div className="form-group">
+//                         <label htmlFor="repeatPassword">
+//                             Repeat Password
+//                         </label>
+
+//                         <div className="password-wrapper">
+//                             <input
+//                                 id="repeatPassword"
+//                                 type="password"
+//                                 name="repeatPassword"
+//                                 placeholder="Repeat your password"
+//                             />
+
+//                             <button
+//                                 type="button"
+//                                 className="password-toggle"
+//                                 aria-label="Show password"
+//                             >
+//                                 <svg
+//                                     viewBox="0 0 24 24"
+//                                     fill="none"
+//                                     stroke="currentColor"
+//                                     strokeWidth="2"
+//                                 >
+//                                     <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z" />
+//                                     <circle cx="12" cy="12" r="3" />
+//                                 </svg>
+//                             </button>
+//                         </div>
+//                     </div>
+
+//                     <button type="submit" className="register-button">
+//                         Create Account
+//                     </button>
+//                 </form>
+
+//                 <p className="login-link">
+//                     Already have an account?{" "}
+//                     <a href="/login">Login</a>
+//                 </p>
+//             </div>
+//         </div>
+//     );
+
+// }
+
+
+

@@ -1,84 +1,128 @@
 import { Link, useNavigate } from 'react-router';
 import { useState } from 'react';
-import './LoginRegister.css'
-import { showHidePassHandler } from '../../utils/utils.js';
+import './Login.css'
+// import { showHidePassHandler } from '../../utils/utils.js';
 import request from '../../utils/request.js';
 
 
+const initialValues = {
+    id: '',
+    email: '',
+    password: '',
+}
+
 export default function Login() {
-    const [user, setUser] = useState(null);
+    const [userData, setUserData] = useState(initialValues);
+    const [isPasswordVisible, setIsPasswordVisible] = useState(false)
     const navigate = useNavigate();
 
-    const clickSubmitHandler = async (e) => {
-        e.preventDefault();
+    const actionHandler = async () => {
 
-        const formData = new FormData(e.target);
-        const { email, password } = Object.fromEntries(formData);
-
+         const { email, password } = userData;
 
         try {
-            const userData = await request(`/users?email=eq.${email}`);         
-
-            if (userData[0].password !== password) {
+            const response = await request(`/users?email=eq.${email}`);
+        
+            if (response[0].password !== password) {
                 return alert('Email or password are not valid!')
-            }
+            }            
 
-            setUser(userData)
+            setUserData(response[0]) 
+            console.log('Successful login:' , userData);
+            
             navigate('/');
 
         } catch (error) {
             console.log(error);
         }
     }
- 
+
+
+    const changeHandler = (e) => {
+
+        setUserData(state => ({
+            ...state,
+            [e.target.name]: e.target.value
+        }))
+    };
+
+    const showHidePassHandler = () => {
+        setIsPasswordVisible(() => isPasswordVisible ? false : true
+        )
+    }
+
 
     return (
-        <section className='background-login'>
-            <div className="login-box">
-                <h2 className="login-title">Login</h2>
-                <form id="loginForm" onSubmit={clickSubmitHandler}>
+        <div className="login-page">
+            <div className="login-container">
+                <h2>Welcome Back</h2>
 
-                    <div>
+                <p className="login-subtitle">
+                    Sign in to your account
+                </p>
+
+                <form className="login-form" action={actionHandler}>
+                    <div className="form-group">
+                        <label htmlFor="email">Email</label>
+
                         <input
-                            type="email"
                             id="email"
-                            className="input-email"
-                            placeholder="Email"
-                            name='email'
-                            required={true}
+                            type="email"
+                            name="email"
+                            placeholder="you@example.com"
+                            value={userData.email}
+                            onChange={changeHandler}
                         />
-                        <div className="line" id="Uline" />
                     </div>
 
-                    <div className="password-wrapper">
-                        <input
-                            type="password"
-                            id="password"
-                            className="input-password"
-                            placeholder="Password"
-                            minLength={8}
-                            name='password'
-                            required={true}
-                        />
-                        <span className="eyebox" id="toggleEye">
-                            <i className="fas fa-eye" id="eyeIcon" onClick={showHidePassHandler} />
-                        </span>
-                    </div>
-                    <div className="line" id="Pline" />
+                    <div className="form-group">
+                        <label htmlFor="password">Password</label>
 
-                    <div>
-                        <button type="submit" className="login-btn">
-                            Log In
-                        </button>
+                        <div className="password-wrapper">
+                            <input
+                                id="password"
+                                type={isPasswordVisible ? 'text' : 'password'}
+                                name="password"
+                                placeholder="Enter your password"
+                                value={userData.password}
+                                onChange={changeHandler}
+                            />
+
+                            <button
+                                type="button"
+                                className="password-toggle"
+                                aria-label="Show password"
+                                onClick={() => showHidePassHandler()}
+                            >
+                                <svg
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    strokeWidth="2"
+                                >
+                                    <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z" />
+                                    <circle cx="12" cy="12" r="3" />
+                                </svg>
+                            </button>
+                        </div>
                     </div>
+
+                    <button
+                        type="submit"
+                        className="login-button"
+                    >
+                        Login
+                    </button>
                 </form>
-                <div className="register-section">
-                    <Link className="register-link" to="/register">
-                        Don't Have Account? Register!
-                    </Link>
-                </div>
-            </div>
 
-        </section>
+                <p className="register-link">
+                    Don't have an account?{" "}
+                    <Link to="/auth/register">
+                        Create an account
+                    </Link>
+                </p>
+            </div>
+        </div>
     );
+
 }

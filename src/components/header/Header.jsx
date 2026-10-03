@@ -14,11 +14,11 @@ export default function Header() {
                             <li><NavLink to="/gallery">Gallery</NavLink></li>
                             <li><NavLink to="/about">About</NavLink></li>
                             <li><NavLink to="/contacts">Contact Us</NavLink></li>
-                            <li><NavLink to="/login">Login</NavLink></li>
-                            <li><NavLink to="/register">Register</NavLink></li>
+                            <li><NavLink to="/auth/login">Login</NavLink></li>
+                            <li><NavLink to="/auth/register">Register</NavLink></li>
                             <li><NavLink to="/add-car">Add Car</NavLink></li>
                             <li><NavLink to="/profile">Profile</NavLink></li>
-                            <li><NavLink to="/logout">Logout</NavLink></li>
+                            <li><NavLink to="/auth/logout">Logout</NavLink></li>
                         </ul>
                     </nav>
                 </div>

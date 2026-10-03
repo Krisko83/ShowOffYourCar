@@ -19,7 +19,7 @@ import Home from './components/home/Home.jsx'
 
 
 function App() {
-  const user = true;
+  const user = false;
 
   return (
     <>
@@ -36,9 +36,9 @@ function App() {
 
         </Route>
 
-        <Route element={<IsAuth user={user} />}>
-          <Route path='/login' element={<Login />} />
-          <Route path='/register' element={<Register />} />
+        <Route path='/auth' element={<IsAuth user={user} />}>
+          <Route path='login' element={<Login />} />
+          <Route path='register' element={<Register />} />
         </Route>
 
         <Route path='*' element={<NotFound />} />

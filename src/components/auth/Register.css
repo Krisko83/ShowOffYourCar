@@ -1,0 +1,203 @@
+* {
+    box-sizing: border-box;
+}
+
+.register-page {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+    background: #f3f4f6;
+    font-family: Arial, sans-serif;
+}
+
+.register-container {
+    width: 100%;
+    max-width: 520px;
+    padding: 35px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
+.register-container h2 {
+    margin: 0;
+    text-align: center;
+    font-size: 28px;
+    color: #1f2937;
+}
+
+.register-subtitle {
+    margin: 8px 0 28px;
+    text-align: center;
+    color: #6b7280;
+    font-size: 14px;
+}
+
+.register-form {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.form-group label,
+.gender-group legend {
+    font-size: 14px;
+    font-weight: 600;
+    color: #374151;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid #d1d5db;
+    border-radius: 7px;
+    font-size: 15px;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.form-group input:focus {
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+}
+
+.form-group input::placeholder {
+    color: #9ca3af;
+}
+
+/* Country / City */
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+/* Gender */
+
+.gender-group {
+    margin: 0;
+    padding: 0;
+    border: none;
+}
+
+.gender-group legend {
+    margin-bottom: 10px;
+}
+
+.gender-option {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    margin-right: 22px;
+    cursor: pointer;
+    color: #4b5563;
+    font-size: 14px;
+}
+
+.gender-option input {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+}
+
+/* Password */
+
+.password-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.password-wrapper input {
+    padding-right: 45px;
+}
+
+.password-toggle {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 32px;
+    height: 32px;
+
+    padding: 0;
+    border: none;
+    background: transparent;
+
+    color: #6b7280;
+    cursor: pointer;
+}
+
+.password-toggle:hover {
+    color: #2563eb;
+}
+
+.password-toggle svg {
+    width: 20px;
+    height: 20px;
+}
+
+/* Button */
+
+.register-button {
+    margin-top: 8px;
+    padding: 13px;
+    border: none;
+    border-radius: 7px;
+    background: #2563eb;
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.register-button:hover {
+    background: #1d4ed8;
+}
+
+/* Login link */
+
+.login-link {
+    margin: 25px 0 0;
+    text-align: center;
+    color: #6b7280;
+    font-size: 14px;
+}
+
+.login-link a {
+    color: #2563eb;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.login-link a:hover {
+    text-decoration: underline;
+}
+
+@media (max-width: 500px) {
+    .register-container {
+        padding: 25px 20px;
+    }
+
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+
+    .gender-option {
+        margin-right: 12px;
+    }
+}
