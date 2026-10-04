@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import request from "../../utils/request.js";
 import CarItem from "./CarItem.jsx";
 import './Home.css';
+import { Link } from "react-router";
 
 export default function Home() {
 
@@ -25,15 +26,14 @@ export default function Home() {
         <main className="home">
 
             <section className="hero">
-                <h1>Find Your Perfect Car</h1>
+                <h1>See all Cars</h1>
                 <p>
-                    Explore our collection of quality cars and find
-                    the one that fits you.
+                    Explore our collection of quality cars.
                 </p>
 
-                <button className="hero-button">
+                <Link to='/cars/gallery' className="hero-button">
                     Explore Cars
-                </button>
+                </Link>
             </section>
 
             <section className="featured">

@@ -21,10 +21,7 @@ export default function CarDetails() {
                             <h1>BMW 320d</h1>
                             <p>2021 · BMW</p>
                         </div>
-
-                        <strong className="car-price">
-                            €28,500
-                        </strong>
+ 
                     </div>
 
                     <div className="specifications">
