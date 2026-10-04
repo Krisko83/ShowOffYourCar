@@ -1,41 +1,57 @@
+import { useState } from 'react';
 import request from '../../utils/request.js';
 import './AddCar.css';
 import { useNavigate } from 'react-router';
 
+const initialValues = {
+    imageUrl: '',
+    manufacturer:'',
+    model: '',
+    year: '',
+    category: '',
+    power: '',
+    gearbox: '',
+    fuel: '',
+    mileage: '',
+    cubic: '',
+    driveType: '',
+    description: '',
+}
 
 export default function AddCar() {
+    const [carData, setCarData] = useState(initialValues)
     const navigate = useNavigate();
 
-    // const clickSubmitHandler = async (e) => {
-    //     e.preventDefault();
-    //     const owner_id = '454545'
-    //     const formData = new FormData(e.target);
+    const clickSubmitHandler = async (e) => {
+        e.preventDefault();
+        const owner_id = '454545'
+        const formData = new FormData(e.target);
 
-    //     const car = {
-    //         imageUrl,
-    //         manufacturer,
-    //         model,
-    //         year,
-    //         category,
-    //         power,
-    //         gearbox,
-    //         fuel,
-    //         mileage,
-    //         cubic,
-    //         driveType,
-    //         description,
-    //         owner_id
-    //     }
+        const car = {
+            imageUrl,
+            manufacturer,
+            model,
+            year,
+            category,
+            power,
+            gearbox,
+            fuel,
+            mileage,
+            cubic,
+            driveType,
+            description,
+            owner_id
+        }
 
-    // try {
-    //     await request('/cars', 'POST', car);
+        try {
+            await request('/cars', 'POST', car);
 
-    //     navigate('/');
-    // } catch (error) {   
-    //     console.log(error);
-    // }
+            navigate('/');
+        } catch (error) {
+            console.log(error);
+        }
 
-    // }
+    }
 
     return (
         <form className="car-form">
@@ -146,7 +162,7 @@ export default function AddCar() {
                         type="number"
                         id="cubic"
                         name="cubic"
-                        placeholder="e.g. 1995"
+                        placeholder="500"
                     />
                 </div>
 

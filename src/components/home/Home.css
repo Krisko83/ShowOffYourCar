@@ -1,5 +1,5 @@
 .home {
-    width: min(1200px, 94%);
+    width: min(1380px, 94%);
     margin: 0 auto;
 }
 
@@ -113,13 +113,14 @@
     font-size: 20px;
 }
 
-.car-footer button {
+.car-footer a {
     padding: 8px 15px;
     border: none;
     border-radius: 6px;
     background: #4a90e2;
     color: white;
     cursor: pointer;
+    text-decoration: none;
 }
 
 @media (max-width: 850px) {

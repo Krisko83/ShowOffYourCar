@@ -113,17 +113,17 @@ export default function Login() {
                                 value={userData.password}
                                 onChange={changeHandler}
                             />
-                            {errorMessage('password')}
 
                             <button
                                 type="button"
                                 className="password-toggle"
                                 aria-label="Show password"
                                 onClick={() => showHidePassHandler()}
-                            >
+                                >
                                 <EyeIcon isVisible={isPasswordVisible} />
                             </button>
                         </div>
+                                {errorMessage('password')}
                     </div>
 
                     <button

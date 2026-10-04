@@ -12,9 +12,9 @@ import Register from './components/auth/Register.jsx'
 import NotFound from './components/not-found/NotFound.jsx'
 import Footer from './components/footer/Footer.jsx'
 import Header from './components/header/Header.jsx'
-import Banner from './components/banner/Banner.jsx'
 import Home from './components/home/Home.jsx'
 import CarDetails from './components/car-details/CarDetails.jsx'
+
 
 
 
@@ -46,7 +46,7 @@ function App() {
         <Route path='*' element={<NotFound />} />
 
       </Routes>
-      <Banner />
+
       <Footer />
     </>
   )

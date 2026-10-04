@@ -1,0 +1,168 @@
+.footer {
+    margin-top: 70px;
+
+    background: #1f2937;
+    color: white;
+}
+
+/* MAIN CONTENT */
+
+.footer-content {
+    width: min(1200px, 94%);
+    margin: 0 auto;
+
+    padding: 55px 0 45px;
+
+    display: grid;
+    grid-template-columns: 1.6fr 1fr 1fr 1.3fr;
+    gap: 45px;
+}
+
+/* SECTIONS */
+
+.footer-section h2 {
+    margin: 0 0 15px;
+
+    font-size: 25px;
+}
+
+.footer-section h2 span {
+    color: #4a90e2;
+}
+
+.footer-section h3 {
+    margin: 0 0 18px;
+
+    font-size: 17px;
+}
+
+.footer-section p {
+    margin: 0;
+
+    color: #b9c0ca;
+
+    line-height: 1.7;
+}
+
+/* LINKS */
+
+.footer-section ul {
+    display: flex;
+    flex-direction: column;
+
+    gap: 10px;
+
+    margin: 0;
+    padding: 0;
+
+    list-style: none;
+}
+
+.footer-section a {
+    color: #b9c0ca;
+
+    text-decoration: none;
+
+    transition: color 0.2s;
+}
+
+.footer-section a:hover {
+    color: white;
+}
+
+/* CONTACT */
+
+.footer-contact {
+    margin-bottom: 10px !important;
+}
+
+/* SOCIAL */
+
+.social-links {
+    display: flex;
+    gap: 10px;
+
+    margin-top: 20px;
+}
+
+.social-links a {
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    width: 36px;
+    height: 36px;
+
+    border-radius: 50%;
+
+    background: #374151;
+
+    color: white;
+
+    font-weight: bold;
+
+    transition: background 0.2s, transform 0.2s;
+}
+
+.social-links a:hover {
+    background: #4a90e2;
+
+    transform: translateY(-2px);
+}
+
+/* BOTTOM */
+
+.footer-bottom {
+    width: min(1200px, 94%);
+    margin: 0 auto;
+
+    padding: 20px 0;
+
+    border-top: 1px solid #374151;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 20px;
+}
+
+.footer-bottom p {
+    margin: 0;
+
+    color: #9ca3af;
+
+    font-size: 14px;
+}
+ 
+/* TABLET */
+
+@media (max-width: 850px) {
+
+    .footer-content {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* MOBILE */
+
+@media (max-width: 550px) {
+
+    .footer-content {
+        grid-template-columns: 1fr;
+
+        padding: 40px 0;
+    }
+
+    .footer-bottom {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .footer-bottom-links {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+}
+ 

@@ -18,10 +18,10 @@ export default function Pagination({
             <div className="limits">
                 <span>Items per page:</span>
                 <select name="limit" className="limit" value={limit} onChange={setPageLimit} >
-                    <option value={5}>5</option>
-                    <option value={10}>10</option>
-                    <option value={15}>15</option>
-                    <option value={20}>20</option>
+                    <option value={5}>12</option>
+                    <option value={10}>24</option>
+                    <option value={15}>36</option>
+                    <option value={20}>48</option>
                 </select>
             </div>
             <p className="pages">{page} of {totalPages}</p>

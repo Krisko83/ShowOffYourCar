@@ -38,12 +38,11 @@ h6 {
 }
 
 .wrapper {
-    width: 77%;
+    width: 100%;
     margin: auto;
 }
 
-/* Header */
-
+ 
 .site-nav {
     display: flex;
     justify-content: space-between;
@@ -92,4 +91,6 @@ h6 {
     text-align: center;
 }
 
+
+ 
  

@@ -1,11 +1,11 @@
 import { NavLink } from 'react-router';
 import './Header.css'
-
+ 
 export default function Header() {
 
     return (
         <>
-            <header className="section site-header">
+            <header className='section site-header'>
                 <div className="header-wrapper">
                     <nav className="site-nav">
                         <span><NavLink to="/" className="logo">Site Logo</NavLink></span>
@@ -35,3 +35,5 @@ export default function Header() {
         </>
     );
 }
+
+ 
