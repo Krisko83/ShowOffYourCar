@@ -14,7 +14,7 @@ export default function Gallery() {
     useEffect(() => {
         const abortController = new AbortController();
 
-        request('/cars?order=createdAt.desc', 'GET', null, { signal: abortController.signal })
+        request('/cars?order=created_at.desc', 'GET', null, { signal: abortController.signal })
             .then(setCars)
             .catch(error => console.log(error))
 

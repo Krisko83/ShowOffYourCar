@@ -10,7 +10,7 @@ export default function Home() {
     useEffect(() => {
         const abortController = new AbortController();
 
-        request('/cars?order=createdAt.desc&limit=3', 'GET', null, { signal: abortController.signal })
+        request('/cars?order=created_at.desc&limit=3', 'GET', null, { signal: abortController.signal })
             .then(setCars)
             .catch(err => console.log(err));
 

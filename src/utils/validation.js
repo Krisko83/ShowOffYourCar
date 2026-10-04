@@ -1,6 +1,9 @@
+const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const imageUrlRegex = /^https?:\/\/.+\.(jpg|jpeg|png|gif|webp)(\?.*)?$/i;
+
 function register(values) {
     const errors = {};
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
 
     if (!values.fullName) {
         errors['fullName'] = 'Full Name is required!';
@@ -78,7 +81,7 @@ function register(values) {
 
 function login(values) {
     const errors = {};
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
 
     if (!values.email) {
         errors['email'] = 'Email is required!';
@@ -101,10 +104,98 @@ function login(values) {
 
 function addEdit(values) {
     const errors = {}
+     
+    const categoryOptions = ['sedan','hatchback', 'wagon','coupe','convertible','suv','van', 'pickup'];
+    const gearOptions = ['manual', 'automatic'];
+    const fuelOptions = ['petrol', 'diesel', 'hybrid', 'electric', 'lpg'];
+    const driverTypeOptions = ['fwd', 'rwd', 'awd', '4wd']
+ 
+    if (!values.imageUrl) {
+        errors['imageUrl'] = 'ImageUrl is required!'
+    }
+
+    if (values.imageUrl && !imageUrlRegex.test(values.imageUrl)) {
+        errors['imageUrl'] = 'Please enter a valid imageUrl!'
+    }
+
+    if (!values.manufacturer) {
+        errors['manufacturer'] = 'Manufacturer is required!'
+    }
+
+    if (values.manufacturer && values.manufacturer.length < 2) {
+        errors['manufacturer'] = 'Manufacturer must be at least 2 characters long!'
+    }
+
+    if (!values.model) {
+        errors['model'] = 'Model is required!'
+    }
+
+    if (values.model && values.model.length < 2) {
+        errors['model'] = 'Model must be at least 2 characters long!'
+    }
+
+    if (!values.year) {
+        errors['year'] = 'Year is required!'
+    }
+
+    if (values.year && (values.year.length !== 4) && (Number(values.year) > new Date().getFullYear()) || Number(values.year) < 1900) {
+        errors['year'] = 'Please enter a valid year!'
+    }
+
+    if (!values.power) {
+        errors['power'] = 'Power is required!'
+    }
+
+    if (values.power && Number(values.power) <= 0) {
+        errors['power'] = 'Power must be more then 0!'
+    }
+
+    if (!values.mileage) {
+        errors['mileage'] = 'Mileage is required!'
+    }
+
+    if (values.mileage && Number(values.mileage) <= 0) {
+        errors['mileage'] = 'Mileage must be more then 0!'
+    }
+
+    
+    if (!values.cubic) {
+        errors['cubic'] = 'Engine is required!'
+    }
+
+    if (values.cubic && Number(values.cubic) <= 0) {
+        errors['cubic'] = 'Engine must be more then 0!'
+    }
+
+       
+    if (!values.description) {
+        errors['description'] = 'Description is required!'
+    }
+
+    if (values.description && values.description.length < 10) {
+        errors['description'] = 'Description must be at least 10 characters long!'
+    }
+
+    if(!categoryOptions.includes(values.category)) {
+        errors['category'] = 'Category must be one of these options Sedan, Hatchback, Wagon, Coupe, Convertible, SUV, Van or Pickup!'
+    }
+
+    if(!gearOptions.includes(values.gearbox)) {
+        errors['gearbox'] = 'Gearbox must be one of Manual or Automatic!';
+    }
+
+    
+    if(!fuelOptions.includes(values.fuel)) {
+        errors['fuel'] = 'Fuel must be one of these options Petrol, Diesel, Hybrid, Electric or LPG!';
+    }
+
+    if(!driverTypeOptions.includes(values.driveType)) {
+        errors['driveType'] = 'Drive Type must be one of these options Front-Wheel Drive, Rear-Wheel Drive, All-Wheel Drive or 4-Wheel Drive';
+    }
 
     return errors
 }
-
+ 
 export const validation = {
     register,
     login,
