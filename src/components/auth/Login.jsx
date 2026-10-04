@@ -1,8 +1,9 @@
 import { Link, useNavigate } from 'react-router';
 import { useState } from 'react';
-import './Login.css'
-// import { showHidePassHandler } from '../../utils/utils.js';
+import { validation } from './validation.js';
 import request from '../../utils/request.js';
+import EyeIcon from './EyeIcon.jsx';
+import './Login.css'
 
 
 const initialValues = {
@@ -13,9 +14,18 @@ const initialValues = {
 export default function Login() {
     const [userData, setUserData] = useState(initialValues);
     const [isPasswordVisible, setIsPasswordVisible] = useState(false)
+    const [errors, setErrors] = useState({});
+    const [isTouched, setIsTouched] = useState({})
+
     const navigate = useNavigate();
 
     const actionHandler = async () => {
+        const errors = validation.login(userData);
+        setErrors(errors);
+
+        if (Object.keys(errors).length > 0) {
+            setIsTouched(errors);
+        }
 
         const { email, password } = userData;
 
@@ -26,8 +36,9 @@ export default function Login() {
                 return alert('Email or password are not valid!')
             }
 
-            setUserData(response[0])
-            console.log('Successful login:', response[0]);
+            // setUserData(response[0])
+            // console.log(response[0]);
+            // console.log('Successful Login');
 
             navigate('/');
 
@@ -50,6 +61,19 @@ export default function Login() {
         )
     }
 
+    const validationHandler = (e) => {
+        setIsTouched(state => ({
+            ...state,
+            [e.target.name]: true
+        }))
+
+        const errors = validation.login(userData);
+
+        setErrors(errors)
+    }
+
+    const errorMessage = (field) => errors[field] && isTouched[field] ? <p className="errorMessage">{errors[field]}</p> : '';
+    const inputClass = (field) => errors[field] && isTouched[field] ? "form-group-error" : "form-group";
 
     return (
         <div className="login-page">
@@ -61,7 +85,7 @@ export default function Login() {
                 </p>
 
                 <form className="login-form" action={actionHandler}>
-                    <div className="form-group">
+                    <div className={inputClass('email')}>
                         <label htmlFor="email">Email</label>
 
                         <input
@@ -69,12 +93,14 @@ export default function Login() {
                             type="email"
                             name="email"
                             placeholder="you@example.com"
+                            onBlur={validationHandler}
                             value={userData.email}
                             onChange={changeHandler}
                         />
+                        {errorMessage('email')}
                     </div>
 
-                    <div className="form-group">
+                    <div className={inputClass('password')}>
                         <label htmlFor="password">Password</label>
 
                         <div className="password-wrapper">
@@ -83,9 +109,11 @@ export default function Login() {
                                 type={isPasswordVisible ? 'text' : 'password'}
                                 name="password"
                                 placeholder="Enter your password"
+                                onBlur={validationHandler}
                                 value={userData.password}
                                 onChange={changeHandler}
                             />
+                            {errorMessage('password')}
 
                             <button
                                 type="button"
@@ -93,15 +121,7 @@ export default function Login() {
                                 aria-label="Show password"
                                 onClick={() => showHidePassHandler()}
                             >
-                                <svg
-                                    viewBox="0 0 24 24"
-                                    fill="none"
-                                    stroke="currentColor"
-                                    strokeWidth="2"
-                                >
-                                    <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z" />
-                                    <circle cx="12" cy="12" r="3" />
-                                </svg>
+                                <EyeIcon isVisible={isPasswordVisible} />
                             </button>
                         </div>
                     </div>

@@ -1,6 +1,7 @@
 function register(values) {
     const errors = {};
- 
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
     if (!values.fullName) {
         errors['fullName'] = 'Full Name is required!';
     }
@@ -19,6 +20,10 @@ function register(values) {
 
     if (!values.email) {
         errors['email'] = 'Email is required!';
+    }
+
+    if (!emailRegex.test(values.email)) {
+        errors['email'] = 'Please enter a valid email address!';
     }
 
     if (!values.age) {
@@ -65,7 +70,7 @@ function register(values) {
     if (values.password !== values.repeatPassword) {
         errors['repeatPassword'] = 'The passwords do not match!';
     }
- 
+
 
     return errors;
 }
@@ -73,11 +78,14 @@ function register(values) {
 
 function login(values) {
     const errors = {};
-    console.log('Login validation:', values);
-
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     if (!values.email) {
         errors['email'] = 'Email is required!';
+    }
+
+    if (!emailRegex.test(values.email)) {
+        errors['email'] = 'Please enter a valid email address!';
     }
 
     if (!values.password) {
@@ -87,9 +95,6 @@ function login(values) {
     if (values.password && values.password.length < 8) {
         errors['password'] = 'Password must be at least 8 characters long!';
     }
-
-    console.log('Login Errors:', errors);
-
 
     return errors;
 }

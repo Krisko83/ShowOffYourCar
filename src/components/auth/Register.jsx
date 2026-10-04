@@ -1,15 +1,15 @@
 import { Link, useNavigate } from 'react-router';
 import { useState } from 'react';
-import request from '../../utils/request.js';
-import "./Register.css";
 import { validation } from './validation.js';
+import request from '../../utils/request.js';
 import EyeIcon from './EyeIcon.jsx';
+import "./Register.css";
 
 const initialValues = {
     fullName: '',
     username: '',
     email: '',
-    age: '',
+    age: 18,
     country: '',
     city: '',
     gender: 'male',
@@ -49,8 +49,6 @@ export default function Register() {
 
             // setUserData(data);
 
-            console.log(data);
-
             navigate('/');
         } catch (error) {
             console.log(error);
@@ -76,14 +74,14 @@ export default function Register() {
     };
 
     const validationHandler = (e) => {
-         
+
         setIsTouched(state => ({
             ...state,
             [e.target.name]: true
         }))
 
         const errors = validation.register(userData);
-         
+
         setErrors(errors);
     }
 
@@ -150,7 +148,9 @@ export default function Register() {
                         <label htmlFor="age">Age</label>
                         <input
                             id="age"
-                            type="text"
+                            type="number"
+                            min={18}
+                            max={120}
                             name="age"
                             placeholder="18"
                             onBlur={validationHandler}
