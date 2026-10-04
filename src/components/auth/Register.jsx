@@ -2,10 +2,10 @@ import { Link, useNavigate } from 'react-router';
 import { useState } from 'react';
 import request from '../../utils/request.js';
 import "./Register.css";
-// import showHidePassHandler from './utils.js';
+import { validation } from './validation.js';
+import EyeIcon from './EyeIcon.jsx';
 
 const initialValues = {
-    id: '',
     fullName: '',
     username: '',
     email: '',
@@ -26,39 +26,31 @@ const visibilityInitials = {
 export default function Register() {
     const [userData, setUserData] = useState(initialValues);
     const [isPasswordsVisible, setIsPasswordsVisible] = useState(visibilityInitials);
+    const [errors, setErrors] = useState({});
+    const [isTouched, setIsTouched] = useState({});
+
     const navigate = useNavigate();
 
     const actionHandler = async () => {
 
-        const { fullName, username, email, age, country, city, gender, password, repeatPassword } = userData;
-        // console.log(username, email, country, city, password, repeatPassword);
+        const errors = validation.register(userData)
+        setErrors(errors)
 
-        if (password !== repeatPassword) {
-            return alert('Passwords must match!')
+        if (Object.keys(errors).length > 0) {
+            setIsTouched(errors)
+            return
         }
 
-        const userFormData = {
-            fullName,
-            username,
-            email,
-            age,
-            country,
-            city,
-            gender,
-            password
-        }
+        const { repeatPassword, ...userFormData } = userData;
 
         try {
-           const response = await request('/users', 'POST', userFormData);
-           console.log(response);
-           
-            setUserData(state => ({
-                ...state,
-                id: response[0].id
-            }));
+            const response = await request('/users', 'POST', userFormData);
+            const { password, ...data } = response[0];
 
-            console.log(userData);
-            
+            // setUserData(data);
+
+            console.log(data);
+
             navigate('/');
         } catch (error) {
             console.log(error);
@@ -83,6 +75,21 @@ export default function Register() {
         }))
     };
 
+    const validationHandler = (e) => {
+         
+        setIsTouched(state => ({
+            ...state,
+            [e.target.name]: true
+        }))
+
+        const errors = validation.register(userData);
+         
+        setErrors(errors);
+    }
+
+    const errorMessage = (field) => errors[field] && isTouched[field] ? <p className="errorMessage">{errors[field]}</p> : '';
+    const inputClass = (field) => errors[field] && isTouched[field] ? "form-group-error" : "form-group";
+
 
     return (
         <div className="register-page">
@@ -94,77 +101,95 @@ export default function Register() {
                 </p>
 
                 <form className="register-form" action={actionHandler}>
-                    <div className="form-group">
+                    <div className={inputClass('fullName')}>
                         <label htmlFor="fullName">Full Name</label>
                         <input
                             id="fullName"
                             type="text"
                             name="fullName"
                             placeholder="Enter your full name"
+                            className='red-border'
+                            onBlur={validationHandler}
                             value={userData.fullName}
                             onChange={changeHandler}
                         />
+                        {errorMessage('fullName')}
                     </div>
 
-                    <div className="form-group">
+                    <div className={inputClass('username')}>
                         <label htmlFor="username">Username</label>
                         <input
                             id="username"
                             type="text"
                             name="username"
                             placeholder="Choose a username"
+                            onBlur={validationHandler}
                             value={userData.username}
                             onChange={changeHandler}
                         />
+                        {errorMessage('username')}
+
                     </div>
 
-                    <div className="form-group">
+                    <div className={inputClass('email')}>
                         <label htmlFor="email">Email</label>
                         <input
                             id="email"
                             type="email"
                             name="email"
                             placeholder="you@example.com"
+                            onBlur={validationHandler}
                             value={userData.email}
                             onChange={changeHandler}
                         />
+                        {errorMessage('email')}
+
                     </div>
 
-                    <div className="form-group">
+                    <div className={inputClass('age')}>
                         <label htmlFor="age">Age</label>
                         <input
                             id="age"
                             type="text"
                             name="age"
                             placeholder="18"
+                            onBlur={validationHandler}
                             value={userData.age}
                             onChange={changeHandler}
                         />
+                        {errorMessage('age')}
+
                     </div>
 
                     <div className="form-row">
-                        <div className="form-group">
+                        <div className={inputClass('country')}>
                             <label htmlFor="country">Country</label>
                             <input
                                 id="country"
                                 type="text"
                                 name="country"
                                 placeholder="Country"
+                                onBlur={validationHandler}
                                 value={userData.country}
                                 onChange={changeHandler}
                             />
+                            {errorMessage('country')}
+
                         </div>
 
-                        <div className="form-group">
+                        <div className={inputClass('city')}>
                             <label htmlFor="city">City</label>
                             <input
                                 id="city"
                                 type="text"
                                 name="city"
                                 placeholder="City"
+                                onBlur={validationHandler}
                                 value={userData.city}
                                 onChange={changeHandler}
                             />
+                            {errorMessage('city')}
+
                         </div>
                     </div>
 
@@ -205,7 +230,7 @@ export default function Register() {
                         </label>
                     </fieldset>
 
-                    <div className="form-group">
+                    <div className={inputClass('password')}>
                         <label htmlFor="password">Password</label>
 
                         <div className="password-wrapper">
@@ -214,6 +239,7 @@ export default function Register() {
                                 type={isPasswordsVisible['password'] ? 'text' : 'password'}
                                 name="password"
                                 placeholder="Create a password"
+                                onBlur={validationHandler}
                                 value={userData.password}
                                 onChange={changeHandler}
                             />
@@ -224,20 +250,15 @@ export default function Register() {
                                 className="password-toggle"
                                 aria-label="Show password"
                             >
-                                <svg
-                                    viewBox="0 0 24 24"
-                                    fill="none"
-                                    stroke="currentColor"
-                                    strokeWidth="2"
-                                >
-                                    <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z" />
-                                    <circle cx="12" cy="12" r="3" />
-                                </svg>
+
+                                <EyeIcon isVisible={isPasswordsVisible['password']} />
+
                             </button>
                         </div>
+                        {errorMessage('password')}
                     </div>
 
-                    <div className="form-group">
+                    <div className={inputClass('repeatPassword')}>
                         <label htmlFor="repeatPassword">
                             Repeat Password
                         </label>
@@ -248,6 +269,7 @@ export default function Register() {
                                 type={isPasswordsVisible['repeatPassword'] ? 'text' : 'password'}
                                 name="repeatPassword"
                                 placeholder="Repeat your password"
+                                onBlur={validationHandler}
                                 value={userData.repeatPassword}
                                 onChange={changeHandler}
                             />
@@ -258,17 +280,11 @@ export default function Register() {
                                 className="password-toggle"
                                 aria-label="Show password"
                             >
-                                <svg
-                                    viewBox="0 0 24 24"
-                                    fill="none"
-                                    stroke="currentColor"
-                                    strokeWidth="2"
-                                >
-                                    <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z" />
-                                    <circle cx="12" cy="12" r="3" />
-                                </svg>
+
+                                <EyeIcon isVisible={isPasswordsVisible['repeatPassword']} />
                             </button>
                         </div>
+                        {errorMessage('repeatPassword')}
                     </div>
 
                     <button type="submit" className="register-button">
@@ -286,179 +302,5 @@ export default function Register() {
 
 
 }
-
-
-// import "./Register.css";
-
-// export default function Register() {
-
-//     return (
-//         <div className="register-page">
-//             <div className="register-container">
-//                 <h2>Create Account</h2>
-
-//                 <p className="register-subtitle">
-//                     Please fill in the information below
-//                 </p>
-
-//                 <form className="register-form">
-//                     <div className="form-group">
-//                         <label htmlFor="fullName">Full Name</label>
-//                         <input
-//                             id="fullName"
-//                             type="text"
-//                             name="fullName"
-//                             placeholder="Enter your full name"
-//                         />
-//                     </div>
-
-//                     <div className="form-group">
-//                         <label htmlFor="username">Username</label>
-//                         <input
-//                             id="username"
-//                             type="text"
-//                             name="username"
-//                             placeholder="Choose a username"
-//                         />
-//                     </div>
-
-//                     <div className="form-group">
-//                         <label htmlFor="email">Email</label>
-//                         <input
-//                             id="email"
-//                             type="email"
-//                             name="email"
-//                             placeholder="you@example.com"
-//                         />
-//                     </div>
-
-//                     <div className="form-row">
-//                         <div className="form-group">
-//                             <label htmlFor="country">Country</label>
-//                             <input
-//                                 id="country"
-//                                 type="text"
-//                                 name="country"
-//                                 placeholder="Country"
-//                             />
-//                         </div>
-
-//                         <div className="form-group">
-//                             <label htmlFor="city">City</label>
-//                             <input
-//                                 id="city"
-//                                 type="text"
-//                                 name="city"
-//                                 placeholder="City"
-//                             />
-//                         </div>
-//                     </div>
-
-//                     <fieldset className="gender-group">
-//                         <legend>Gender</legend>
-
-//                         <label className="gender-option">
-//                             <input
-//                                 type="radio"
-//                                 name="gender"
-//                                 value="male"
-//                             />
-//                             <span>Male</span>
-//                         </label>
-
-//                         <label className="gender-option">
-//                             <input
-//                                 type="radio"
-//                                 name="gender"
-//                                 value="female"
-//                             />
-//                             <span>Female</span>
-//                         </label>
-
-//                         <label className="gender-option">
-//                             <input
-//                                 type="radio"
-//                                 name="gender"
-//                                 value="other"
-//                             />
-//                             <span>Other</span>
-//                         </label>
-//                     </fieldset>
-
-//                     <div className="form-group">
-//                         <label htmlFor="password">Password</label>
-
-//                         <div className="password-wrapper">
-//                             <input
-//                                 id="password"
-//                                 type="password"
-//                                 name="password"
-//                                 placeholder="Create a password"
-//                             />
-
-//                             <button
-//                                 type="button"
-//                                 className="password-toggle"
-//                                 aria-label="Show password"
-//                             >
-//                                 <svg
-//                                     viewBox="0 0 24 24"
-//                                     fill="none"
-//                                     stroke="currentColor"
-//                                     strokeWidth="2"
-//                                 >
-//                                     <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z" />
-//                                     <circle cx="12" cy="12" r="3" />
-//                                 </svg>
-//                             </button>
-//                         </div>
-//                     </div>
-
-//                     <div className="form-group">
-//                         <label htmlFor="repeatPassword">
-//                             Repeat Password
-//                         </label>
-
-//                         <div className="password-wrapper">
-//                             <input
-//                                 id="repeatPassword"
-//                                 type="password"
-//                                 name="repeatPassword"
-//                                 placeholder="Repeat your password"
-//                             />
-
-//                             <button
-//                                 type="button"
-//                                 className="password-toggle"
-//                                 aria-label="Show password"
-//                             >
-//                                 <svg
-//                                     viewBox="0 0 24 24"
-//                                     fill="none"
-//                                     stroke="currentColor"
-//                                     strokeWidth="2"
-//                                 >
-//                                     <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z" />
-//                                     <circle cx="12" cy="12" r="3" />
-//                                 </svg>
-//                             </button>
-//                         </div>
-//                     </div>
-
-//                     <button type="submit" className="register-button">
-//                         Create Account
-//                     </button>
-//                 </form>
-
-//                 <p className="login-link">
-//                     Already have an account?{" "}
-//                     <a href="/login">Login</a>
-//                 </p>
-//             </div>
-//         </div>
-//     );
-
-// }
-
 
 

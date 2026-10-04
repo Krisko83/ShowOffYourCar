@@ -6,7 +6,6 @@ import request from '../../utils/request.js';
 
 
 const initialValues = {
-    id: '',
     email: '',
     password: '',
 }
@@ -18,18 +17,18 @@ export default function Login() {
 
     const actionHandler = async () => {
 
-         const { email, password } = userData;
+        const { email, password } = userData;
 
         try {
             const response = await request(`/users?email=eq.${email}`);
-        
+
             if (response[0].password !== password) {
                 return alert('Email or password are not valid!')
-            }            
+            }
 
-            setUserData(response[0]) 
-            console.log('Successful login:' , userData);
-            
+            setUserData(response[0])
+            console.log('Successful login:', response[0]);
+
             navigate('/');
 
         } catch (error) {

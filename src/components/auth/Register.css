@@ -2,6 +2,15 @@
     box-sizing: border-box;
 }
 
+.errorMessage {
+    color: #dc2626;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    margin-top: 0.25rem;
+}
+
+
+
 .register-page {
     min-height: 100vh;
     display: flex;
@@ -63,6 +72,19 @@
     outline: none;
     transition: border-color 0.2s, box-shadow 0.2s;
 }
+
+
+.form-group-error input {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid red;
+    border-radius: 7px;
+    font-size: 15px;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+
 
 .form-group input:focus {
     border-color: #2563eb;
@@ -187,6 +209,7 @@
 .login-link a:hover {
     text-decoration: underline;
 }
+
 
 @media (max-width: 500px) {
     .register-container {

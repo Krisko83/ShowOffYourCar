@@ -30,9 +30,9 @@ export default async function request(path = '/', method = 'GET', data = null ,o
         return null
     }
 
-     if(response.status === 201) {
-        return null
-    }
+    //  if(response.status === 201) {
+    //     return null
+    // }
 
     return response.json();
 };
