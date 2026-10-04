@@ -11,12 +11,12 @@ export default function Header() {
                         <span><NavLink to="/" className="logo">Site Logo</NavLink></span>
                         <ul className="navigation">
                             <li><NavLink to="/">Home</NavLink></li>
-                            <li><NavLink to="/gallery">Gallery</NavLink></li>
+                            <li><NavLink to="/cars/gallery">Gallery</NavLink></li>
                             <li><NavLink to="/about">About</NavLink></li>
                             <li><NavLink to="/contacts">Contact Us</NavLink></li>
                             <li><NavLink to="/auth/login">Login</NavLink></li>
                             <li><NavLink to="/auth/register">Register</NavLink></li>
-                            <li><NavLink to="/add-car">Add Car</NavLink></li>
+                            <li><NavLink to="/cars/add-car">Add Car</NavLink></li>
                             <li><NavLink to="/profile">Profile</NavLink></li>
                             <li><NavLink to="/auth/logout">Logout</NavLink></li>
                         </ul>

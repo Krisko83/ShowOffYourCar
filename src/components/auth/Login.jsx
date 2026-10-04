@@ -1,7 +1,7 @@
 import { Link, useNavigate } from 'react-router';
 import { useState } from 'react';
-import { validation } from './validation.js';
-import request from '../../utils/request.js';
+import { validation } from '../../utils/validation.js';
+ import request from '../../utils/request.js';
 import EyeIcon from './EyeIcon.jsx';
 import './Login.css'
 

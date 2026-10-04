@@ -99,7 +99,14 @@ function login(values) {
     return errors;
 }
 
+function addEdit(values) {
+    const errors = {}
+
+    return errors
+}
+
 export const validation = {
     register,
-    login
+    login,
+    addEdit
 }
