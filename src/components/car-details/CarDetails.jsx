@@ -1,9 +1,12 @@
 
 import { Link, useParams } from 'react-router';
-import { useEffect, useState } from 'react';
+import { use, useEffect, useState } from 'react';
 import request from '../../utils/request.js';
 import NotFound from '../not-found/NotFound.jsx';
 import './CarDetails.css';
+import AddComment from '../comments/AddComment.jsx';
+import Comments from '../comments/Comments.jsx';
+import UserContext from '../../contexts/UserContext.js';
 
 const initialValues = {
     imageUrl: null,
@@ -21,6 +24,7 @@ const initialValues = {
 }
 
 export default function CarDetails() {
+    const { user } = use(UserContext);
     const { carId } = useParams();
     const [car, setCar] = useState(initialValues)
 
@@ -114,7 +118,7 @@ export default function CarDetails() {
 
             </section>
 
-            {/* DESCRIPTION */}
+
 
             <section className="description-section">
 
@@ -124,86 +128,45 @@ export default function CarDetails() {
 
             </section>
 
-            {/* ACTIONS */}
 
-            <section className="car-actions">
+            {user
+                &&
+                <section className="car-actions">
 
-                <Link to={`/cars/${carId}/edit`}  className="action-button edit-button">
-                    Edit
-                </Link>
+                    <Link to={`/cars/${carId}/edit`} className="action-button edit-button">
+                        Edit
+                    </Link>
 
-                <Link to={`/cars/${carId}/delete`} className="action-button delete-button">
-                    Delete
-                </Link>
+                    <Link to={`/cars/${carId}/delete`} className="action-button delete-button">
+                        Delete
+                    </Link>
 
-                <div className="reaction-buttons">
+                    <div className="reaction-buttons">
 
-                    <button className="reaction-button like-button">
-                        👍
-                        <span>Like</span>
-                    </button>
+                        <button className="reaction-button like-button">
+                            👍
+                            <span>Like</span>
+                        </button>
 
-                    <button className="reaction-button dislike-button">
-                        👎
-                        <span>Dislike</span>
-                    </button>
+                        <button className="reaction-button dislike-button">
+                            👎
+                            <span>Dislike</span>
+                        </button>
 
-                </div>
+                    </div>
 
-            </section>
+                </section>
+            }
 
-            {/* COMMENTS */}
+
 
             <section className="comments-section">
 
                 <h2>Comments</h2>
 
-                {/* ADD COMMENT */}
+                {user && <AddComment carId={carId} />}
 
-                <form className="comment-form">
-
-                    <textarea
-                        placeholder="Write a comment..."
-                        rows="4"
-                    />
-
-                    <button type="submit">
-                        Add Comment
-                    </button>
-
-                </form>
-
-                {/* COMMENT */}
-
-                <div className="comments-list">
-
-                    <article className="comment">
-
-                        <div className="comment-header">
-                            <strong>John Smith</strong>
-                            <span>2 hours ago</span>
-                        </div>
-
-                        <p>
-                            Very nice car! Is it still available?
-                        </p>
-
-                    </article>
-
-                    <article className="comment">
-
-                        <div className="comment-header">
-                            <strong>Michael</strong>
-                            <span>Yesterday</span>
-                        </div>
-
-                        <p>
-                            The car looks great. How is the fuel consumption?
-                        </p>
-
-                    </article>
-
-                </div>
+                <Comments carId={carId} />
 
             </section>
 

@@ -114,6 +114,7 @@
 .action-button,
 .reaction-button,
 .comment-form button {
+    text-decoration: none;
     border: none;
     border-radius: 7px;
     cursor: pointer;

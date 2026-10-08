@@ -19,7 +19,7 @@ import UserContext from './contexts/UserContext.js'
 
 
 function App() {
-  const [user, setUser] = useState(sessionStorage.getItem('userData'))
+  const [user, setUser] = useState(JSON.parse(sessionStorage.getItem('userData')))
   const navigate = useNavigate()
 
 
