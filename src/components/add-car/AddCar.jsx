@@ -1,8 +1,9 @@
-import { useState } from 'react';
+import { use, useState } from 'react';
 import request from '../../utils/request.js';
 import './AddCar.css';
 import { useNavigate } from 'react-router';
 import { validation } from '../../utils/validation.js';
+import UserContext from '../../contexts/UserContext.js';
 
 const initialValues = {
     imageUrl: '',
@@ -23,10 +24,11 @@ export default function AddCar() {
     const [carData, setCarData] = useState(initialValues)
     const [isTouched, setIsTouched] = useState({})
     const [errors, setErrors] = useState({})
+    const { user } = use(UserContext)
     const navigate = useNavigate();
 
     const actionHandler = async () => {
-        const owner_id = '454545';
+        const owner_id = user.userData.id;
 
         const errors = validation.addEdit(carData);
 

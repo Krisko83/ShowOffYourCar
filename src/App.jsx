@@ -28,8 +28,7 @@ function App() {
     setUser(userData)
   }
 
-  const onRegister = (userData) => {
-    console.log(userData);
+  const onRegister = (userData) => {  
 
     sessionStorage.setItem('userData', JSON.stringify({ userData }))
     setUser(userData)

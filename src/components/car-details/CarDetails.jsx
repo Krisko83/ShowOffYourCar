@@ -26,7 +26,9 @@ const initialValues = {
 export default function CarDetails() {
     const { user } = use(UserContext);
     const { carId } = useParams();
-    const [car, setCar] = useState(initialValues)
+    const [car, setCar] = useState(initialValues);
+    const userId = user.userData.id;
+    const [refresh, setRefresh] = useState(false);
 
     useEffect(() => {
         request(`/cars?id=eq.${carId}`)
@@ -37,6 +39,10 @@ export default function CarDetails() {
 
     }, [carId]);
 
+
+    const refreshPage = () => {
+        setRefresh(state => !state)
+    }
 
     return (
         <main className="details-page">
@@ -129,18 +135,19 @@ export default function CarDetails() {
             </section>
 
 
-            {user
-                &&
-                <section className="car-actions">
+            <section className="car-actions">
+                {user && userId === car.owner_id
+                    ?
+                    <>
+                        <Link to={`/cars/${carId}/edit`} className="action-button edit-button">
+                            Edit
+                        </Link>
 
-                    <Link to={`/cars/${carId}/edit`} className="action-button edit-button">
-                        Edit
-                    </Link>
-
-                    <Link to={`/cars/${carId}/delete`} className="action-button delete-button">
-                        Delete
-                    </Link>
-
+                        <Link to={`/cars/${carId}/delete`} className="action-button delete-button">
+                            Delete
+                        </Link>
+                    </>
+                    :
                     <div className="reaction-buttons">
 
                         <button className="reaction-button like-button">
@@ -155,8 +162,8 @@ export default function CarDetails() {
 
                     </div>
 
-                </section>
-            }
+                }
+            </section>
 
 
 
@@ -164,9 +171,9 @@ export default function CarDetails() {
 
                 <h2>Comments</h2>
 
-                {user && <AddComment carId={carId} />}
+                {user && <AddComment carId={carId} onCreate={refreshPage} />}
 
-                <Comments carId={carId} />
+                <Comments carId={carId} refresh={refresh} />
 
             </section>
 

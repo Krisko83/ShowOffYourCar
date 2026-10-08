@@ -48,9 +48,7 @@ export default function Register() {
             password: userData.password,
             ...getUserData(userData)
         }
-
-        console.log(userFormData);
-        
+ 
  
         try {
             const response = await request('/users', 'POST', userFormData);
