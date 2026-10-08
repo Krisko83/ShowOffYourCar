@@ -1,15 +1,17 @@
 import { Link, useNavigate } from 'react-router';
-import { useState } from 'react';
+import { use, useState } from 'react';
 import { validation } from '../../utils/validation.js';
- import request from '../../utils/request.js';
+import request from '../../utils/request.js';
 import EyeIcon from './EyeIcon.jsx';
-import "./Register.css";
+ import "./Register.css";
+import UserContext from '../../contexts/UserContext.js';
+import getUserData from '../../utils/userUtils.js';
 
 const initialValues = {
     fullName: '',
     username: '',
     email: '',
-    age: 18,
+    age: '',
     country: '',
     city: '',
     gender: 'male',
@@ -28,6 +30,7 @@ export default function Register() {
     const [isPasswordsVisible, setIsPasswordsVisible] = useState(visibilityInitials);
     const [errors, setErrors] = useState({});
     const [isTouched, setIsTouched] = useState({});
+    const { onRegister } = use(UserContext)
 
     const navigate = useNavigate();
 
@@ -41,15 +44,23 @@ export default function Register() {
             return
         }
 
-        const { repeatPassword, ...userFormData } = userData;
+        const userFormData = {
+            password: userData.password,
+            ...getUserData(userData)
+        }
 
+        console.log(userFormData);
+        
+ 
         try {
             const response = await request('/users', 'POST', userFormData);
-            const { password, ...data } = response[0];
-
-            // setUserData(data);
+ 
+            const data = getUserData(response[0])
+            
+            onRegister(data);
 
             navigate('/');
+
         } catch (error) {
             console.log(error);
         }

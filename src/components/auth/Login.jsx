@@ -1,10 +1,12 @@
 import { Link, useNavigate } from 'react-router';
-import { useState } from 'react';
+import { use, useState } from 'react';
 import { validation } from '../../utils/validation.js';
  import request from '../../utils/request.js';
 import EyeIcon from './EyeIcon.jsx';
 import './Login.css'
-
+import UserContext from '../../contexts/UserContext.js';
+import getUserData from '../../utils/userUtils.js';
+ 
 
 const initialValues = {
     email: '',
@@ -17,6 +19,8 @@ export default function Login() {
     const [errors, setErrors] = useState({});
     const [isTouched, setIsTouched] = useState({})
 
+    const {onLogin} = use(UserContext)
+
     const navigate = useNavigate();
 
     const actionHandler = async () => {
@@ -27,18 +31,19 @@ export default function Login() {
             setIsTouched(errors);
         }
 
-        const { email, password } = userData;
-
+        const { email, password } = userData
+ 
         try {
             const response = await request(`/users?email=eq.${email}`);
 
             if (response[0].password !== password) {
                 return alert('Email or password are not valid!')
             }
+ 
+            const data = getUserData(response[0]);
 
-            // setUserData(response[0])
-            // console.log(response[0]);
-            // console.log('Successful Login');
+            onLogin(data);
+
 
             navigate('/');
 

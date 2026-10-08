@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css?family=PT+Serif');
 @import url('https://fonts.googleapis.com/css?family=PT+Sans:400,700');
 
-html {
+/* html {
     font: 16px/1.5 'PT Sans', sans-serif;
 }
 
@@ -18,7 +18,7 @@ h4,
 h5,
 h6 {
     font-family: 'PT Serif', sans-serif;
-}
+} */
 
 .site-header {
     width: 100%;
@@ -64,6 +64,16 @@ h6 {
     color: #FFFFFF;
     font-size: 18px;
     text-transform: uppercase;
+}
+
+.navigation .navBtn {
+    font: inherit;
+    text-decoration: none;
+    color: #FFFFFF;
+    font-size: 18px;
+    text-transform: uppercase;
+    background-color: transparent;
+    border: none;
 }
 
 .site-nav .logo {

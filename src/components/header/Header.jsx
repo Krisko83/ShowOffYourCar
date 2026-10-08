@@ -1,24 +1,37 @@
-import { NavLink } from 'react-router';
+import { Link } from 'react-router';
+import { use } from 'react';
+import UserContext from '../../contexts/UserContext.js';
 import './Header.css'
- 
+
+
 export default function Header() {
+    const { user, onLogout } = use(UserContext)
 
     return (
         <>
             <header className='section site-header'>
                 <div className="header-wrapper">
                     <nav className="site-nav">
-                        <span><NavLink to="/" className="logo">Site Logo</NavLink></span>
+                        <span><Link to="/" className="logo">Site Logo</Link></span>
                         <ul className="navigation">
-                            <li><NavLink to="/">Home</NavLink></li>
-                            <li><NavLink to="/cars/gallery">Gallery</NavLink></li>
-                            <li><NavLink to="/about">About</NavLink></li>
-                            <li><NavLink to="/contacts">Contact Us</NavLink></li>
-                            <li><NavLink to="/auth/login">Login</NavLink></li>
-                            <li><NavLink to="/auth/register">Register</NavLink></li>
-                            <li><NavLink to="/cars/add-car">Add Car</NavLink></li>
-                            <li><NavLink to="/profile">Profile</NavLink></li>
-                            <li><NavLink to="/auth/logout">Logout</NavLink></li>
+                            <li><Link to="/">Home</Link></li>
+                            <li><Link to="/cars/gallery">Gallery</Link></li>
+                            <li><Link to="/about">About</Link></li>
+                            <li><Link to="/contacts">Contact Us</Link></li>
+                            {user
+                                ?
+                                <>
+                                    <li><Link to="/cars/add-car">Add Car</Link></li>
+                                    <li><Link to="/profile">Profile</Link></li>
+                                    <li><button onClick={onLogout} className='navBtn'>Logout</button></li>
+                                </>
+                                :
+                                <>
+                                    <li><Link to="/auth/login">Login</Link></li>
+                                    <li><Link to="/auth/register">Register</Link></li>
+                                </>
+                            }
+
                         </ul>
                     </nav>
                 </div>
@@ -36,4 +49,3 @@ export default function Header() {
     );
 }
 
- 
