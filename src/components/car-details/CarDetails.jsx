@@ -1,7 +1,39 @@
- 
+
+import { Link, useParams } from 'react-router';
+import { useEffect, useState } from 'react';
+import request from '../../utils/request.js';
+import NotFound from '../not-found/NotFound.jsx';
 import './CarDetails.css';
 
+const initialValues = {
+    imageUrl: null,
+    manufacturer: '',
+    model: '',
+    year: '',
+    category: '',
+    power: '',
+    gearbox: '',
+    fuel: '',
+    mileage: '',
+    cubic: '',
+    driveType: '',
+    description: '',
+}
+
 export default function CarDetails() {
+    const { carId } = useParams();
+    const [car, setCar] = useState(initialValues)
+
+    useEffect(() => {
+        request(`/cars?id=eq.${carId}`)
+            .then(res => setCar(res[0]))
+            .catch(() => {
+                <NotFound />
+            })
+
+    }, [carId]);
+
+
     return (
         <main className="details-page">
 
@@ -9,8 +41,8 @@ export default function CarDetails() {
 
                 <div className="car-details-image">
                     <img
-                        src="https://images.unsplash.com/photo-1555215695-3004980ad54e"
-                        alt="BMW 320d"
+                        src={car.imageUrl}
+                        alt={`${car.manufacturer} ${car.model}`}
                     />
                 </div>
 
@@ -18,62 +50,62 @@ export default function CarDetails() {
 
                     <div className="details-header">
                         <div>
-                            <h1>BMW 320d</h1>
-                            <p>2021 · BMW</p>
+                            <h1>{car.manufacturer} {car.model}</h1>
+                            <p>{car.year}</p>
                         </div>
- 
+
                     </div>
 
                     <div className="specifications">
 
                         <div className="specification">
                             <span>Manufacturer</span>
-                            <strong>BMW</strong>
+                            <strong>{car.manufacturer}</strong>
                         </div>
 
                         <div className="specification">
                             <span>Model</span>
-                            <strong>320d</strong>
+                            <strong>{car.model}</strong>
                         </div>
 
                         <div className="specification">
                             <span>Year</span>
-                            <strong>2021</strong>
+                            <strong>{car.year}</strong>
                         </div>
 
                         <div className="specification">
                             <span>Category</span>
-                            <strong>Sedan</strong>
+                            <strong>{car.category}</strong>
                         </div>
 
                         <div className="specification">
                             <span>Power</span>
-                            <strong>190 HP</strong>
+                            <strong>{car.power} HP</strong>
                         </div>
 
                         <div className="specification">
                             <span>Gearbox</span>
-                            <strong>Automatic</strong>
+                            <strong>{car.gearbox}</strong>
                         </div>
 
                         <div className="specification">
                             <span>Fuel</span>
-                            <strong>Diesel</strong>
+                            <strong>{car.fuel}</strong>
                         </div>
 
                         <div className="specification">
                             <span>Mileage</span>
-                            <strong>125,000 km</strong>
+                            <strong>{car.mileage} km</strong>
                         </div>
 
                         <div className="specification">
                             <span>Engine</span>
-                            <strong>1995 cm³</strong>
+                            <strong>{car.cubic} cm³</strong>
                         </div>
 
                         <div className="specification">
                             <span>Drive Type</span>
-                            <strong>Rear-Wheel Drive</strong>
+                            <strong>{car.driveType}</strong>
                         </div>
 
                     </div>
@@ -88,11 +120,7 @@ export default function CarDetails() {
 
                 <h2>Description</h2>
 
-                <p>
-                    Beautiful and well-maintained BMW 320d with excellent
-                    performance and fuel economy. The car is in very good
-                    condition and has been regularly serviced.
-                </p>
+                <p>{car.description}</p>
 
             </section>
 
@@ -100,13 +128,13 @@ export default function CarDetails() {
 
             <section className="car-actions">
 
-                <button className="action-button edit-button">
+                <Link to={`/cars/${carId}/edit`}  className="action-button edit-button">
                     Edit
-                </button>
+                </Link>
 
-                <button className="action-button delete-button">
+                <Link to={`/cars/${carId}/delete`} className="action-button delete-button">
                     Delete
-                </button>
+                </Link>
 
                 <div className="reaction-buttons">
 
@@ -182,4 +210,4 @@ export default function CarDetails() {
         </main>
     );
 }
- 
+

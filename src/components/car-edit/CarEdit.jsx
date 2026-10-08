@@ -1,8 +1,8 @@
-import { useState } from 'react';
-import request from '../../utils/request.js';
-import './AddCar.css';
-import { useNavigate } from 'react-router';
-import { validation } from '../../utils/validation.js';
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router";
+import request from "../../utils/request.js";
+import NotFound from "../not-found/NotFound.jsx";
+import { validation } from "../../utils/validation.js";
 
 const initialValues = {
     imageUrl: '',
@@ -19,38 +19,22 @@ const initialValues = {
     description: '',
 }
 
-export default function AddCar() {
-    const [carData, setCarData] = useState(initialValues)
+export default function CarEdit() {
+    const [carData, setCarData] = useState(initialValues);
     const [isTouched, setIsTouched] = useState({})
     const [errors, setErrors] = useState({})
+    const { carId } = useParams();
+    
     const navigate = useNavigate();
 
-    const actionHandler = async () => {
-        const owner_id = '454545';
+    useEffect(() => {
+        request(`/cars?id=eq.${carId}`)
+            .then(res => setCarData(res[0]))
+            .catch(() => {
+                <NotFound />
+            })
 
-        const errors = validation.addEdit(carData);
-
-        setErrors(errors)
-
-        if (Object.keys(errors).length > 0) {
-            setIsTouched(errors)
-            return;
-        };
-
-        const car = {
-            ...carData,
-            owner_id
-        }
-
-        try {
-            await request('/cars', 'POST', car);
-
-            navigate('/');
-        } catch (error) {
-            console.log(error);
-        }
-
-    }
+    }, [carId]);
 
     const changeHandler = (e) => {
         setCarData(state => ({
@@ -70,6 +54,34 @@ export default function AddCar() {
         setErrors(errors);
     };
 
+    const actionHandler = async () => {
+        const owner_id = '454545';
+
+        const errors = validation.addEdit(carData);
+
+        setErrors(errors)
+
+        if (Object.keys(errors).length > 0) {
+            setIsTouched(errors)
+            return;
+        };
+
+        const car = {
+            ...carData,
+            owner_id
+        }
+
+        try {
+            await request(`/cars?id=eq.${carId}`, 'PUT', car);
+
+            navigate('/');
+        } catch (error) {
+            console.log(error);
+        }
+
+    }
+
+
     const errorMessage = (field) => errors[field] && isTouched[field] ? <p className="errorMessage">{errors[field]}</p> : '';
     const inputClass = (field) => errors[field] && isTouched[field] ? "form-group-error" : "form-group";
 
@@ -77,7 +89,7 @@ export default function AddCar() {
     return (
         <form className="car-form" action={actionHandler}>
 
-            <h2>Add Car</h2>
+            <h2>Edit Car</h2>
 
             <div className="form-grid">
 
@@ -249,10 +261,9 @@ export default function AddCar() {
             </div>
 
             <button type="submit" className="submit-button">
-                Add Car
+                Edit Car
             </button>
 
         </form>
     );
-
 }

@@ -14,6 +14,7 @@ import Footer from './components/footer/Footer.jsx'
 import Header from './components/header/Header.jsx'
 import Home from './components/home/Home.jsx'
 import CarDetails from './components/car-details/CarDetails.jsx'
+import CarEdit from './components/car-edit/CarEdit.jsx'
 
 
 
@@ -31,7 +32,9 @@ function App() {
         <Route path='/cars/gallery' element={<Gallery />} />
         <Route path='/about' element={<About />} />
         <Route path='/contacts' element={<Contacts />} />
-        <Route path='/cars/details' element={<CarDetails />} />
+        <Route path='/cars/:carId/details' element={<CarDetails />} />
+        <Route path='/cars/:carId/edit' element={<CarEdit />} />
+
 
         <Route element={<IsGuest user={user} />}>
           <Route path='/cars/add-car' element={<AddCar />} />
