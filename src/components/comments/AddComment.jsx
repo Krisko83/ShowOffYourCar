@@ -15,12 +15,12 @@ export default function AddComment({
             [e.target.name]: e.target.value
         }))
     }
-
+ 
     const actionHandler = async () => {
         const comment = {
             content: commentData.content,
-            ownerId: user.id,
-            author: user.fullName,
+            ownerId: user.userData.id,
+            author: user.userData.fullName,
             carId
         }
         try {
@@ -31,9 +31,7 @@ export default function AddComment({
 
         }
     }
-
-    console.log(commentData);
-
+ 
     return (
         <form className="comment-form" action={actionHandler}>
 
