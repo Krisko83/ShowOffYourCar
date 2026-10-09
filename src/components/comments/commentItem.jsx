@@ -3,7 +3,7 @@ import commentTimeAgo from "../../utils/commentTimeAgo.js";
 export default function CommentItem({    
     author,    
     created_at,
-    content,
+    content,     
     isCarOwner
 }) {
 
@@ -11,7 +11,7 @@ export default function CommentItem({
         <article className="comment">
 
             <div className="comment-header">
-                <strong>{author}{isCarOwner ? ' - Car Owner' : ''}</strong>
+                <strong>{author}{isCarOwner ? <span>  - Car owner!</span> : ''}</strong>
                 <span>{commentTimeAgo(created_at)}</span>
             </div>
 
