@@ -19,33 +19,31 @@ export default function LikeCar({
                 }
             })
 
+        request(`/likes?car_id=eq.${car_id}`)
+            .then(result => setLikes(result))
+
     }, [user_id, car_id, refresh]);
 
 
-    useEffect(() => {
-        request(`/likes?car_id=eq.${car_id}`)
-            .then(result => setLikes(result))
-    }, [car_id, refresh])
-
     const likeCar = async () => {
         await request('/likes', 'POST', { user_id, car_id });
-        
+
         onLikeUnlike();
-    }
+    };
 
     const unlikeCar = async () => {
-       await request(`/likes?user_id=eq.${user_id}&car_id=eq.${car_id}`, 'DELETE');
+        await request(`/likes?user_id=eq.${user_id}&car_id=eq.${car_id}`, 'DELETE');
         setLiked(false);
 
         onLikeUnlike();
-    }
+    };
 
 
     return (
         <div className="reaction-buttons">
             <p className="reaction-button">Likes: {likes.length}</p>
 
-            <LikeBtn likeCar={likeCar} liked={liked} unlikeCar={unlikeCar}/>
+            <LikeBtn likeCar={likeCar} liked={liked} unlikeCar={unlikeCar} />
 
         </div>
     );

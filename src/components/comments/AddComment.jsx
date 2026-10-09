@@ -4,9 +4,9 @@ import request from "../../utils/request.js";
 
 export default function AddComment({
     car_id,
-   onCreate
+    onCreate
 }) {
-    const [commentData, setCommentData] = useState({ content: '' });
+    const [commentData, setCommentData] = useState('');
 
     const { user } = use(UserContext)
 
@@ -16,24 +16,27 @@ export default function AddComment({
             [e.target.name]: e.target.value
         }))
     }
- 
+
     const actionHandler = async () => {
         const comment = {
             content: commentData.content,
-            ownerId: user.userData.id,
-            author: user.userData.fullName,
+            owner_id: user.id,
+            author: user.fullName,
             car_id
         }
+
+
         try {
             await request('/comments', 'POST', comment)
+            setCommentData('')
             onCreate()
-         
+
         } catch (error) {
             console.log(error);
-
         }
+
     }
- 
+
     return (
         <form className="comment-form" action={actionHandler}>
 

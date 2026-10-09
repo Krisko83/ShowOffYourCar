@@ -10,6 +10,7 @@ import UserContext from '../../contexts/UserContext.js';
 import LikeCar from '../likes/LikeCar.jsx';
 
 const initialValues = {
+    id: '',
     imageUrl: null,
     manufacturer: '',
     model: '',
@@ -32,6 +33,7 @@ export default function CarDetails() {
     const navigate = useNavigate();
 
     const user_id = user?.id;
+    const owner_id = car.owner_id
 
     useEffect(() => {
         request(`/cars?id=eq.${car_id}`)
@@ -180,7 +182,7 @@ export default function CarDetails() {
 
                 {user && <AddComment car_id={car_id} onCreate={refreshPage} />}
 
-                <Comments car_id={car_id} refresh={refresh} />
+                <Comments car_id={car_id} owner_id={owner_id} refresh={refresh} />
 
             </section>
 
