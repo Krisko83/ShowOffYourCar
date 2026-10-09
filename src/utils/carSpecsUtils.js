@@ -8,7 +8,7 @@ const driveTypes = {
 
 export default function extractCorrectOpions(value) {
 
-    if(driveTypes[value]) {
+    if (driveTypes[value]) {
         return driveTypes[value]
     }
 
