@@ -1,7 +1,5 @@
 import { use, useState } from "react";
-import { validation } from "../utils/validation.js";
-import { useNavigate } from "react-router";
-import request from "../utils/request.js";
+import { validation } from "../utils/validation.js"; 
 import UserContext from "../contexts/UserContext.js";
 
 const initialValues = {
@@ -20,29 +18,19 @@ const initialValues = {
 }
 
 
-export default function useControlledCarForm(method, car_id) {
+export default function useControlledCarForm(onSubmit) {
     const [carData, setCarData] = useState(initialValues);
     const [isTouched, setIsTouched] = useState(false);
     const [errors, setErrors] = useState({});
 
     const { user } = use(UserContext)
     const owner_id = user.id;
-    const navigate = useNavigate();
-
-    let path = '/cars';
-    let navigateTo = '/'
-
-    if (method === 'PATCH') {
-        path = `/cars?id=eq.${car_id}`;
-        navigateTo = `/cars/${car_id}/details`;
-    }
 
 
-    const actionHandler = async () => {
+    const actionHandler = () => {
+        const validationErrors = validation.addEdit(carData);
 
-        const errors = validation.addEdit(carData);
-
-        setErrors(errors)
+        setErrors(validationErrors)
 
         if (Object.keys(errors).length > 0) {
             setIsTouched(errors)
@@ -52,17 +40,10 @@ export default function useControlledCarForm(method, car_id) {
         const car = {
             ...carData,
             owner_id
-        }
+        };
 
-        try {
-            await request(path, method, car);
-
-            navigate(navigateTo);
-        } catch (error) {
-            console.log(error);
-        }
-
-    }
+        onSubmit(car);
+    };
 
     const changeHandler = (e) => {
         setCarData(state => ({
@@ -83,5 +64,5 @@ export default function useControlledCarForm(method, car_id) {
     };
 
 
-    return { carData, setCarData, changeHandler, validationHandler, errors, isTouched, actionHandler }
+    return { carData, setCarData, changeHandler, validationHandler, errors, isTouched, owner_id, actionHandler ,initialValues}
 }

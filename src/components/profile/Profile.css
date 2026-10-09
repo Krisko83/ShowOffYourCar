@@ -1,0 +1,449 @@
+/* Profile page */
+.profile-page {
+    width: min(1180px, calc(100% - 40px));
+    margin: 0 auto;
+    padding: 42px 0 56px;
+    color: #1c2b41;
+}
+
+.profile-heading {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    margin-bottom: 28px;
+}
+
+.profile-heading-icon,
+.section-icon {
+    display: grid;
+    place-items: center;
+    flex: 0 0 auto;
+    width: 54px;
+    height: 54px;
+    border-radius: 50%;
+    background: #eaf1fc;
+    font-size: 25px;
+}
+
+.profile-heading h1 {
+    margin: 0 0 7px;
+    font-size: clamp(1.7rem, 3vw, 2.25rem);
+    line-height: 1.2;
+}
+
+.profile-heading p,
+.section-title p {
+    margin: 0;
+    color: #718096;
+    line-height: 1.5;
+}
+
+.profile-card,
+.profile-bottom {
+    display: grid;
+    grid-template-columns: 285px minmax(0, 1fr);
+    gap: 30px;
+    padding: 26px;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    background: #fff;
+    box-shadow: 0 4px 18px rgb(25 45 75 / 5%);
+}
+
+.profile-picture-panel {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 28px;
+    padding: 30px 18px;
+    border-radius: 9px;
+    background: #f6f8fc;
+}
+
+.profile-avatar {
+    display: grid;
+    place-items: center;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    background: #dce4ef;
+    font-size: 66px;
+}
+
+.upload-picture {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 9px;
+    width: 100%;
+    padding: 22px 12px;
+    border: 2px dashed #c4d2e8;
+    border-radius: 9px;
+    color: #316de0;
+    text-align: center;
+    cursor: pointer;
+    transition: background-color 160ms ease, border-color 160ms ease;
+}
+
+.upload-picture:hover {
+    border-color: #316de0;
+    background: #edf4ff;
+}
+
+.upload-icon {
+    display: grid;
+    place-items: center;
+    width: 34px;
+    height: 34px;
+    border: 2px solid currentColor;
+    border-radius: 50%;
+    font-size: 23px;
+    font-weight: 700;
+}
+
+.upload-picture small {
+    color: #8493a8;
+    font-size: 0.8rem;
+}
+
+.upload-picture input {
+    width: 100%;
+    max-width: 220px;
+    color: #64748b;
+    font-size: 0.75rem;
+}
+
+.profile-fields {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px 24px;
+    align-content: start;
+}
+
+.profile-field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-width: 0;
+}
+
+.profile-field label {
+    color: #26364d;
+    font-size: 0.93rem;
+    font-weight: 650;
+}
+
+.profile-field input,
+.profile-field select {
+    box-sizing: border-box;
+    width: 100%;
+    min-height: 44px;
+    padding: 10px 13px;
+    border: 1px solid #d5dfec;
+    border-radius: 7px;
+    outline: none;
+    background: #fff;
+    color: #26364d;
+    font: inherit;
+    transition: border-color 160ms ease, box-shadow 160ms ease;
+}
+
+.profile-field input::placeholder {
+    color: #9aa8ba;
+}
+
+.profile-field input:focus,
+.profile-field select:focus {
+    border-color: #3977e8;
+    box-shadow: 0 0 0 3px rgb(57 119 232 / 12%);
+}
+
+.profile-field-wide,
+.profile-save-button {
+    grid-column: 1 / -1;
+}
+
+.profile-save-button {
+    min-height: 47px;
+    margin-top: 2px;
+    border: 0;
+    border-radius: 7px;
+    background: #3975e5;
+    color: #fff;
+    font: inherit;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 160ms ease, transform 160ms ease;
+}
+
+.profile-save-button:hover {
+    background: #285fc8;
+}
+
+.profile-save-button:active {
+    transform: translateY(1px);
+}
+
+.profile-bottom {
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+    gap: 26px;
+    margin-top: 26px;
+}
+
+.commented-cars-panel {
+    min-width: 0;
+}
+
+.section-title {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 20px;
+}
+
+.section-title .section-icon {
+    width: 46px;
+    height: 46px;
+    font-size: 21px;
+}
+
+.section-title h2 {
+    margin: 0 0 6px;
+    font-size: 1.2rem;
+}
+
+.commented-cars-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.commented-car-link {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    padding: 10px;
+    border: 1px solid #e4eaf2;
+    border-radius: 8px;
+    color: inherit;
+    text-decoration: none;
+    transition: border-color 160ms ease, background-color 160ms ease;
+}
+
+.commented-car-link:hover {
+    border-color: #a9c5fa;
+    background: #f7faff;
+}
+
+.car-placeholder {
+    display: grid;
+    place-items: center;
+    flex: 0 0 54px;
+    height: 48px;
+    border-radius: 6px;
+    background: #edf2f8;
+    font-size: 27px;
+}
+
+.commented-car-info {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: 5px;
+    min-width: 0;
+}
+
+.commented-car-info strong {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.commented-car-info small {
+    color: #8190a5;
+}
+
+.car-arrow {
+    color: #8da1bd;
+    font-size: 1.8rem;
+    line-height: 1;
+}
+
+.personal-info-panel {
+    padding: 22px;
+    border: 1px solid #d6e4ff;
+    border-radius: 9px;
+    background: #f7faff;
+}
+
+.personal-info-description {
+    margin: 18px 0 22px;
+    color: #718096;
+    line-height: 1.6;
+}
+
+.edit-profile-link {
+    display: block;
+    padding: 12px 16px;
+    border: 1px solid #3975e5;
+    border-radius: 7px;
+    color: #316de0;
+    font-weight: 700;
+    text-align: center;
+    text-decoration: none;
+    transition: background-color 160ms ease, color 160ms ease;
+}
+
+.edit-profile-link:hover {
+    background: #3975e5;
+    color: #fff;
+}
+ 
+.personal-details-card {
+    padding: 28px;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    background: #fff;
+    box-shadow: 0 4px 18px rgb(25 45 75 / 5%);
+}
+
+.personal-details-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    padding-bottom: 22px;
+    margin-bottom: 24px;
+    border-bottom: 1px solid #e8edf4;
+}
+
+.personal-details-header h2 {
+    margin: 0 0 7px;
+    color: #1c2b41;
+    font-size: 1.5rem;
+}
+
+.personal-details-header p {
+    margin: 0;
+    color: #718096;
+}
+
+.change-info-btn {
+    padding: 11px 18px;
+    border: 1px solid #3975e5;
+    border-radius: 7px;
+    background: #3975e5;
+    color: #fff;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.change-info-btn:hover {
+    background: #285fc8;
+}
+
+.personal-details-content {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
+}
+
+.personal-detail {
+    padding: 15px;
+    border-radius: 8px;
+    background: #f6f8fc;
+}
+
+.personal-detail span {
+    display: block;
+    margin-bottom: 8px;
+    color: #718096;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.personal-detail p {
+    margin: 0;
+    color: #1c2b41;
+    font-size: 1rem;
+    overflow-wrap: anywhere;
+}
+
+@media (max-width: 600px) {
+    .personal-details-card {
+        padding: 18px;
+    }
+
+    .personal-details-header {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .personal-details-content {
+        grid-template-columns: 1fr;
+        gap: 14px;
+    }
+}
+ 
+
+
+@media (max-width: 850px) {
+    .profile-card {
+        grid-template-columns: 1fr;
+    }
+
+    .profile-picture-panel {
+        padding: 24px;
+    }
+
+    .upload-picture {
+        max-width: 360px;
+    }
+
+    .profile-bottom {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 560px) {
+    .profile-page {
+        width: min(100% - 24px, 1180px);
+        padding-top: 28px;
+    }
+
+    .profile-heading {
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    .profile-heading-icon {
+        width: 44px;
+        height: 44px;
+        font-size: 21px;
+    }
+
+    .profile-card,
+    .profile-bottom {
+        padding: 16px;
+        gap: 22px;
+    }
+
+    .profile-fields {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    .profile-field-wide,
+    .profile-save-button {
+        grid-column: auto;
+    }
+
+    .personal-info-panel {
+        padding: 16px;
+    }
+}

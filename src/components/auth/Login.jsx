@@ -1,12 +1,13 @@
 import { Link, useNavigate } from 'react-router';
-import { use, useState } from 'react';
-import { validation } from '../../utils/validation.js';
- import request from '../../utils/request.js';
+import { use } from 'react';
+
+import request from '../../utils/request.js';
 import EyeIcon from './EyeIcon.jsx';
-import './Login.css'
 import UserContext from '../../contexts/UserContext.js';
 import getUserData from '../../utils/userUtils.js';
- 
+import useControlledAuthForms from '../../hooks/useControlledAuthForms.js';
+import './Login.css'
+
 
 const initialValues = {
     email: '',
@@ -14,32 +15,30 @@ const initialValues = {
 }
 
 export default function Login() {
-    const [userData, setUserData] = useState(initialValues);
-    const [isPasswordVisible, setIsPasswordVisible] = useState(false)
-    const [errors, setErrors] = useState({});
-    const [isTouched, setIsTouched] = useState({})
-
-    const {onLogin} = use(UserContext)
-
+    const { onLogin } = use(UserContext)
     const navigate = useNavigate();
 
-    const actionHandler = async () => {
-        const errors = validation.login(userData);
-        setErrors(errors);
+    const {
+        userData,
+        isPasswordsVisible,
+        errors,
+        isTouched,
+        showHidePassHandler,
+        changeHandler,
+        validationHandler,
+        actionHandler } = useControlledAuthForms(onSubmit, initialValues, 'login')
 
-        if (Object.keys(errors).length > 0) {
-            setIsTouched(errors);
-        }
 
-        const { email, password } = userData
- 
+    async function onSubmit(user) {
+        const { email, password } = user;
+
         try {
             const response = await request(`/users?email=eq.${email}`);
 
             if (response[0].password !== password) {
                 return alert('Email or password are not valid!')
             }
- 
+
             const data = getUserData(response[0]);
 
             onLogin(data);
@@ -52,30 +51,6 @@ export default function Login() {
         }
     }
 
-
-    const changeHandler = (e) => {
-
-        setUserData(state => ({
-            ...state,
-            [e.target.name]: e.target.value
-        }))
-    };
-
-    const showHidePassHandler = () => {
-        setIsPasswordVisible(() => isPasswordVisible ? false : true
-        )
-    }
-
-    const validationHandler = (e) => {
-        setIsTouched(state => ({
-            ...state,
-            [e.target.name]: true
-        }))
-
-        const errors = validation.login(userData);
-
-        setErrors(errors)
-    }
 
     const errorMessage = (field) => errors[field] && isTouched[field] ? <p className="errorMessage">{errors[field]}</p> : '';
     const inputClass = (field) => errors[field] && isTouched[field] ? "form-group-error" : "form-group";
@@ -111,7 +86,7 @@ export default function Login() {
                         <div className="password-wrapper">
                             <input
                                 id="password"
-                                type={isPasswordVisible ? 'text' : 'password'}
+                                type={isPasswordsVisible['password'] ? 'text' : 'password'}
                                 name="password"
                                 placeholder="Enter your password"
                                 onBlur={validationHandler}
@@ -123,12 +98,12 @@ export default function Login() {
                                 type="button"
                                 className="password-toggle"
                                 aria-label="Show password"
-                                onClick={() => showHidePassHandler()}
-                                >
-                                <EyeIcon isVisible={isPasswordVisible} />
+                                onClick={() => showHidePassHandler('password')}
+                            >
+                                <EyeIcon isVisible={isPasswordsVisible['password']} />
                             </button>
                         </div>
-                                {errorMessage('password')}
+                        {errorMessage('password')}
                     </div>
 
                     <button

@@ -1,14 +1,13 @@
-
 import { Link, useNavigate, useParams } from 'react-router';
 import { use, useEffect, useState } from 'react';
 import request from '../../utils/request.js';
 import NotFound from '../not-found/NotFound.jsx';
-import './CarDetails.css';
 import AddComment from '../comments/AddComment.jsx';
 import Comments from '../comments/Comments.jsx';
 import UserContext from '../../contexts/UserContext.js';
 import LikeCar from '../likes/LikeCar.jsx';
 import extractCorrectOpions from '../../utils/carSpecsUtils.js';
+import './CarDetails.css';
 
 const initialValues = {
     id: '',
@@ -32,9 +31,9 @@ export default function CarDetails() {
     const [car, setCar] = useState(initialValues);
     const [refresh, setRefresh] = useState(false);
     const navigate = useNavigate();
-
     const user_id = user?.id;
-    const owner_id = car.owner_id
+
+    const owner_id = car?.owner_id
 
     useEffect(() => {
         request(`/cars?id=eq.${car_id}`)

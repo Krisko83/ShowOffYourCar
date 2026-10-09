@@ -1,11 +1,12 @@
 import { Link, useNavigate } from 'react-router';
-import { use, useState } from 'react';
-import { validation } from '../../utils/validation.js';
+import { use } from 'react';
+// import { validation } from '../../utils/validation.js';
 import request from '../../utils/request.js';
 import EyeIcon from './EyeIcon.jsx';
- import "./Register.css";
+import "./Register.css";
 import UserContext from '../../contexts/UserContext.js';
 import getUserData from '../../utils/userUtils.js';
+import useControlledAuthForms from '../../hooks/useControlledAuthForms.js';
 
 const initialValues = {
     fullName: '',
@@ -17,44 +18,31 @@ const initialValues = {
     gender: 'male',
     password: '',
     repeatPassword: ''
-}
-
-const visibilityInitials = {
-    password: false,
-    repeatPassword: false
-}
+};
 
 
-export default function Register() {
-    const [userData, setUserData] = useState(initialValues);
-    const [isPasswordsVisible, setIsPasswordsVisible] = useState(visibilityInitials);
-    const [errors, setErrors] = useState({});
-    const [isTouched, setIsTouched] = useState({});
+export default function Register() { 
     const { onRegister } = use(UserContext)
 
     const navigate = useNavigate();
 
-    const actionHandler = async () => {
+    const {
+        userData,
+        isPasswordsVisible,
+        errors,
+        isTouched,
+        showHidePassHandler,
+        changeHandler,
+        validationHandler,
+        actionHandler } = useControlledAuthForms(onSubmit, initialValues, 'register')
+        
 
-        const errors = validation.register(userData)
-        setErrors(errors)
-
-        if (Object.keys(errors).length > 0) {
-            setIsTouched(errors)
-            return
-        }
-
-        const userFormData = {
-            password: userData.password,
-            ...getUserData(userData)
-        }
- 
- 
+    async function onSubmit(user) {
         try {
-            const response = await request('/users', 'POST', userFormData);
- 
+            const response = await request('/users', 'POST', user);
+
             const data = getUserData(response[0])
-            
+
             onRegister(data);
 
             navigate('/');
@@ -63,36 +51,8 @@ export default function Register() {
             console.log(error);
         }
 
-    };
-
-    const changeHandler = (e) => {
-
-        setUserData(state => ({
-            ...state,
-            [e.target.name]: e.target.value
-        }))
-    };
-
-
-    const showHidePassHandler = (field) => {
-
-        setIsPasswordsVisible(state => ({
-            ...state,
-            [field]: isPasswordsVisible[field] ? false : true
-        }))
-    };
-
-    const validationHandler = (e) => {
-
-        setIsTouched(state => ({
-            ...state,
-            [e.target.name]: true
-        }))
-
-        const errors = validation.register(userData);
-
-        setErrors(errors);
     }
+ 
 
     const errorMessage = (field) => errors[field] && isTouched[field] ? <p className="errorMessage">{errors[field]}</p> : '';
     const inputClass = (field) => errors[field] && isTouched[field] ? "form-group-error" : "form-group";

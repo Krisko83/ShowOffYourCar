@@ -7,6 +7,8 @@ export default function Comments({
     owner_id,
     refresh
 }) {
+
+
     const [comments, setComments] = useState([]);
 
     useEffect(() => {

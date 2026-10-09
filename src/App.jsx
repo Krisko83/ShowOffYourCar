@@ -16,6 +16,7 @@ import CarDetails from './components/car-details/CarDetails.jsx'
 import CarEdit from './components/car-edit/CarEdit.jsx'
 import UserContext from './contexts/UserContext.js'
 import CarAdd from './components/car-add/CarAdd.jsx'
+import Profile from './components/profile/Profile.jsx'
 
 
 function App() {
@@ -65,6 +66,7 @@ function App() {
         <Route element={<IsGuest user={user} />}>
           <Route path='/cars/:car_id/edit' element={<CarEdit />} />
           <Route path='/cars/add-car' element={<CarAdd />} />
+          <Route path='/profile' element={<Profile />} />
         </Route>
 
         <Route path='/auth' element={<IsAuth user={user} />}>

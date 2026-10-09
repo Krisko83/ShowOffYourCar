@@ -23,7 +23,7 @@ export default function Header() {
                                 <>
                                     <li><Link to="/cars/add-car">Add Car</Link></li>
                                     <li><Link to="/profile">Profile</Link></li>
-                                    <li><button onClick={onLogout} className='navBtn'>Logout</button></li>
+                                    <li><button onClick={onLogout} className='nav-btn'>Logout</button></li>
                                 </>
                                 :
                                 <>
