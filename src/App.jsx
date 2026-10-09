@@ -28,7 +28,7 @@ function App() {
     setUser(userData)
   }
 
-  const onRegister = (userData) => {  
+  const onRegister = (userData) => {
 
     sessionStorage.setItem('userData', JSON.stringify({ userData }))
     setUser(userData)
@@ -63,7 +63,6 @@ function App() {
         <Route element={<IsGuest user={user} />}>
           <Route path='/cars/:carId/edit' element={<CarEdit />} />
           <Route path='/cars/add-car' element={<AddCar />} />
-          {/* <Route path='/auth/logout' element={<Logout />} />   */}
         </Route>
 
         <Route path='/auth' element={<IsAuth user={user} />}>

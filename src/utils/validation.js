@@ -1,5 +1,5 @@
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-const imageUrlRegex = /^https?:\/\/.+\.(jpg|jpeg|png|gif|webp)(\?.*)?$/i;
+const imageUrlRegex = /^https?:\/\/[^\s/$.?#].[^\s]*$/i;
 
 function register(values) {
     const errors = {};

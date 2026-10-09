@@ -1,5 +1,5 @@
 
-import { Link, useParams } from 'react-router';
+import { Link, useNavigate, useParams } from 'react-router';
 import { use, useEffect, useState } from 'react';
 import request from '../../utils/request.js';
 import NotFound from '../not-found/NotFound.jsx';
@@ -27,8 +27,10 @@ export default function CarDetails() {
     const { user } = use(UserContext);
     const { carId } = useParams();
     const [car, setCar] = useState(initialValues);
-    const userId = user.userData.id;
     const [refresh, setRefresh] = useState(false);
+    const navigate = useNavigate();
+
+    const userId = user?.id;
 
     useEffect(() => {
         request(`/cars?id=eq.${carId}`)
@@ -38,6 +40,18 @@ export default function CarDetails() {
             })
 
     }, [carId]);
+
+    const deleteHandler = async () => {
+        const confirmed = confirm('Are you sure you want to delete this car?')
+
+        if (!confirmed) {
+            return
+        }
+
+        await request(`/cars?id=eq.${carId}`, 'DELETE');
+
+        navigate('/');
+    }
 
 
     const refreshPage = () => {
@@ -143,25 +157,26 @@ export default function CarDetails() {
                             Edit
                         </Link>
 
-                        <Link to={`/cars/${carId}/delete`} className="action-button delete-button">
+                        <button onClick={deleteHandler} className="action-button delete-button">
                             Delete
-                        </Link>
+                        </button>
                     </>
-                    :
-                    <div className="reaction-buttons">
+                    : !user
+                        ? ''
+                        :
+                        <div className="reaction-buttons">
 
-                        <button className="reaction-button like-button">
-                            👍
-                            <span>Like</span>
-                        </button>
+                            <button className="reaction-button like-button">
+                                👍
+                                <span>Like</span>
+                            </button>
 
-                        <button className="reaction-button dislike-button">
-                            👎
-                            <span>Dislike</span>
-                        </button>
+                            <button className="reaction-button dislike-button">
+                                👎
+                                <span>Dislike</span>
+                            </button>
 
-                    </div>
-
+                        </div>
                 }
             </section>
 

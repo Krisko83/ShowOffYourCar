@@ -1,8 +1,9 @@
-import { useEffect, useState } from "react";
+import { use, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
 import request from "../../utils/request.js";
 import NotFound from "../not-found/NotFound.jsx";
 import { validation } from "../../utils/validation.js";
+import UserContext from "../../contexts/UserContext.js";
 
 const initialValues = {
     imageUrl: '',
@@ -24,6 +25,9 @@ export default function CarEdit() {
     const [isTouched, setIsTouched] = useState({})
     const [errors, setErrors] = useState({})
     const { carId } = useParams();
+
+    const { user } = use(UserContext)
+    const owner_id = user.id;
     
     const navigate = useNavigate();
 
@@ -55,7 +59,6 @@ export default function CarEdit() {
     };
 
     const actionHandler = async () => {
-        const owner_id = '454545';
 
         const errors = validation.addEdit(carData);
 
@@ -74,7 +77,7 @@ export default function CarEdit() {
         try {
             await request(`/cars?id=eq.${carId}`, 'PUT', car);
 
-            navigate('/');
+            navigate(`/cars/${carId}/details`);
         } catch (error) {
             console.log(error);
         }
