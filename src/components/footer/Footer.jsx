@@ -1,88 +1,16 @@
-// import { Link } from "react-router";
-
-// export default function Footer() {
-
-//     return (
-
-//         <footer className="tm-footer">
-//             <div className="container">
-//                 <div className="row margin-bottom-60">
-//                     <nav className="col-lg-3 col-md-3 tm-footer-nav tm-footer-div">
-//                         <h3 className="tm-footer-div-title">Main Menu</h3>
-//                         <ul>
-//                             <li>
-//                                 <Link to="/">Home</Link>
-//                             </li>
-//                             <li>
-//                                 <Link to="/about">About Us</Link>
-//                             </li>
-//                             <li>
-//                                 <Link to="/">Gallery</Link>
-//                             </li>
-//                             <li>
-//                                 <Link to="/contacts">Contacts</Link>
-//                             </li>
-//                         </ul>
-//                     </nav>
-//                     <div className="col-lg-5 col-md-5 tm-footer-div">
-//                         <h3 className="tm-footer-div-title">About Us</h3>
-//                         <p className="margin-top-15">
-//                             Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim.
-//                             Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus.
-//                             Phasellus viverra nulla ut metus varius laoreet.
-//                         </p>
-//                         <p className="margin-top-15">
-//                             Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem.
-//                             Maecenas nec odio et ante tincidunt tempus. Donec vitae sapien ut
-//                             libero venenatis faucibus.
-//                         </p>
-//                     </div>
-//                     <div className="col-lg-4 col-md-4 tm-footer-div">
-//                         <h3 className="tm-footer-div-title">Get Social</h3>
-//                         <p>
-//                             Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim.
-//                             Aliquam lorem ante.
-//                         </p>
-//                         <div className="tm-social-icons-container">
-//                             <a to="#" className="tm-social-icon">
-//                                 <i className="fa fa-facebook" />
-//                             </a>
-//                             <a to="#" className="tm-social-icon">
-//                                 <i className="fa fa-twitter" />
-//                             </a>
-//                             <a to="#" className="tm-social-icon">
-//                                 <i className="fa fa-linkedin" />
-//                             </a>
-//                             <a to="#" className="tm-social-icon">
-//                                 <i className="fa fa-youtube" />
-//                             </a>
-//                             <a to="#" className="tm-social-icon">
-//                                 <i className="fa fa-behance" />
-//                             </a>
-//                         </div>
-//                     </div>
-//                 </div>
-//                 <div className="row tm-copyright">
-//                     <p className="col-lg-12 small copyright-text text-center">
-//                         Copyright © 2084 Company Name
-//                     </p>
-//                 </div>
-//             </div>
-//         </footer>
-//     );
-// }
-
-
 import { Link } from 'react-router';
 import './Footer.css';
+import { use } from 'react';
+import UserContext from '../../contexts/UserContext.js';
 
 export default function Footer() {
+    const { user } = use(UserContext);
+
     return (
         <footer className="footer">
 
             <div className="footer-content">
 
-                {/* ABOUT */}
 
                 <div className="footer-section footer-about">
                     <h2>Show off<span>Your Car</span></h2>
@@ -125,13 +53,17 @@ export default function Footer() {
                             <Link to="/cars/add-car">Post Your Car</Link>
                         </li>
 
-                        <li>
-                            <Link to="/auth/login">Login</Link>
-                        </li>
+                        {!user &&
+                            <>
+                                <li>
+                                    <Link to="/auth/login">Login</Link>
+                                </li>
 
-                        <li>
-                            <Link to="/auth/register">Create Account</Link>
-                        </li>
+                                <li>
+                                    <Link to="/auth/register">Create Account</Link>
+                                </li>
+                            </>
+                        }
                     </ul>
                 </div>
 
@@ -140,7 +72,7 @@ export default function Footer() {
                     <h3>Get in Touch</h3>
 
                     <p className="footer-contact">
-                        📧 contact@carcommunity.com
+                        📧 	showoffcar@abv.bg
                     </p>
 
                     <p className="footer-contact">
@@ -148,15 +80,15 @@ export default function Footer() {
                     </p>
 
                     <div className="social-links">
-                        <Link to="/" aria-label="Facebook">
+                        <Link to="https://www.facebook.com/profile.php?id=61594912485411" target='_blank' rel="noopener noreferrer" aria-label="Facebook">
                             f
                         </Link>
 
-                        <Link to="/" aria-label="Instagram">
+                        <Link to="https://www.instagram.com/showoffcar2026/"  target='_blank' rel="noopener noreferrer" aria-label="Instagram">
                             ◎
                         </Link>
 
-                        <Link to="/" aria-label="Twitter">
+                        <Link to="https://x.com/ShowOffYourCar" target='_blank' rel="noopener noreferrer" aria-label="Twitter">
                             𝕏
                         </Link>
                     </div>

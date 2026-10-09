@@ -6,7 +6,6 @@ import IsGuest from './components/route-guards/isGuest.jsx'
 import About from './components/about/About.jsx'
 import Gallery from './components/gallery/Gallery.jsx'
 import Contacts from './components/contacts/Contacts.jsx'
-import AddCar from './components/add-car/AddCar.jsx'
 import Login from './components/auth/Login.jsx'
 import Register from './components/auth/Register.jsx'
 import NotFound from './components/not-found/NotFound.jsx'
@@ -16,11 +15,12 @@ import Home from './components/home/Home.jsx'
 import CarDetails from './components/car-details/CarDetails.jsx'
 import CarEdit from './components/car-edit/CarEdit.jsx'
 import UserContext from './contexts/UserContext.js'
+import CarAdd from './components/car-add/CarAdd.jsx'
 
 
 function App() {
   const initialState = JSON.parse(sessionStorage.getItem('userData'))?.userData;
-  
+
   const [user, setUser] = useState(initialState)
   const navigate = useNavigate()
 
@@ -64,7 +64,7 @@ function App() {
 
         <Route element={<IsGuest user={user} />}>
           <Route path='/cars/:car_id/edit' element={<CarEdit />} />
-          <Route path='/cars/add-car' element={<AddCar />} />
+          <Route path='/cars/add-car' element={<CarAdd />} />
         </Route>
 
         <Route path='/auth' element={<IsAuth user={user} />}>

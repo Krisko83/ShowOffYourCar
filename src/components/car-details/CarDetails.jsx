@@ -8,6 +8,7 @@ import AddComment from '../comments/AddComment.jsx';
 import Comments from '../comments/Comments.jsx';
 import UserContext from '../../contexts/UserContext.js';
 import LikeCar from '../likes/LikeCar.jsx';
+import extractCorrectOpions from '../../utils/carSpecsUtils.js';
 
 const initialValues = {
     id: '',
@@ -104,7 +105,7 @@ export default function CarDetails() {
 
                         <div className="specification">
                             <span>Category</span>
-                            <strong>{car.category}</strong>
+                            <strong>{extractCorrectOpions(car.category)}</strong>
                         </div>
 
                         <div className="specification">
@@ -114,12 +115,12 @@ export default function CarDetails() {
 
                         <div className="specification">
                             <span>Gearbox</span>
-                            <strong>{car.gearbox}</strong>
+                            <strong>{extractCorrectOpions(car.gearbox)}</strong>
                         </div>
 
                         <div className="specification">
                             <span>Fuel</span>
-                            <strong>{car.fuel}</strong>
+                            <strong>{extractCorrectOpions(car.fuel)}</strong>
                         </div>
 
                         <div className="specification">
@@ -134,7 +135,7 @@ export default function CarDetails() {
 
                         <div className="specification">
                             <span>Drive Type</span>
-                            <strong>{car.driveType}</strong>
+                            <strong>{extractCorrectOpions(car.driveType)}</strong>
                         </div>
 
                     </div>
@@ -168,7 +169,7 @@ export default function CarDetails() {
                     </>
                     : user
                         ?
-                        <LikeCar user_id={user_id} car_id={car_id} onLikeUnlike={refreshPage} refresh={refresh}/>
+                        <LikeCar user_id={user_id} car_id={car_id} onLikeUnlike={refreshPage} refresh={refresh} />
                         :
                         ''
                 }

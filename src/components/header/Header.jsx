@@ -37,10 +37,9 @@ export default function Header() {
                 </div>
                 <div className="wrapper">
                     <section className="site-header-text">
-                        <h2>Welcome to Show off your car app!</h2>
-                        {/* <h2>Here you can show your car, like and comment other cars!</h2>
-                        <h2>Business Association</h2> */}
-                        <p>Here you can show off you fancy car!</p>
+                        <h2>Welcome to the Show off your car app!</h2>
+                
+                        <p>Show off your ride, discover amazing cars, and connect with fellow car enthusiasts.  </p>
                     </section>
                 </div>
             </header>

@@ -1,85 +1,21 @@
-import { use, useState } from 'react';
-import request from '../../utils/request.js';
-import './AddCar.css';
-import { useNavigate } from 'react-router';
-import { validation } from '../../utils/validation.js';
-import UserContext from '../../contexts/UserContext.js';
+export default function CarAddEditItem({
+    errors,
+    isTouched,
+    actionHandler,
+    validationHandler,
+    carData,
+    changeHandler,
+    edit
+}) {
 
-const initialValues = {
-    imageUrl: '',
-    manufacturer: '',
-    model: '',
-    year: '',
-    category: '',
-    power: '',
-    gearbox: '',
-    fuel: '',
-    mileage: '',
-    cubic: '',
-    driveType: '',
-    description: '',
-}
-
-export default function AddCar() {
-    const [carData, setCarData] = useState(initialValues)
-    const [isTouched, setIsTouched] = useState({})
-    const [errors, setErrors] = useState({})
-    const { user } = use(UserContext)
-    const navigate = useNavigate();
-    const owner_id = user.id;
- 
-    const actionHandler = async () => {
-
-        const errors = validation.addEdit(carData);
-
-        setErrors(errors)
-
-        if (Object.keys(errors).length > 0) {
-            setIsTouched(errors)
-            return;
-        };
- 
-        const car = {
-            ...carData,
-            owner_id
-        }
-
-        try {
-            await request('/cars', 'POST', car);
-
-            navigate('/');
-        } catch (error) {
-            console.log(error);
-        }
-
-    }
-
-    const changeHandler = (e) => {
-        setCarData(state => ({
-            ...state,
-            [e.target.name]: e.target.value
-        }))
-    }
-
-    const validationHandler = (e) => {
-        setIsTouched(state => ({
-            ...state,
-            [e.target.name]: true
-        }))
-
-        const errors = validation.addEdit(carData);
-
-        setErrors(errors);
-    };
 
     const errorMessage = (field) => errors[field] && isTouched[field] ? <p className="errorMessage">{errors[field]}</p> : '';
     const inputClass = (field) => errors[field] && isTouched[field] ? "form-group-error" : "form-group";
 
-
     return (
         <form className="car-form" action={actionHandler}>
 
-            <h2>Add Car</h2>
+            <h2>{edit ? 'Edit' : 'Add'} Car</h2>
 
             <div className="form-grid">
 
@@ -251,10 +187,9 @@ export default function AddCar() {
             </div>
 
             <button type="submit" className="submit-button">
-                Add Car
+                {edit ? 'Edit' : 'Add'} Car
             </button>
 
         </form>
     );
-
 }
