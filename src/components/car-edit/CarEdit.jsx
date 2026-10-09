@@ -24,21 +24,21 @@ export default function CarEdit() {
     const [carData, setCarData] = useState(initialValues);
     const [isTouched, setIsTouched] = useState({})
     const [errors, setErrors] = useState({})
-    const { carId } = useParams();
+    const { car_id } = useParams();
 
     const { user } = use(UserContext)
     const owner_id = user.id;
-    
+     
     const navigate = useNavigate();
 
     useEffect(() => {
-        request(`/cars?id=eq.${carId}`)
+        request(`/cars?id=eq.${car_id}`)
             .then(res => setCarData(res[0]))
             .catch(() => {
                 <NotFound />
             })
 
-    }, [carId]);
+    }, [car_id]);
 
     const changeHandler = (e) => {
         setCarData(state => ({
@@ -75,9 +75,9 @@ export default function CarEdit() {
         }
 
         try {
-            await request(`/cars?id=eq.${carId}`, 'PUT', car);
+            await request(`/cars?id=eq.${car_id}`, 'PUT', car);
 
-            navigate(`/cars/${carId}/details`);
+            navigate(`/cars/${car_id}/details`);
         } catch (error) {
             console.log(error);
         }

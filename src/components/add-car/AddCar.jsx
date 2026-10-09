@@ -26,8 +26,8 @@ export default function AddCar() {
     const [errors, setErrors] = useState({})
     const { user } = use(UserContext)
     const navigate = useNavigate();
-    const owner_id = user?.id;
-
+    const owner_id = user.id;
+ 
     const actionHandler = async () => {
 
         const errors = validation.addEdit(carData);

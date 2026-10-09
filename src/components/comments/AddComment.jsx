@@ -3,7 +3,7 @@ import UserContext from "../../contexts/UserContext.js";
 import request from "../../utils/request.js";
 
 export default function AddComment({
-    carId,
+    car_id,
    onCreate
 }) {
     const [commentData, setCommentData] = useState({ content: '' });
@@ -22,7 +22,7 @@ export default function AddComment({
             content: commentData.content,
             ownerId: user.userData.id,
             author: user.userData.fullName,
-            carId
+            car_id
         }
         try {
             await request('/comments', 'POST', comment)

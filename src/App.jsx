@@ -19,7 +19,9 @@ import UserContext from './contexts/UserContext.js'
 
 
 function App() {
-  const [user, setUser] = useState(JSON.parse(sessionStorage.getItem('userData')))
+  const initialState = JSON.parse(sessionStorage.getItem('userData'))?.userData;
+  
+  const [user, setUser] = useState(initialState)
   const navigate = useNavigate()
 
 
@@ -57,11 +59,11 @@ function App() {
         <Route path='/cars/gallery' element={<Gallery />} />
         <Route path='/about' element={<About />} />
         <Route path='/contacts' element={<Contacts />} />
-        <Route path='/cars/:carId/details' element={<CarDetails />} />
+        <Route path='/cars/:car_id/details' element={<CarDetails />} />
 
 
         <Route element={<IsGuest user={user} />}>
-          <Route path='/cars/:carId/edit' element={<CarEdit />} />
+          <Route path='/cars/:car_id/edit' element={<CarEdit />} />
           <Route path='/cars/add-car' element={<AddCar />} />
         </Route>
 

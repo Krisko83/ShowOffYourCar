@@ -7,6 +7,7 @@ import './CarDetails.css';
 import AddComment from '../comments/AddComment.jsx';
 import Comments from '../comments/Comments.jsx';
 import UserContext from '../../contexts/UserContext.js';
+import LikeCar from '../likes/LikeCar.jsx';
 
 const initialValues = {
     imageUrl: null,
@@ -25,21 +26,21 @@ const initialValues = {
 
 export default function CarDetails() {
     const { user } = use(UserContext);
-    const { carId } = useParams();
+    const { car_id } = useParams();
     const [car, setCar] = useState(initialValues);
     const [refresh, setRefresh] = useState(false);
     const navigate = useNavigate();
 
-    const userId = user?.id;
+    const user_id = user?.id;
 
     useEffect(() => {
-        request(`/cars?id=eq.${carId}`)
+        request(`/cars?id=eq.${car_id}`)
             .then(res => setCar(res[0]))
             .catch(() => {
                 <NotFound />
             })
 
-    }, [carId]);
+    }, [car_id]);
 
     const deleteHandler = async () => {
         const confirmed = confirm('Are you sure you want to delete this car?')
@@ -48,7 +49,7 @@ export default function CarDetails() {
             return
         }
 
-        await request(`/cars?id=eq.${carId}`, 'DELETE');
+        await request(`/cars?id=eq.${car_id}`, 'DELETE');
 
         navigate('/');
     }
@@ -57,6 +58,8 @@ export default function CarDetails() {
     const refreshPage = () => {
         setRefresh(state => !state)
     }
+
+
 
     return (
         <main className="details-page">
@@ -150,10 +153,10 @@ export default function CarDetails() {
 
 
             <section className="car-actions">
-                {user && userId === car.owner_id
+                {user && user_id === car.owner_id
                     ?
                     <>
-                        <Link to={`/cars/${carId}/edit`} className="action-button edit-button">
+                        <Link to={`/cars/${car_id}/edit`} className="action-button edit-button">
                             Edit
                         </Link>
 
@@ -161,22 +164,11 @@ export default function CarDetails() {
                             Delete
                         </button>
                     </>
-                    : !user
-                        ? ''
+                    : user
+                        ?
+                        <LikeCar user_id={user_id} car_id={car_id} onLikeUnlike={refreshPage} refresh={refresh}/>
                         :
-                        <div className="reaction-buttons">
-
-                            <button className="reaction-button like-button">
-                                👍
-                                <span>Like</span>
-                            </button>
-
-                            <button className="reaction-button dislike-button">
-                                👎
-                                <span>Dislike</span>
-                            </button>
-
-                        </div>
+                        ''
                 }
             </section>
 
@@ -186,9 +178,9 @@ export default function CarDetails() {
 
                 <h2>Comments</h2>
 
-                {user && <AddComment carId={carId} onCreate={refreshPage} />}
+                {user && <AddComment car_id={car_id} onCreate={refreshPage} />}
 
-                <Comments carId={carId} refresh={refresh} />
+                <Comments car_id={car_id} refresh={refresh} />
 
             </section>
 

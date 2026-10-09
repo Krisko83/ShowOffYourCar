@@ -258,6 +258,19 @@
     line-height: 1.5;
 }
 
+
+.like-btn .hover-content {
+    display: none;
+}
+
+.like-btn:hover .default-content {
+    display: none;
+}
+
+.like-btn:hover .hover-content {
+    display: inline;
+}
+
 /* TABLET */
 
 @media (max-width: 800px) {
