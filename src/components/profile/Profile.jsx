@@ -18,14 +18,14 @@ export default function Profile() {
                         <h2>Personal Information</h2>
                         <p>Your profile details</p>
                     </div>
-
+{/* 
                     <button
                         type="button"
                         className="change-info-btn"
                         // onClick={onEdit}
                     >
                         ✎ Change Personal Info
-                    </button>
+                    </button> */}
                 </div>
 
                 <div className="personal-details-content">

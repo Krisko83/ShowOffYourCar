@@ -8,7 +8,7 @@ import CarItem from "../home/CarItem.jsx";
 
 export default function Gallery() {
     const [page, setPage] = useState(1);
-    const [limit, setLimit] = useState(12);
+    const [limit, setLimit] = useState(9);
     const [cars, setCars] = useState([])
 
     useEffect(() => {
@@ -23,10 +23,17 @@ export default function Gallery() {
         }
     }, []);
 
+    
+
     const totalPages = Math.ceil(cars.length / limit)
     const startIndex = (page - 1) * limit;
 
     const paginatedCars = cars.slice(startIndex, startIndex + limit);
+
+       const setPageLimit = (e) => {
+        setLimit(Number(e.target.value));
+        setPage(1);
+    }
 
 
     return (
@@ -39,7 +46,7 @@ export default function Gallery() {
                 {paginatedCars.map(car => <CarItem key={car.id} {...car} />)}
 
             </div>
-            <Pagination page={page} setPage={setPage} limit={limit} setLimit={setLimit} totalPages={totalPages} />
+            <Pagination page={page} setPage={setPage} limit={limit} setPageLimit={setPageLimit} totalPages={totalPages} />
         </main>
     );
 }
