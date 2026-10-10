@@ -1,6 +1,101 @@
+import { use, useEffect, useState } from 'react';
 import './Profile.css';
+import UserContext from '../../contexts/UserContext.js';
+import PersonalInfoItem from './PersonalInfoItem.jsx';
+import ChangeProfileInfoItem from './ChangeProfileInfoItem.jsx';
+import request from '../../utils/request.js';
+
+const initialValues = {
+    fullName: '',
+    username: '',
+    email: '',
+    age: '',
+    country: '',
+    city: '',
+    gender: '',
+    password: '',
+
+};
 
 export default function Profile() {
+    const { user } = use(UserContext);
+    const [isEditClicked, setIsEditClicked] = useState(false);
+    const [userInfo, setUserInfo] = useState(initialValues)
+    const user_id = user.id;
+    // const [userData, setUserData] = useState(initialValues);
+    // const [errors, setErrors] = useState({});
+    // const [isTouched, setIsTouched] = useState(false)
+
+
+
+    useEffect(() => {
+        request(`/users?id=eq.${user_id}`)
+            .then(result => setUserInfo(result[0]))
+            .catch((err) => {
+                console.log(err.message);
+            });
+
+    }, [user_id])
+
+    const updateUserProfile = (info) => {
+        setUserInfo(info);
+    }
+
+    // const onClickEdit = () => {
+    //     setIsEditClicked(state => !state);
+    // };
+
+    // const actionHandler = () => {
+    //     let changePassword = false;
+
+    //     if (userData.inputPassword) {
+    //         changePassword = true;
+    //     }
+
+    //     if (changePassword && userData.password === userData.inputPassword) {
+
+    //         const errorsWithPass = validation.register({
+    //             ...userData,
+    //             password: userData.newPassword,
+    //             repeatPassword: userData.repeatNewPassword
+    //         })
+
+    //         setErrors(errorsWithPass)
+    //     }
+
+    //     const errors = validation.register({
+    //         fullName: userData.fullName,
+    //         username: userData.username,
+    //         email: userData.email,
+    //         age: userData.age,
+    //         country: userData.country,
+    //         city: userData.city,
+    //         gender: userData.gender,
+    //     })
+
+    //     setErrors(errors)
+    // }
+
+    // const changeHandler = (e) => {
+    //     setUserData(state => ({
+    //         ...state,
+    //         [e.target.name]: e.target.value
+    //     }))
+    // }
+
+    // const validationHandler = (e) => {
+    //     setIsTouched(state => ({
+    //         ...state,
+    //         [e.target.name]: true
+    //     }))
+
+    // }
+
+    const onClickEdit = () => {
+        setIsEditClicked(state => !state);
+    };
+
+
     return (
         <main className="profile-page">
             <header className="profile-heading">
@@ -11,73 +106,86 @@ export default function Profile() {
                 </div>
             </header>
 
+            {isEditClicked
+                ?
+                <ChangeProfileInfoItem
+                    onClickCancel={onClickEdit}
+                    user_id={user_id}
+                    updateUser={updateUserProfile}
+                />
+                :
+                <PersonalInfoItem
+                onClickEdit={onClickEdit}
+                    {...userInfo}
+                />
+            }
 
-            <section className="personal-details-card">
+            {/* <section className="personal-details-card">
                 <div className="personal-details-header">
                     <div>
                         <h2>Personal Information</h2>
                         <p>Your profile details</p>
                     </div>
-{/* 
+
                     <button
                         type="button"
                         className="change-info-btn"
-                        // onClick={onEdit}
+                        onClick={onClickEdit}
                     >
                         ✎ Change Personal Info
-                    </button> */}
+                    </button>
                 </div>
 
                 <div className="personal-details-content">
                     <div className="personal-detail">
                         <span>Full Name</span>
-                        {/* <p>{user.fullName}</p> */}
+                        <p>{user.fullName}</p>
                     </div>
 
                     <div className="personal-detail">
                         <span>Username</span>
-                        {/* <p>{user.username}</p> */}
+                        <p>{user.username}</p>
                     </div>
 
                     <div className="personal-detail">
                         <span>Email</span>
-                        {/* <p>{user.email}</p> */}
+                        <p>{user.email}</p>
                     </div>
 
                     <div className="personal-detail">
                         <span>Age</span>
-                        {/* <p>{user.age || 'Not provided'}</p> */}
+                        <p>{user.age || 'Not provided'}</p>
                     </div>
 
                     <div className="personal-detail">
                         <span>Country</span>
-                        {/* <p>{user.country || 'Not provided'}</p> */}
+                        <p>{user.country || 'Not provided'}</p>
                     </div>
 
                     <div className="personal-detail">
                         <span>City</span>
-                        {/* <p>{user.city || 'Not provided'}</p> */}
+                        <p>{user.city || 'Not provided'}</p>
                     </div>
 
                     <div className="personal-detail">
                         <span>Gender</span>
-                        {/* <p>{user.gender || 'Not provided'}</p> */}
+                        <p>{user.gender || 'Not provided'}</p>
                     </div>
                 </div>
-            </section>
+            </section> */}
 
 
 
-            <form className="profile-card">
-                <aside className="profile-picture-panel">
-                    <div className="profile-avatar" aria-hidden="true">👤</div>
-                    <label className="upload-picture">
-                        <span className="upload-icon" aria-hidden="true">↑</span>
-                        <span>Upload a profile picture</span>
-                        <small>JPG, PNG or GIF (max 5 MB)</small>
-                        <input type="file" accept="image/png,image/jpeg,image/gif" />
-                    </label>
-                </aside>
+            {/* <form className="profile-card">
+                    <aside className="profile-picture-panel">
+                        <div className="profile-avatar" aria-hidden="true">👤</div>
+                        <label className="upload-picture">
+                            <span className="upload-icon" aria-hidden="true">↑</span>
+                            <span>Upload a profile picture</span>
+                            <small>JPG, PNG or GIF (max 5 MB)</small>
+                            <input type="file" accept="image/png,image/jpeg,image/gif" />
+                        </label>
+                    </aside>
 
                 <section className="profile-fields" aria-label="Profile details">
                     <div className="profile-field">
@@ -133,7 +241,7 @@ export default function Profile() {
 
                     <button className="profile-save-button" type="submit">Save Changes</button>
                 </section>
-            </form>
+            </form> */}
 
             <section className="profile-bottom">
                 <div className="commented-cars-panel">

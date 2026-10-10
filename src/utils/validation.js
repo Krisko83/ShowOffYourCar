@@ -104,12 +104,12 @@ function login(values) {
 
 function addEdit(values) {
     const errors = {}
-     
-    const categoryOptions = ['sedan','hatchback', 'wagon','coupe','convertible','suv','van', 'pickup'];
+
+    const categoryOptions = ['sedan', 'hatchback', 'wagon', 'coupe', 'convertible', 'suv', 'van', 'pickup'];
     const gearOptions = ['manual', 'automatic'];
     const fuelOptions = ['petrol', 'diesel', 'hybrid', 'electric', 'lpg'];
     const driverTypeOptions = ['fwd', 'rwd', 'awd', '4wd']
- 
+
     if (!values.imageUrl) {
         errors['imageUrl'] = 'ImageUrl is required!'
     }
@@ -158,7 +158,7 @@ function addEdit(values) {
         errors['mileage'] = 'Mileage must be more then 0!'
     }
 
-    
+
     if (!values.cubic) {
         errors['cubic'] = 'Engine is required!'
     }
@@ -167,7 +167,7 @@ function addEdit(values) {
         errors['cubic'] = 'Engine must be more then 0!'
     }
 
-       
+
     if (!values.description) {
         errors['description'] = 'Description is required!'
     }
@@ -176,28 +176,125 @@ function addEdit(values) {
         errors['description'] = 'Description must be at least 10 characters long!'
     }
 
-    if(!categoryOptions.includes(values.category)) {
+    if (!categoryOptions.includes(values.category)) {
         errors['category'] = 'Category must be one of these options Sedan, Hatchback, Wagon, Coupe, Convertible, SUV, Van or Pickup!'
     }
 
-    if(!gearOptions.includes(values.gearbox)) {
+    if (!gearOptions.includes(values.gearbox)) {
         errors['gearbox'] = 'Gearbox must be one of Manual or Automatic!';
     }
 
-    
-    if(!fuelOptions.includes(values.fuel)) {
+
+    if (!fuelOptions.includes(values.fuel)) {
         errors['fuel'] = 'Fuel must be one of these options Petrol, Diesel, Hybrid, Electric or LPG!';
     }
 
-    if(!driverTypeOptions.includes(values.driveType)) {
+    if (!driverTypeOptions.includes(values.driveType)) {
         errors['driveType'] = 'Drive Type must be one of these options Front-Wheel Drive, Rear-Wheel Drive, All-Wheel Drive or 4-Wheel Drive';
     }
 
     return errors
 }
- 
+
+function changeProfileInfo(values) {
+    const errors = {};
+
+
+
+    if (!values.fullName) {
+        errors['fullName'] = 'Full Name is required!';
+    }
+
+    if (values.fullName && values.fullName.length < 5) {
+        errors['fullName'] = 'Full Name must be at least 5 characters long!';
+    }
+
+    if (!values.username) {
+        errors['username'] = 'Username is required!';
+    }
+
+    if (values.username && values.username.length < 3) {
+        errors['username'] = 'Username must be at least 3 characters long!';
+    }
+
+    if (!values.email) {
+        errors['email'] = 'Email is required!';
+    }
+
+    if (!emailRegex.test(values.email)) {
+        errors['email'] = 'Please enter a valid email address!';
+    }
+
+    if (!values.age) {
+        errors['age'] = 'Age is required!';
+    }
+
+    if (values.age < 18) {
+        errors['age'] = 'User must be 18 years old or older!';
+    }
+
+    if (!values.country) {
+        errors['country'] = 'Country is required!';
+    }
+
+    if (values.country && values.country.length < 2) {
+        errors['country'] = 'Country must be at least 2 characters long!';
+    }
+
+    if (!values.city) {
+        errors['city'] = 'City is required!';
+    }
+
+    if (values.city && values.city.length < 3) {
+        errors['city'] = 'City must be at least 3 characters long!';
+    }
+
+    return errors;
+}
+
+function changePassword(values, password) {
+    const errors = {};
+
+    console.log('From validator',values, password);
+    
+    if (values.newPassword && values.newPassword.length < 8) {
+        errors['newPassword'] = 'Password must be at least 8 characters long!'
+    }
+
+    if (values.repeatNewPassword && values.repeatNewPassword.length < 8) {
+        errors['repeatNewPassword'] = 'Password must be at least 8 characters long!'
+    }
+
+    if (!values.repeatNewPassword) {
+        errors['repeatNewPassword'] = 'Repeate New Password is required!'
+    }
+
+    if (values.newPassword !== values.repeatNewPassword) {
+        errors['repeatNewPassword'] = 'Password does not match!';
+    }
+
+    if (!values.newPassword) {
+        errors['newPassword'] = 'New Password is required!'
+    }
+
+    if (values.inputPassword !== password) {
+        errors['inputPassword'] = 'Password is incorrect!'
+    }
+
+    if (!values.inputPassword) {
+        errors['inputPassword'] = 'Password is required!'
+    }
+
+    console.log('From validator ERRORS', errors);
+
+
+    return errors
+}
+
 export const validation = {
     register,
     login,
-    addEdit
+    addEdit,
+    changeProfileInfo,
+    changePassword
 }

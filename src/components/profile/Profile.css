@@ -50,6 +50,7 @@
     box-shadow: 0 4px 18px rgb(25 45 75 / 5%);
 }
 
+
 .profile-picture-panel {
     display: flex;
     flex-direction: column;
@@ -125,6 +126,21 @@
     flex-direction: column;
     gap: 8px;
     min-width: 0;
+}
+
+.profile-field.error input {
+    border: 1px solid red;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-width: 0;
+}
+
+.errorMessage {
+    color: #dc2626;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    margin-top: 0.25rem;
 }
 
 .profile-field label {
@@ -301,7 +317,7 @@
     background: #3975e5;
     color: #fff;
 }
- 
+
 .personal-details-card {
     padding: 28px;
     border: 1px solid #e2e8f0;
@@ -389,7 +405,7 @@
         gap: 14px;
     }
 }
- 
+
 
 
 @media (max-width: 850px) {
