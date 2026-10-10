@@ -76,6 +76,7 @@ export default function Register() {
                             name="fullName"
                             placeholder="Enter your full name"
                             className='red-border'
+                            autoComplete="name"
                             onBlur={validationHandler}
                             value={userData.fullName}
                             onChange={changeHandler}
@@ -90,6 +91,7 @@ export default function Register() {
                             type="text"
                             name="username"
                             placeholder="Choose a username"
+                            autoComplete="username"
                             onBlur={validationHandler}
                             value={userData.username}
                             onChange={changeHandler}
@@ -105,6 +107,7 @@ export default function Register() {
                             type="email"
                             name="email"
                             placeholder="you@example.com"
+                            autoComplete="email"
                             onBlur={validationHandler}
                             value={userData.email}
                             onChange={changeHandler}
@@ -208,6 +211,7 @@ export default function Register() {
                                 type={isPasswordsVisible['password'] ? 'text' : 'password'}
                                 name="password"
                                 placeholder="Create a password"
+                                autoComplete="new-password"
                                 onBlur={validationHandler}
                                 value={userData.password}
                                 onChange={changeHandler}
@@ -238,6 +242,7 @@ export default function Register() {
                                 type={isPasswordsVisible['repeatPassword'] ? 'text' : 'password'}
                                 name="repeatPassword"
                                 placeholder="Repeat your password"
+                                autoComplete="new-password"
                                 onBlur={validationHandler}
                                 value={userData.repeatPassword}
                                 onChange={changeHandler}

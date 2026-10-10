@@ -196,7 +196,7 @@ function addEdit(values) {
     return errors
 }
 
-function changeProfileInfo(values) {
+function changeProfileInfo(values, password) {
     const errors = {};
 
 
@@ -249,14 +249,6 @@ function changeProfileInfo(values) {
         errors['city'] = 'City must be at least 3 characters long!';
     }
 
-    return errors;
-}
-
-function changePassword(values, password) {
-    const errors = {};
-
-    console.log('From validator',values, password);
-    
     if (values.newPassword && values.newPassword.length < 8) {
         errors['newPassword'] = 'Password must be at least 8 characters long!'
     }
@@ -285,16 +277,13 @@ function changePassword(values, password) {
         errors['inputPassword'] = 'Password is required!'
     }
 
-    console.log('From validator ERRORS', errors);
-
-
-    return errors
+    return errors;
 }
 
+ 
 export const validation = {
     register,
     login,
     addEdit,
-    changeProfileInfo,
-    changePassword
+    changeProfileInfo, 
 }

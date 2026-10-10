@@ -12,7 +12,10 @@ const initialValues = {
     country: '',
     city: '',
     gender: '',
-    password: ''
+    password: '',
+    inputPassword: '',
+    newPassword: '',
+    repeatNewPassword: ''
 };
 
 export default function ChangeProfileInfoItem({
@@ -23,7 +26,7 @@ export default function ChangeProfileInfoItem({
 
     const [userData, setUserData] = useState(initialValues);
     const [errors, setErrors] = useState({});
-    const [isTouched, setIsTouched] = useState(false);
+    const [isTouched, setIsTouched] = useState({});
     const [menuChangePasswordVisibility, setMenuChangePasswordVisibility] = useState(false);
 
     useEffect(() => {
@@ -36,15 +39,15 @@ export default function ChangeProfileInfoItem({
     }, [user_id])
 
 
-    const actionHandler = async () => {
-        const errors = validation.changeProfileInfo(userData)
+    const actionHandler = async (e) => {
+        e.preventDefault()
+        const errors = validation.changeProfileInfo(userData, userData.password)
         setErrors(errors)
 
         if (Object.keys(errors).length > 0) {
             setIsTouched(errors);
             return
         }
-
 
         const data = getUserData(userData, userData.newPassword)
 
@@ -60,6 +63,7 @@ export default function ChangeProfileInfoItem({
     }
 
     const changeHandler = (e) => {
+
         setUserData(state => ({
             ...state,
             [e.target.name]: e.target.value
@@ -71,6 +75,7 @@ export default function ChangeProfileInfoItem({
             ...state,
             [e.target.name]: true
         }))
+        console.log(isTouched);
 
         const errors = validation.changeProfileInfo(userData)
 
@@ -81,14 +86,37 @@ export default function ChangeProfileInfoItem({
         setMenuChangePasswordVisibility(state => !state);
     }
 
-   
+
+    const changePasswordHandler = () => {
+        const errors = validation.changeProfileInfo(userData, userData.password);
+
+        setErrors(errors);
+
+        if (Object.keys(errors).length > 0) {
+            setIsTouched(errors)
+            return;
+        }
+
+
+        const newPassword = userData.newPassword;
+
+        try {
+            request(`/users?id=eq.${user_id}`, 'PATCH', { password: newPassword })
+
+            onClickCancel()
+        } catch (error) {
+            console.log(error.message);
+
+        }
+    }
+
 
     const errorMessage = (field) => errors[field] && isTouched[field] ? <p className="errorMessage">{errors[field]}</p> : '';
     const inputClass = (field) => errors[field] && isTouched[field] ? 'profile-field error' : 'profile-field';
 
     return (
         <>
-            <form className="profile-card" action={actionHandler} >
+            <form className="profile-card" onSubmit={actionHandler} >
                 <aside className="profile-picture-panel">
                     <div className="profile-avatar" aria-hidden="true">👤</div>
                     <label className="upload-picture">
@@ -107,7 +135,7 @@ export default function ChangeProfileInfoItem({
                             name="fullName"
                             type="text"
                             placeholder="Enter your full name"
-                            autoComplete="new-password" 
+                            autoComplete="name"
                             onBlur={validationHandler}
                             value={userData.fullName}
                             onChange={changeHandler}
@@ -115,14 +143,14 @@ export default function ChangeProfileInfoItem({
                         {errorMessage('fullName')}
                     </div>
 
-                    <div className={inputClass('fullName')}>
+                    <div className={inputClass('username')}>
                         <label htmlFor="username">Username</label>
                         <input
                             id="username"
                             name="username"
                             type="text"
                             placeholder="Enter your username"
-                            autoComplete="new-password" 
+                            autoComplete="username"
                             onBlur={validationHandler}
                             value={userData.username}
                             onChange={changeHandler}
@@ -130,14 +158,14 @@ export default function ChangeProfileInfoItem({
                         {errorMessage('username')}
                     </div>
 
-                    <div className={inputClass('fullName')}>
+                    <div className={inputClass('email')}>
                         <label htmlFor="email">Email</label>
                         <input
                             id="email"
                             name="email"
                             type="email"
                             placeholder="Enter your email"
-                            autoComplete="new-password" 
+                            autoComplete="email"
                             onBlur={validationHandler}
                             value={userData.email}
                             onChange={changeHandler}
@@ -145,7 +173,7 @@ export default function ChangeProfileInfoItem({
                         {errorMessage('email')}
                     </div>
 
-                    <div className={inputClass('fullName')}>
+                    <div className={inputClass('age')}>
                         <label htmlFor="age">Age</label>
                         <input
                             id="age"
@@ -153,7 +181,7 @@ export default function ChangeProfileInfoItem({
                             type="number"
                             min="1"
                             placeholder="Enter your age"
-                            autoComplete="new-password" 
+                            autoComplete="No specific value"
                             onBlur={validationHandler}
                             value={userData.age}
                             onChange={changeHandler}
@@ -161,14 +189,14 @@ export default function ChangeProfileInfoItem({
                         {errorMessage('age')}
                     </div>
 
-                    <div className={inputClass('fullName')}>
+                    <div className={inputClass('country')}>
                         <label htmlFor="country">Country</label>
                         <input
                             id="country"
                             name="country"
                             type="text"
                             placeholder="Enter your country"
-                            autoComplete="new-password" 
+                            autoComplete="country-name"
                             onBlur={validationHandler}
                             value={userData.country}
                             onChange={changeHandler}
@@ -183,7 +211,7 @@ export default function ChangeProfileInfoItem({
                             name="city"
                             type="text"
                             placeholder="Enter your city"
-                            autoComplete="new-password" 
+                            autoComplete="address-level2"
                             onBlur={validationHandler}
                             value={userData.city}
                             onChange={changeHandler}
@@ -204,7 +232,6 @@ export default function ChangeProfileInfoItem({
                     <button
                         className="profile-save-button"
                         type="button"
-                        autoComplete="new-password"
                         onClick={clickChangePasswordMenu} >
                         {menuChangePasswordVisibility ? 'Hide Change Password' : 'Change Password'}
                     </button>
@@ -213,65 +240,17 @@ export default function ChangeProfileInfoItem({
                         <ChangePasswordMenu
                             errorMessage={errorMessage}
                             inputClass={inputClass}
-                            onPasswordSubmit={onClickCancel}
+                            changeHandler={changeHandler}
+                            changePasswordHandler={changePasswordHandler}
+                            validationHandler={validationHandler}
+                            setErrors={setErrors}
+                            errors={errors}
                             {...userData}
                         />
                     }
 
-                    {/* {menuChangePasswordVisibility ?
-
-                        <>
-                            <div className={`${inputClass('gender')} profile-field-wide`}>
-                                <label htmlFor="newPassword">New Password</label>
-                                <input
-                                    id="newPassword"
-                                    name="newPassword"
-                                    type="password"
-                                    placeholder="Enter a new password"
-                                    onBlur={validationHandler}
-                                    value={userData.password ?? ''}
-                                    onChange={changeHandler}
-                                />
-                                {errorMessage('newPassword')}
-                            </div>
-
-                            <div className={`${inputClass('gender')} profile-field-wide`}>
-                                <label htmlFor="repeatNewPassword">Repeat New Password</label>
-                                <input
-                                    id="repeatNewPassword"
-                                    name="repeatNewPassword"
-                                    type="password"
-                                    placeholder="Repeat your new password"
-                                    onBlur={validationHandler}
-                                    value={userData.password ?? ''}
-                                    onChange={changeHandler}
-                                />
-                                {errorMessage('repeatNewPassword')}
-                            </div>
-                        </>
-
-                        :
-                        <div className={`${inputClass('gender')} profile-field-wide`}>
-                            <label htmlFor="inputPassword">Current Password</label>
-                            <input
-                                id="inputPassword"
-                                name="inputPassword"
-                                type="password"
-                                placeholder="Enter a current password"
-                                onBlur={validationHandler}
-                                value={userData.password ?? ''}
-                                onChange={changeHandler}
-                            />
-                            {errorMessage('inputPassword')}
-                        </div>
-                    } */}
-
-
-
-
-
-                    <button className="profile-save-button" onClick={onClickCancel} type="button" autoComplete="new-password" >Cancel Changes</button>
-                    <button className="profile-save-button" type="submit" autoComplete="new-password" >Save Changes</button>
+                    <button className="profile-save-button" onClick={onClickCancel} type="button" >Cancel Changes</button>
+                    <button className="profile-save-button" type="submit" >Save Changes</button>
                 </section>
             </form>
         </>

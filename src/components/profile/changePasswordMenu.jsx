@@ -1,70 +1,42 @@
 import { useState } from "react";
-import { validation } from "../../utils/validation.js";
-import request from "../../utils/request.js";
+import EyeIcon from "../auth/EyeIcon.jsx";
 
 export default function ChangePasswordMenu({
     password,
-    id,
-    onPasswordSubmit
+    inputPassword,
+    newPassword,
+    repeatNewPassword,
+    setErrors,
+    changeHandler,
+    validationHandler,
+    errorMessage,
+    inputClass,
+    changePasswordHandler
 }) {
 
     const [correctPassword, setCorrectPassword] = useState(false);
-    const [userInputPasswords, setUserInputPasswords] = useState({ inputPassword: '', newPassword: '', repeatNewPassword: '' });
-    const [errors, setErrors] = useState({});
-    const [isTouched, setIsTouched] = useState(false);
-
-    const changeHandler = (e) => {
-        setUserInputPasswords(state => ({
-            ...state,
-            [e.target.name]: e.target.value
-        }))
-
-    }
-
-    const validationHandler = (e) => {
-        setIsTouched(state => ({
-            ...state,
-            [e.target.name]: e.target.value
-        }))
-
-        const errors = validation.changePassword(userInputPasswords, password);
-        setErrors(errors)
-    }
+    const [isPasswordsVisible, setIsPasswordsVisible] = useState({ currentPassword: false, newPassword: false, repeatNewPassword: false })
 
     const correctPasswordHandler = () => {
-        if (userInputPasswords.inputPassword === password) {
+
+        if (inputPassword === password) {
             setCorrectPassword(true)
+            setErrors({})
+        } else {
+
+            setErrors({ 'inputPassword': 'Password is incorrect!' })
         }
-         setErrors({ 'inputPassword': 'Password is incorrect!' })
 
     }
 
-    const changePasswordHandler = () => {
-        const errors = validation.changePassword(userInputPasswords, password);
 
-        setErrors(errors);
+    const showHidePassHandler = (field) => {
 
-        if (Object.keys(errors).length > 0) {
-            setIsTouched(errors)
-            return;
-        }
-
-
-        const newPassword = userInputPasswords.newPassword;
-
-        try {
-            request(`/users?id=eq.${id}`, 'PATCH', { password: newPassword })
-
-            onPasswordSubmit()
-        } catch (error) {
-            console.log(error.message);
-
-        }
-    }
-
-
-    const errorMessage = (field) => errors[field] && isTouched[field] ? <p className="errorMessage">{errors[field]}</p> : '';
-    const inputClass = (field) => errors[field] && isTouched[field] ? 'profile-field error profile-field-wide' : 'profile-field profile-field-wide';
+        setIsPasswordsVisible(state => ({
+            ...state,
+            [field]: isPasswordsVisible[field] ? false : true
+        }))
+    };
 
     return (
         <>
@@ -73,53 +45,84 @@ export default function ChangePasswordMenu({
                 ?
 
                 <>
-                    <div className={`${inputClass('gender')} profile-field-wide`}>
+                    <div className={`${inputClass('newPassword')} profile-field-wide`}>
                         <label htmlFor="newPassword">New Password</label>
-                        <input
-                            id="newPassword"
-                            name="newPassword"
-                            type="password"
-                            placeholder="Enter a new password"
-                            autoComplete="new-password" 
-                            onBlur={validationHandler}
-                            value={userInputPasswords.newPassword}
-                            onChange={changeHandler}
-                        />
+                        <div className="password-wrapper">
+                            <input
+                                id="newPassword"
+                                name="newPassword"
+                                type={isPasswordsVisible["newPassword"] ? 'text' : 'password'}
+                                placeholder="Enter a new password"
+                                autoComplete="new-password"
+                                onBlur={validationHandler}
+                                value={newPassword ?? ''}
+                                onChange={changeHandler}
+                            />
+                            <button
+                                type="button"
+                                className="password-toggle"
+                                aria-label="Show password"
+                                onClick={() => showHidePassHandler('newPassword')}
+                            >
+
+                                <EyeIcon isVisible={isPasswordsVisible['newPassword']} />
+                            </button>
+                        </div>
                         {errorMessage('newPassword')}
                     </div>
 
-                    <div className={`${inputClass('gender')} profile-field-wide`}>
+                    <div className={`${inputClass('repeatNewPassword')} profile-field-wide`}>
                         <label htmlFor="repeatNewPassword">Repeat New Password</label>
-                        <input
-                            id="repeatNewPassword"
-                            name="repeatNewPassword"
-                            type="password"
-                            placeholder="Repeat your new password"
-                            autoComplete="new-password" 
-                            onBlur={validationHandler}
-                            value={userInputPasswords.repeatNewPassword}
-                            onChange={changeHandler}
-                        />
+                        <div className="password-wrapper">
+                            <input
+                                id="repeatNewPassword"
+                                name="repeatNewPassword"
+                                type={isPasswordsVisible['repeatNewPassword'] ? 'text' : 'password'}
+                                placeholder="Repeat your new password"
+                                autoComplete="new-password"
+                                onBlur={validationHandler}
+                                value={repeatNewPassword ?? ''}
+                                onChange={changeHandler}
+                            />
+                            <button
+                                type="button"
+                                className="password-toggle"
+                                aria-label="Show password"
+                                onClick={() => showHidePassHandler('repeatNewPassword')}
+                            >
+                                <EyeIcon isVisible={isPasswordsVisible['repeatNewPassword']} />
+                            </button>
+                        </div>
                         {errorMessage('repeatNewPassword')}
                     </div>
                     <button className="profile-save-button" type="button" onClick={changePasswordHandler} >Change</button>
                 </>
 
                 :
-                
+
                 <>
-                    <div className={`${inputClass('gender')} profile-field-wide`}>
+                    <div className={`${inputClass('inputPassword')} profile-field-wide`}>
                         <label htmlFor="inputPassword">Current Password</label>
-                        <input
-                            id="inputPassword"
-                            name="inputPassword"
-                            type="password"
-                            autoComplete="new-password" 
-                            placeholder="Enter a current password"
-                            onBlur={validationHandler}
-                            value={userInputPasswords.inputPassword}
-                            onChange={changeHandler}
-                        />
+                        <div className="password-wrapper">
+                            <input
+                                id="inputPassword"
+                                name="inputPassword"
+                                type={isPasswordsVisible['inputPassword'] ? 'text' : 'password'}
+                                autoComplete="current-password"
+                                placeholder="Enter a current password"
+                                onBlur={validationHandler}
+                                value={inputPassword ?? ''}
+                                onChange={changeHandler}
+                            />
+                            <button
+                                type="button"
+                                className="password-toggle"
+                                aria-label="Show password"
+                                onClick={() => showHidePassHandler('inputPassword')}
+                            >
+                                <EyeIcon isVisible={isPasswordsVisible['inputPassword']} />
+                            </button>
+                        </div>
                         {errorMessage('inputPassword')}
                     </div>
                     <button className="profile-save-button" type="button" onClick={correctPasswordHandler} >Continue</button>

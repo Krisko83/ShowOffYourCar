@@ -73,6 +73,7 @@ export default function Login() {
                             type="email"
                             name="email"
                             placeholder="you@example.com"
+                            autoComplete="email"
                             onBlur={validationHandler}
                             value={userData.email}
                             onChange={changeHandler}
@@ -89,6 +90,7 @@ export default function Login() {
                                 type={isPasswordsVisible['password'] ? 'text' : 'password'}
                                 name="password"
                                 placeholder="Enter your password"
+                                autoComplete="current-password"
                                 onBlur={validationHandler}
                                 value={userData.password}
                                 onChange={changeHandler}
