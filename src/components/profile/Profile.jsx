@@ -84,7 +84,7 @@ export default function Profile() {
                     <p className="personal-info-description">
                         You can edit your name, contact details, location, and password using the form above.
                     </p>
-                    <a className="edit-profile-link" href="#fullName">✎ &nbsp; Change Personal Info</a>
+                    <button className="change-info-btn" onClick={onClickEdit} >✎ &nbsp; Change Personal Info</button>
                 </div>
             </section>
 

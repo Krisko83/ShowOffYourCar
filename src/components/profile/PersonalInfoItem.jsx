@@ -5,7 +5,7 @@ export default function PersonalInfoItem({
     age,
     country,
     city,
-    onClickEdit,
+    // onClickEdit,
     gender,
 }) {
 
@@ -17,13 +17,13 @@ export default function PersonalInfoItem({
                     <p>Your profile details</p>
                 </div>
 
-                <button
+                {/* <button
                     type="button"
                     className="change-info-btn"
                     onClick={onClickEdit}
                 >
                     ✎ Change Personal Info
-                </button>
+                </button> */}
             </div>
 
             <div className="personal-details-content">

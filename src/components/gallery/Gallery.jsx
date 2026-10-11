@@ -1,10 +1,8 @@
 import { useEffect, useState } from "react";
 import Pagination from "./Pagination.jsx";
 import request from "../../utils/request.js";
-
-
-import './Gallery.css';
 import CarItem from "../home/CarItem.jsx";
+import styles from './Gallery.module.css';
 
 export default function Gallery() {
     const [page, setPage] = useState(1);
@@ -37,11 +35,11 @@ export default function Gallery() {
 
 
     return (
-        <main className="gallery-page">
+        <main className={styles["gallery-page"]}>
 
             <h1>Car Gallery</h1>
 
-            <div className="car-gallery">
+            <div className={styles["car-gallery"]}>
 
                 {paginatedCars.map(car => <CarItem key={car.id} {...car} />)}
 

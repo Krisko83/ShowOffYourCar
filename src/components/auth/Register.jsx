@@ -1,12 +1,11 @@
 import { Link, useNavigate } from 'react-router';
 import { use } from 'react';
-// import { validation } from '../../utils/validation.js';
 import request from '../../utils/request.js';
 import EyeIcon from './EyeIcon.jsx';
-import "./Register.css";
 import UserContext from '../../contexts/UserContext.js';
 import getUserData from '../../utils/userUtils.js';
 import useControlledAuthForms from '../../hooks/useControlledAuthForms.js';
+import styles from "./Register.module.css";
 
 const initialValues = {
     fullName: '',
@@ -54,20 +53,20 @@ export default function Register() {
     }
  
 
-    const errorMessage = (field) => errors[field] && isTouched[field] ? <p className="errorMessage">{errors[field]}</p> : '';
+    const errorMessage = (field) => errors[field] && isTouched[field] ? <p className={styles["errorMessage"]}>{errors[field]}</p> : '';
     const inputClass = (field) => errors[field] && isTouched[field] ? "form-group-error" : "form-group";
 
 
     return (
-        <div className="register-page">
-            <div className="register-container">
+        <div className={styles["register-page"]}>
+            <div className={styles["register-container"]}>
                 <h2>Create Account</h2>
 
-                <p className="register-subtitle">
+                <p className={styles["register-subtitle"]}>
                     Please fill in the information below
                 </p>
 
-                <form className="register-form" action={actionHandler}>
+                <form className={styles["register-form"]} action={actionHandler}>
                     <div className={inputClass('fullName')}>
                         <label htmlFor="fullName">Full Name</label>
                         <input
@@ -75,7 +74,7 @@ export default function Register() {
                             type="text"
                             name="fullName"
                             placeholder="Enter your full name"
-                            className='red-border'
+                            className={styles['red-border']}
                             autoComplete="name"
                             onBlur={validationHandler}
                             value={userData.fullName}
@@ -165,10 +164,10 @@ export default function Register() {
                         </div>
                     </div>
 
-                    <fieldset className="gender-group">
+                    <fieldset className={styles["gender-group"]}>
                         <legend>Gender</legend>
 
-                        <label className="gender-option">
+                        <label className={styles["gender-option"]}>
                             <input
                                 type="radio"
                                 name="gender"
@@ -179,7 +178,7 @@ export default function Register() {
                             <span>Male</span>
                         </label>
 
-                        <label className="gender-option">
+                        <label className={styles["gender-option"]}>
                             <input
                                 type="radio"
                                 name="gender"
@@ -190,7 +189,7 @@ export default function Register() {
                             <span>Female</span>
                         </label>
 
-                        <label className="gender-option">
+                        <label className={styles["gender-option"]}>
                             <input
                                 type="radio"
                                 name="gender"
@@ -205,7 +204,7 @@ export default function Register() {
                     <div className={inputClass('password')}>
                         <label htmlFor="password">Password</label>
 
-                        <div className="password-wrapper">
+                        <div className={styles["password-wrapper"]}>
                             <input
                                 id="password"
                                 type={isPasswordsVisible['password'] ? 'text' : 'password'}
@@ -220,7 +219,7 @@ export default function Register() {
                             <button
                                 onClick={() => showHidePassHandler('password')}
                                 type="button"
-                                className="password-toggle"
+                                className={styles["password-toggle"]}
                                 aria-label="Show password"
                             >
 
@@ -236,7 +235,7 @@ export default function Register() {
                             Repeat Password
                         </label>
 
-                        <div className="password-wrapper">
+                        <div className={styles["password-wrapper"]}>
                             <input
                                 id="repeatPassword"
                                 type={isPasswordsVisible['repeatPassword'] ? 'text' : 'password'}
@@ -251,7 +250,7 @@ export default function Register() {
                             <button
                                 onClick={() => showHidePassHandler('repeatPassword')}
                                 type="button"
-                                className="password-toggle"
+                                className={styles["password-toggle"]}
                                 aria-label="Show password"
                             >
 
@@ -261,12 +260,12 @@ export default function Register() {
                         {errorMessage('repeatPassword')}
                     </div>
 
-                    <button type="submit" className="register-button">
+                    <button type="submit" className={styles["register-button"]}>
                         Create Account
                     </button>
                 </form>
 
-                <p className="login-link">
+                <p className={styles["login-link"]}>
                     Already have an account?{" "}
                     <Link to="/user/login">Login</Link>
                 </p>

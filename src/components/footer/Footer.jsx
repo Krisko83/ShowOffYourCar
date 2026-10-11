@@ -1,18 +1,18 @@
 import { Link } from 'react-router';
-import './Footer.css';
 import { use } from 'react';
 import UserContext from '../../contexts/UserContext.js';
+import styles from './Footer.module.css'
 
 export default function Footer() {
     const { user } = use(UserContext);
 
     return (
-        <footer className="footer">
+        <footer className={styles["footer"]} >
 
-            <div className="footer-content">
+            <div className={styles["footer-content"]} >
 
 
-                <div className="footer-section footer-about">
+                <div className={styles["footer-section footer-about"]} >
                     <h2>Show off<span>Your Car</span></h2>
 
                     <p>
@@ -22,7 +22,7 @@ export default function Footer() {
                 </div>
 
 
-                <div className="footer-section">
+                <div className={styles["footer-section"]} >
                     <h3>Explore</h3>
 
                     <ul>
@@ -45,7 +45,7 @@ export default function Footer() {
                 </div>
 
 
-                <div className="footer-section">
+                <div className={styles["footer-section"]} >
                     <h3>Community</h3>
 
                     <ul>
@@ -68,18 +68,18 @@ export default function Footer() {
                 </div>
 
 
-                <div className="footer-section">
+                <div className={styles["footer-section"]}>
                     <h3>Get in Touch</h3>
 
-                    <p className="footer-contact">
+                    <p className={styles["footer-contact"]}>
                         📧 	showoffcar@abv.bg
                     </p>
 
-                    <p className="footer-contact">
+                    <p className={styles["footer-contact"]}>
                         🚗 Share. Discover. Connect.
                     </p>
 
-                    <div className="social-links">
+                    <div className={styles["social-links"]}>
                         <Link to="https://www.facebook.com/profile.php?id=61594912485411" target='_blank' rel="noopener noreferrer" aria-label="Facebook">
                             f
                         </Link>
@@ -92,18 +92,18 @@ export default function Footer() {
                             𝕏
                         </Link>
                     </div>
-                </div>
+                </div >
 
-            </div>
+            </div >
 
 
-            <div className="footer-bottom">
+        <div className={styles["footer-bottom"]} >
 
-                <p>
-                    © 2026 Show off you Car. All rights reserved.
-                </p>
+            <p>
+                © 2026 Show off you Car. All rights reserved.
+            </p>
 
-            </div>
+            </ div>
 
         </footer>
     );

@@ -6,7 +6,7 @@ import EyeIcon from './EyeIcon.jsx';
 import UserContext from '../../contexts/UserContext.js';
 import getUserData from '../../utils/userUtils.js';
 import useControlledAuthForms from '../../hooks/useControlledAuthForms.js';
-import './Login.css'
+import styles from './Login.module.css'
 
 
 const initialValues = {
@@ -52,19 +52,19 @@ export default function Login() {
     }
 
 
-    const errorMessage = (field) => errors[field] && isTouched[field] ? <p className="errorMessage">{errors[field]}</p> : '';
+    const errorMessage = (field) => errors[field] && isTouched[field] ? <p className={styles["errorMessage"]}>{errors[field]}</p> : '';
     const inputClass = (field) => errors[field] && isTouched[field] ? "form-group-error" : "form-group";
 
     return (
-        <div className="login-page">
-            <div className="login-container">
+        <div className={styles["login-page"]}>
+            <div className={styles["login-container"]}>
                 <h2>Welcome Back</h2>
 
-                <p className="login-subtitle">
+                <p className={styles["login-subtitle"]}>
                     Sign in to your account
                 </p>
 
-                <form className="login-form" action={actionHandler}>
+                <form className={styles["login-form"]} action={actionHandler}>
                     <div className={inputClass('email')}>
                         <label htmlFor="email">Email</label>
 
@@ -84,7 +84,7 @@ export default function Login() {
                     <div className={inputClass('password')}>
                         <label htmlFor="password">Password</label>
 
-                        <div className="password-wrapper">
+                        <div className={styles["password-wrapper"]}>
                             <input
                                 id="password"
                                 type={isPasswordsVisible['password'] ? 'text' : 'password'}
@@ -98,7 +98,7 @@ export default function Login() {
 
                             <button
                                 type="button"
-                                className="password-toggle"
+                                className={styles["password-toggle"]}
                                 aria-label="Show password"
                                 onClick={() => showHidePassHandler('password')}
                             >
@@ -110,13 +110,13 @@ export default function Login() {
 
                     <button
                         type="submit"
-                        className="login-button"
+                        className={styles["login-button"]}
                     >
                         Login
                     </button>
                 </form>
 
-                <p className="register-link">
+                <p className={styles["register-link"]}>
                     Don't have an account?{" "}
                     <Link to="/user/register">
                         Create an account

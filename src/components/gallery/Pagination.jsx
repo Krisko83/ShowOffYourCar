@@ -1,4 +1,4 @@
-import './Pagination.css'
+import styles from './Pagination.module.css'
 
 export default function Pagination({
     page,
@@ -11,8 +11,8 @@ export default function Pagination({
 
     return (
 
-        <div className="pagination">
-            <div className="pagination-limit">
+        <div className={styles["pagination"]}>
+            <div className={styles["pagination-limit"]}>
                 <label htmlFor="page-limit">Show</label>
 
                 <select
@@ -30,16 +30,16 @@ export default function Pagination({
                 <span>per page</span>
             </div>
 
-            <div className="pagination-center">
-                <span className="pagination-label">Page</span>
-                <span className="current-page">{page}</span>
-                <span className="pagination-separator">of</span>
-                <span className="total-pages">{totalPages}</span>
+            <div className={styles["pagination-center"]}>
+                <span className={styles["pagination-label"]}>Page</span>
+                <span className={styles["current-page"]}>{page}</span>
+                <span className={styles["pagination-separator"]}>of</span>
+                <span className={styles["total-pages"]}>{totalPages}</span>
             </div>
 
-            <div className="pagination-actions">
+            <div className={styles["pagination-actions"]}>
                 <button
-                    className="pagination-btn"
+                    className={styles["pagination-btn"]}
                     title="First Page"
                     aria-label="First page"
                     onClick={() => setPage(1)}
@@ -49,7 +49,7 @@ export default function Pagination({
                 </button>
 
                 <button
-                    className="pagination-btn"
+                    className={styles["pagination-btn"]}
                     title="Previous Page"
                     aria-label="Previous page"
                     onClick={() => setPage(state => state - 1)}
@@ -59,7 +59,7 @@ export default function Pagination({
                 </button>
 
                 <button
-                    className="pagination-btn"
+                    className={styles["pagination-btn"]}
                     title="Next Page"
                     aria-label="Next page"
                     onClick={() => setPage(state => state + 1)}
@@ -69,7 +69,7 @@ export default function Pagination({
                 </button>
 
                 <button
-                    className="pagination-btn"
+                    className={styles["pagination-btn"]}
                     title="Last Page"
                     aria-label="Last page"
                     onClick={() => setPage(totalPages)}
