@@ -16,7 +16,10 @@ import CarDetails from './components/car-details/CarDetails.jsx'
 import CarEdit from './components/car-edit/CarEdit.jsx'
 import UserContext from './contexts/UserContext.js'
 import CarAdd from './components/car-add/CarAdd.jsx'
-import Profile from './components/profile/Profile.jsx'
+import Profile from './components/profile/Profile.jsx'  
+import CarCommentedList from './components/car-commented/CarCommentedList.jsx'
+import CarOwnedList from './components/car-owned/CarOwnedList.jsx'
+ 
 
 
 function App() {
@@ -67,9 +70,11 @@ function App() {
           <Route path='/cars/:car_id/edit' element={<CarEdit />} />
           <Route path='/cars/add-car' element={<CarAdd />} />
           <Route path='/profile' element={<Profile />} />
+          <Route path='/user/owned-cars' element={<CarOwnedList />} />
+          <Route path='/user/commented-cars' element={<CarCommentedList />} />
         </Route>
 
-        <Route path='/auth' element={<IsAuth user={user} />}>
+        <Route path='/user' element={<IsAuth user={user} />}>
           <Route path='login' element={<Login />} />
           <Route path='register' element={<Register />} />
         </Route>

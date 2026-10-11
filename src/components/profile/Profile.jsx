@@ -4,6 +4,9 @@ import UserContext from '../../contexts/UserContext.js';
 import PersonalInfoItem from './PersonalInfoItem.jsx';
 import ChangeProfileInfoItem from './ChangeProfileInfoItem.jsx';
 import request from '../../utils/request.js';
+import CarOwned from '../car-owned/carOwned.jsx';
+import CarCommented from '../car-commented/CarCommented.jsx';
+ 
 
 const initialValues = {
     fullName: '',
@@ -21,7 +24,7 @@ export default function Profile() {
     const { user } = use(UserContext);
     const [isEditClicked, setIsEditClicked] = useState(false);
     const [userInfo, setUserInfo] = useState(initialValues)
-    const user_id = user.id; 
+    const user_id = user.id;
 
 
     useEffect(() => {
@@ -37,7 +40,7 @@ export default function Profile() {
         setUserInfo(info);
     }
 
- 
+
     const onClickEdit = () => {
         setIsEditClicked(state => !state);
     };
@@ -62,55 +65,14 @@ export default function Profile() {
                 />
                 :
                 <PersonalInfoItem
-                onClickEdit={onClickEdit}
+                    onClickEdit={onClickEdit}
                     {...userInfo}
                 />
-            } 
+            }
 
             <section className="profile-bottom">
-                <div className="commented-cars-panel">
-                    <div className="section-title">
-                        <span className="section-icon" aria-hidden="true">💬</span>
-                        <div>
-                            <h2>Your Commented Cars</h2>
-                            <p>Quick links to cars you've commented on.</p>
-                        </div>
-                    </div>
-
-                    <ul className="commented-cars-list">
-                        <li>
-                            <a href="/cars/car-id-1" className="commented-car-link">
-                                <span className="car-placeholder" aria-hidden="true">🚘</span>
-                                <span className="commented-car-info">
-                                    <strong>Car title</strong>
-                                    <small>View your comments</small>
-                                </span>
-                                <span className="car-arrow" aria-hidden="true">›</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="/cars/car-id-2" className="commented-car-link">
-                                <span className="car-placeholder" aria-hidden="true">🚗</span>
-                                <span className="commented-car-info">
-                                    <strong>Car title</strong>
-                                    <small>View your comments</small>
-                                </span>
-                                <span className="car-arrow" aria-hidden="true">›</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="/cars/car-id-3" className="commented-car-link">
-                                <span className="car-placeholder" aria-hidden="true">🏎️</span>
-                                <span className="commented-car-info">
-                                    <strong>Car title</strong>
-                                    <small>View your comments</small>
-                                </span>
-                                <span className="car-arrow" aria-hidden="true">›</span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-
+                <CarCommented />
+            
                 <div className="personal-info-panel">
                     <div className="section-title">
                         <span className="section-icon" aria-hidden="true">⚙️</span>
@@ -125,6 +87,8 @@ export default function Profile() {
                     <a className="edit-profile-link" href="#fullName">✎ &nbsp; Change Personal Info</a>
                 </div>
             </section>
+
+            <CarOwned user_id={user_id} />
         </main>
     );
 }

@@ -118,7 +118,7 @@ export default function Login() {
 
                 <p className="register-link">
                     Don't have an account?{" "}
-                    <Link to="/auth/register">
+                    <Link to="/user/register">
                         Create an account
                     </Link>
                 </p>

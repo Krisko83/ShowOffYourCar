@@ -9,6 +9,10 @@ export default function commentTimeAgo(createdAt) {
     const hours = Math.floor(minutes / 60);
     const days = Math.floor(hours / 24);
 
+    if (seconds < 5) {
+        return 'Now';
+    }
+
     if (seconds < 60) {
         return `${seconds} seconds ago`;
     }

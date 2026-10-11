@@ -18,6 +18,11 @@ export default function AddComment({
     }
 
     const actionHandler = async () => {
+        if(!commentData.content) {
+            return
+        };
+
+        
         const comment = {
             content: commentData.content,
             owner_id: user.id,

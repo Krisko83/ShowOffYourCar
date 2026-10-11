@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import CommentItem from "./commentItem.jsx";
+import CommentItem from "./CommentItem.jsx";
 import request from "../../utils/request.js";
 
 export default function Comments({

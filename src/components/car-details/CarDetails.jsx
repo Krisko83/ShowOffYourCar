@@ -30,10 +30,13 @@ export default function CarDetails() {
     const { car_id } = useParams();
     const [car, setCar] = useState(initialValues);
     const [refresh, setRefresh] = useState(false);
+    const [likes, setLikes] = useState([]);
+
     const navigate = useNavigate();
     const user_id = user?.id;
 
-    const owner_id = car?.owner_id
+    const owner_id = car?.owner_id;
+
 
     useEffect(() => {
         request(`/cars?id=eq.${car_id}`)
@@ -42,7 +45,11 @@ export default function CarDetails() {
                 <NotFound />
             })
 
-    }, [car_id]);
+        request(`/likes?car_id=eq.${car_id}`)
+            .then(result => setLikes(result))
+
+    }, [car_id, refresh]);
+
 
     const deleteHandler = async () => {
         const confirmed = confirm('Are you sure you want to delete this car?')
@@ -60,7 +67,6 @@ export default function CarDetails() {
     const refreshPage = () => {
         setRefresh(state => !state)
     }
-
 
 
     return (
@@ -140,10 +146,13 @@ export default function CarDetails() {
                     </div>
 
                 </div>
-
             </section>
 
-
+            <section className="description-section likes" >
+                <div className="reaction-buttons">
+                    <p className="reaction-button">Likes: {likes.length}</p>
+                </div>
+            </section>
 
             <section className="description-section">
 
@@ -155,25 +164,24 @@ export default function CarDetails() {
 
 
             <section className="car-actions">
-                {user && user_id === car.owner_id
-                    ?
-                    <>
-                        <Link to={`/cars/${car_id}/edit`} className="action-button edit-button">
-                            Edit
-                        </Link>
-
-                        <button onClick={deleteHandler} className="action-button delete-button">
-                            Delete
-                        </button>
-                    </>
-                    : user
+                {
+                    user && user_id === car.owner_id
                         ?
-                        <LikeCar user_id={user_id} car_id={car_id} onLikeUnlike={refreshPage} refresh={refresh} />
-                        :
-                        ''
-                }
-            </section>
+                        <>
+                            <Link to={`/cars/${car_id}/edit`} className="action-button edit-button">
+                                Edit
+                            </Link>
 
+                            <button onClick={deleteHandler} className="action-button delete-button">
+                                Delete
+                            </button>
+                        </>
+                        : user
+                        &&
+                        <LikeCar user_id={user_id} car_id={car_id} onLikeUnlike={refreshPage} refresh={refresh} likes={likes.length} />
+                }
+
+            </section>
 
 
             <section className="comments-section">

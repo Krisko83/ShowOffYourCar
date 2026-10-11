@@ -1,7 +1,7 @@
 import { Link } from "react-router";
 
 export default function CarItem({
-    id: carId,
+    id: car_id,
     imageUrl,
     model,
     manufacturer,
@@ -27,7 +27,7 @@ export default function CarItem({
                     <span>{driveType}</span>
                 </div>
                 <div className="car-footer"> 
-                    <Link to={`/cars/${carId}/details`}>
+                    <Link to={`/cars/${car_id}/details`}>
                         Details
                     </Link>
                 </div>
