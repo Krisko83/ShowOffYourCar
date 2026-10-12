@@ -56,11 +56,11 @@ export default function Footer() {
                         {!user &&
                             <>
                                 <li>
-                                    <Link to="/auth/login">Login</Link>
+                                    <Link to="/user/login">Login</Link>
                                 </li>
 
                                 <li>
-                                    <Link to="/auth/register">Create Account</Link>
+                                    <Link to="/user/register">Create Account</Link>
                                 </li>
                             </>
                         }
