@@ -1,3 +1,22 @@
+.gallery-page {
+    width: min(1380px, 94%);
+    margin: 40px auto;
+}
+
+.gallery-page h1 {
+    margin-bottom: 30px;
+    font-size: 32px;
+}
+
+/* 3 x 3 GRID */
+
+.car-gallery {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+}
+
+
 .password-wrapper {
     position: relative;
     width: 100%;
@@ -254,8 +273,10 @@
     align-items: center;
     gap: 14px;
     margin-bottom: 20px;
+    padding-left: 7px;
 }
 
+ 
 .section-title .section-icon {
     width: 46px;
     height: 46px;
@@ -271,7 +292,7 @@
     display: flex;
     flex-direction: column;
     gap: 10px;
-    margin: 0;
+    margin: 0 0 28px 0;
     padding: 0;
     list-style: none;
 }
@@ -396,6 +417,8 @@
     font-weight: 600;
     cursor: pointer;
     transition: background-color 0.2s ease;
+    margin-top: 82px;
+    text-decoration: none;
 }
 
 .change-info-btn:hover {

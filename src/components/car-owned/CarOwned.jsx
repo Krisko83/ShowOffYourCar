@@ -2,7 +2,7 @@ import CarItem from "../home/CarItem.jsx";
 import { Link } from "react-router";
 import useOwnedCars from "../../hooks/useOwnedCars.js";
 import styles from "./CarOwned.module.css"
- 
+
 export default function CarOwned() {
 
     const { ownedCars } = useOwnedCars()
@@ -10,25 +10,35 @@ export default function CarOwned() {
 
     return (
         <section className={styles["featured"]}>
-            <h2>Owned Cars</h2>
+            <div className="section-title">
+                <span className="car-placeholder" aria-hidden="true">🚘</span>
+                <div className="commented-cars-panel">
+                    <h2>Your Owned Cars</h2>
+                </div>
+            </div>
 
-            <div className={styles["car-cards"]}>
+            <div className={styles[ownedCars.length > 0 ? "car-cards" : 'car-cards-no-content']}>
                 {ownedCars.length > 0
                     ?
                     ownedCars.slice(0, 3).map(car => <CarItem key={car.id} {...car} />)
                     :
-                    <div>                   
-                            <p>You don not have any cars!</p>
-                            <Link to='/cars/add-car' className={styles["change-info-btn"]} >Add your Car!</Link>                         
-                    </div>
+                    <>
+
+                        <p>You don not have any cars!</p>
+
+                        <div className={styles["change-info-btn-cont"]}>
+                            <Link to='/cars/add-car' className={styles["change-info-btn"]} >Add your Car!</Link>
+                        </div>
+                    </>
                 }
 
-
+                <div className={styles["change-info-btn-cont"]}>
+                    {ownedCars.length > 3
+                        &&
+                        <Link to='/user/owned-cars' className={styles["change-info-btn"]} >See all ...</Link>
+                    }
+                </div>
             </div>
-            {ownedCars.length > 3
-                &&
-                <Link to='/user/owned-cars' className={styles["change-info-btn"]} >See all...</Link>
-            }
         </section>
     );
 }

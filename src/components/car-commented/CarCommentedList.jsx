@@ -1,20 +1,20 @@
  
+// import { useEffect, useState } from "react";
 import useComments from "../../hooks/useCommens.js";
 import CarItem from "../home/CarItem.jsx";
+// import request from "../../utils/request.js";
 
 export default function CarCommentedList() {
-    const { comments } = useComments();
-
-    const carIds = comments.map(comment => comment.car_id)
-    console.log(carIds);
-    
+    const { commentedCars } = useComments(); 
+ 
+ 
     return (
         <section className="gallery-page">
             <h1>Commented cars</h1>
 
             <div className="car-gallery">
 
-                {carIds.map(car => <CarItem key={car.id} car_id={car.id} />)}
+                {commentedCars.map(car => <CarItem key={car.id} car_id={car.id} {...car} />)}
 
             </div>
         </section>

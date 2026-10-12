@@ -137,11 +137,11 @@
 }
 
 .edit-button {
-    background: #4a90e2;
+    background: #3975e5;
 }
 
 .edit-button:hover {
-    background: #357abd;
+    background: #285fc8;
 }
 
 .delete-button {
@@ -225,12 +225,12 @@
 
     padding: 11px 20px;
 
-    background: #4a90e2;
+    background: #3975e5;
     color: white;
 }
 
 .comment-form button:hover {
-    background: #357abd;
+    background: #285fc8;
 }
 
 /* COMMENTS LIST */

@@ -41,6 +41,13 @@
     gap: 18px;
 }
 
+.errorMessage {
+    color: #dc2626;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    margin-top: 0.25rem;
+}
+
 .form-group {
     display: flex;
     flex-direction: column;

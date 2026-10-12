@@ -10,11 +10,9 @@
     padding: 70px 20px;
     margin-bottom: 50px;
     border-radius: 15px;
-    background: linear-gradient(
-        135deg,
-        #1f2937,
-        #374151
-    );
+    background: linear-gradient(135deg,
+            #1f2937,
+            #374151);
     color: white;
 }
 
@@ -118,10 +116,14 @@
     padding: 8px 15px;
     border: none;
     border-radius: 6px;
-    background: #4a90e2;
+    background: #3975e5;
     color: white;
     cursor: pointer;
     text-decoration: none;
+}
+
+.car-footer a:hover {
+    background: #285fc8;
 }
 
 @media (max-width: 850px) {
@@ -139,4 +141,3 @@
         font-size: 32px;
     }
 }
- 

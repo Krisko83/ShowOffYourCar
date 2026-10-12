@@ -41,19 +41,34 @@
     text-decoration: none;
 }
 
-/* FEATURED */
-
+.featured {
+    margin-top: 25px;
+    padding-left: 25px;
+    
+}
+ 
 .featured h2 {
     margin-bottom: 25px;
-    font-size: 30px;
+    font-size: 1.2rem;
 }
 
-/* CAR CARDS */
 
 .car-cards {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 25px;
+}
+ 
+
+.car-cards-no-content {   
+    gap: 25px;
+    display: flex;
+    flex-direction: column;
+ 
+}
+
+.car-cards p{   
+padding-left: 7px;
 }
 
 .car-card {
@@ -118,7 +133,7 @@
     padding: 8px 15px;
     border: none;
     border-radius: 6px;
-    background: #4a90e2;
+    background: #3975e5;
     color: white;
     cursor: pointer;
     text-decoration: none;
@@ -139,6 +154,29 @@
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 25px;
+}
+
+.change-info-btn-cont {
+    margin-top: 20px;
+}
+
+.change-info-btn {
+    padding: 11px 18px;
+    border: 1px solid #3975e5;
+    border-radius: 7px;
+    background: #3975e5;
+    color: #fff;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    margin-left: 3px;
+    margin-top: 20px;
+    text-decoration: none;
+}
+
+.change-info-btn:hover {
+    background: #285fc8;
 }
 
 @media (max-width: 850px) {

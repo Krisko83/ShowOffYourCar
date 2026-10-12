@@ -34,11 +34,15 @@
     padding: 12px 25px;
     border: none;
     border-radius: 7px;
-    background: #4a90e2;
+    background: #3975e5;
     color: white;
     font-size: 16px;
     cursor: pointer;
     text-decoration: none;
+}
+
+.hero-button:hover {
+    background: #285fc8;
 }
 
 /* FEATURED */

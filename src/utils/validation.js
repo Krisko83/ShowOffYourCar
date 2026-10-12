@@ -200,7 +200,6 @@ function changeProfileInfo(values, password) {
     const errors = {};
 
 
-
     if (!values.fullName) {
         errors['fullName'] = 'Full Name is required!';
     }

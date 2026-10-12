@@ -11,9 +11,8 @@ export default function CarItem({
     fuel,
     driveType
 }) {
- 
-    return (
 
+    return (
         <article className={styles["car-card"]}>
             <img
                 src={imageUrl}
@@ -27,7 +26,7 @@ export default function CarItem({
                     <span>{fuel}</span>
                     <span>{driveType}</span>
                 </div>
-                <div className={styles["car-footer"]} > 
+                <div className={styles["car-footer"]} >
                     <Link to={`/cars/${car_id}/details`}>
                         Details
                     </Link>

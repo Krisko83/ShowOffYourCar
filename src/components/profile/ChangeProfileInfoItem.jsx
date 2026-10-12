@@ -74,10 +74,9 @@ export default function ChangeProfileInfoItem({
         setIsTouched(state => ({
             ...state,
             [e.target.name]: true
-        }))
-        console.log(isTouched);
-
-        const errors = validation.changeProfileInfo(userData)
+        }))   
+ 
+        const errors = validation.changeProfileInfo(userData, userData.password)
 
         setErrors(errors)
     }

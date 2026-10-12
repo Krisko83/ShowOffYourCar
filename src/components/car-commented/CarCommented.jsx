@@ -1,16 +1,15 @@
 import { Link } from "react-router";
- 
- 
+
+
 import CarCommentedItem from "./carCommentedItem.jsx";
 import useComments from "../../hooks/useCommens.js";
- 
+
 
 export default function CarCommented() {
-    const { comments } = useComments();
- 
+    const { commentedCars } = useComments();
+
 
     return (
-
         <div className="commented-cars-panel">
             <div className="section-title">
                 <span className="section-icon" aria-hidden="true">💬</span>
@@ -20,13 +19,16 @@ export default function CarCommented() {
                 </div>
             </div>
 
-            {comments.length > 0 ?
+            {commentedCars.length > 0 ?
                 <>
                     <ul className="commented-cars-list">
-                        {comments.slice(0, 3).map(comment => <CarCommentedItem car_id={comment.car_id} key={comment.id} />)}
+                        {commentedCars.slice(0, 3).map(car => <CarCommentedItem car_id={car.id} key={car.id} title={`${car.manufacturer}${car.model}`} />)}
                     </ul>
-                    {comments.length > 3 &&
-                        <Link to='/user/commented-cars' className="change-info-btn" >See all...</Link>
+                    {commentedCars.length > 3 &&
+                        <div>
+
+                            <Link to='/user/commented-cars' className="change-info-btn" >See all ...</Link>
+                        </div>
                     }
                 </>
                 :

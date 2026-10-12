@@ -188,7 +188,7 @@ export default function CarDetails() {
 
                 <h2>Comments</h2>
 
-                {user && <AddComment car_id={car_id} onCreate={refreshPage} />}
+                {user && <AddComment car_id={car_id} onCreate={refreshPage} title={`${car.manufacturer}${car.model}`} />}
 
                 <Comments car_id={car_id} owner_id={owner_id} refresh={refresh} />
 

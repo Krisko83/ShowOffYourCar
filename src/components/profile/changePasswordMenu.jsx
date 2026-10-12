@@ -1,5 +1,5 @@
 import { useState } from "react";
-import EyeIcon from "../auth/EyeIcon.jsx";
+import EyeIcon from "../user/EyeIcon.jsx";
 
 export default function ChangePasswordMenu({
     password,
@@ -79,7 +79,7 @@ export default function ChangePasswordMenu({
                                 name="repeatNewPassword"
                                 type={isPasswordsVisible['repeatNewPassword'] ? 'text' : 'password'}
                                 placeholder="Repeat your new password"
-                                autoComplete="new-password"
+                                autoComplete="repeate-password"
                                 onBlur={validationHandler}
                                 value={repeatNewPassword ?? ''}
                                 onChange={changeHandler}

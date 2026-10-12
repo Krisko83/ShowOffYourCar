@@ -4,7 +4,8 @@ import request from "../../utils/request.js";
 
 export default function AddComment({
     car_id,
-    onCreate
+    onCreate,
+    title
 }) {
     const [commentData, setCommentData] = useState('');
 
@@ -27,7 +28,8 @@ export default function AddComment({
             content: commentData.content,
             owner_id: user.id,
             author: user.fullName,
-            car_id
+            car_id,
+            title
         }
 
 
