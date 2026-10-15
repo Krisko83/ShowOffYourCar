@@ -1,61 +1,30 @@
-import { Route, Routes, useNavigate } from 'react-router'
-import { useState } from 'react'
-
+import { Route, Routes } from 'react-router'
 import IsAuth from './components/route-guards/IsAuth.jsx'
 import IsGuest from './components/route-guards/isGuest.jsx'
 import About from './components/about/About.jsx'
 import Gallery from './components/gallery/Gallery.jsx'
-import Contacts from './components/contacts/Contacts.jsx' 
+import Contacts from './components/contacts/Contacts.jsx'
 import NotFound from './components/not-found/NotFound.jsx'
 import Footer from './components/footer/Footer.jsx'
 import Header from './components/header/Header.jsx'
 import Home from './components/home/Home.jsx'
 import CarDetails from './components/car-details/CarDetails.jsx'
 import CarEdit from './components/car-edit/CarEdit.jsx'
-import UserContext from './contexts/UserContext.js'
 import CarAdd from './components/car-add/CarAdd.jsx'
-import Profile from './components/profile/Profile.jsx'  
+import Profile from './components/profile/Profile.jsx'
 import CarCommentedList from './components/car-commented/CarCommentedList.jsx'
 import CarOwnedList from './components/car-owned/CarOwnedList.jsx'
 import Login from './components/user/Login.jsx'
 import Register from './components/user/Register.jsx'
+import { UserProvider } from './components/contexts/UserContext.jsx'
  
 
 
+
 function App() {
-  const initialState = JSON.parse(sessionStorage.getItem('userData'))?.userData;
-
-  const [user, setUser] = useState(initialState)
-  const navigate = useNavigate()
-
-
-  const onLogin = (userData) => {
-    sessionStorage.setItem('userData', JSON.stringify({ userData }))
-    setUser(userData)
-  }
-
-  const onRegister = (userData) => {
-
-    sessionStorage.setItem('userData', JSON.stringify({ userData }))
-    setUser(userData)
-  }
-
-  const onLogout = () => {
-    sessionStorage.removeItem('userData');
-    setUser(null)
-    navigate('/')
-  }
-
-  const contextValues = {
-    user,
-    isAuthenticated: !!user,
-    onLogin,
-    onRegister,
-    onLogout
-  }
-
+ 
   return (
-    <UserContext.Provider value={contextValues}>
+    <UserProvider>
       <Header />
 
       <Routes>
@@ -66,7 +35,7 @@ function App() {
         <Route path='/cars/:car_id/details' element={<CarDetails />} />
 
 
-        <Route element={<IsGuest user={user} />}>
+        <Route element={<IsGuest />}>
           <Route path='/cars/:car_id/edit' element={<CarEdit />} />
           <Route path='/cars/add-car' element={<CarAdd />} />
           <Route path='/profile' element={<Profile />} />
@@ -74,7 +43,7 @@ function App() {
           <Route path='/user/commented-cars' element={<CarCommentedList />} />
         </Route>
 
-        <Route path='/user' element={<IsAuth user={user} />}>
+        <Route path='/user' element={<IsAuth />}>
           <Route path='login' element={<Login />} />
           <Route path='register' element={<Register />} />
         </Route>
@@ -84,7 +53,7 @@ function App() {
       </Routes>
 
       <Footer />
-    </UserContext.Provider>
+    </UserProvider>
   )
 }
 

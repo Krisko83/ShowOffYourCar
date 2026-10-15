@@ -43,7 +43,6 @@ export default function Login() {
 
             onLogin(data);
 
-
             navigate('/');
 
         } catch (error) {
