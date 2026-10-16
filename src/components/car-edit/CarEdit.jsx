@@ -9,11 +9,19 @@ import useControlledCarForm from "../../hooks/useControlledCarForms.js";
 export default function CarEdit() {
     const { car_id } = useParams();
     const navigate = useNavigate();
-    const { carData, setCarData, changeHandler, errors, isTouched, actionHandler, validationHandler } = useControlledCarForm(onSubmit);
+    const {
+        carData,
+        setCarData,
+        changeHandler,
+        errors,
+        isTouched,
+        actionHandler,
+        validationHandler
+    } = useControlledCarForm(onSubmit);
 
 
     useEffect(() => {
-        request(`/cars?id=eq.${car_id}`)
+        request.getById(`/cars?id=eq.${car_id}`)
             .then(res => setCarData(res[0]))
             .catch(() => {
                 <NotFound />
@@ -24,15 +32,16 @@ export default function CarEdit() {
 
     async function onSubmit(car) {
         try {
-            request(`/cars?id=eq.${car_id}`, 'PATCH', car)
+            request.update(`/cars?id=eq.${car_id}`, car);
+
+            navigate(`/cars/${car_id}/details`);
         } catch (error) {
-            console.log(error);
+            alert(error);
         }
 
-        navigate(`/cars/${car_id}/details`)
     }
- 
-    
+
+
     return (
         <CarAddEditItem
             validationHandler={validationHandler}

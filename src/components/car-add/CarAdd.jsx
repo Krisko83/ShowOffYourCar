@@ -11,12 +11,13 @@ export default function CarAdd() {
     async function submitHandler(car) {
 
         try {
-            await request('/cars', 'POST', car);
-
+           const res = await request.post('/cars', car);
+            console.log(res);
+            
             navigate('/');
 
         } catch (error) {
-            console.log(error);
+            alert(error);
         }
 
     }

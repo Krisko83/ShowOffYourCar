@@ -5,7 +5,6 @@ export default function PersonalInfoItem({
     age,
     country,
     city,
-    // onClickEdit,
     gender,
 }) {
 

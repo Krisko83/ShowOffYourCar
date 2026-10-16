@@ -1,11 +1,11 @@
 import { use, useEffect, useState } from 'react';
-import './Profile.css';
 import UserContext from '../../contexts/UserContext.js';
 import PersonalInfoItem from './PersonalInfoItem.jsx';
 import ChangeProfileInfoItem from './ChangeProfileInfoItem.jsx';
 import request from '../../utils/request.js';
 import CarOwned from '../car-owned/carOwned.jsx';
 import CarCommented from '../car-commented/CarCommented.jsx';
+import './Profile.css';
  
 
 const initialValues = {
@@ -24,17 +24,19 @@ export default function Profile() {
     const { user } = use(UserContext);
     const [isEditClicked, setIsEditClicked] = useState(false);
     const [userInfo, setUserInfo] = useState(initialValues)
-    const user_id = user.id;
-
-
+    const user_id = user.user.id;
+     
+    
     useEffect(() => {
-        request(`/users?id=eq.${user_id}`)
+        request.getById(`/users?user_id=eq.${user_id}`)
             .then(result => setUserInfo(result[0]))
             .catch((err) => {
-                console.log(err.message);
-            });
-
-    }, [user_id])
+                alert(err.message);
+            });         
+            
+        }, [user_id])
+        
+        console.log(userInfo);
 
     const updateUserProfile = (info) => {
         setUserInfo(info);

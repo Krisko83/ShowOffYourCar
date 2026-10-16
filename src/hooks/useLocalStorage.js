@@ -9,7 +9,7 @@ export default function useLocalStorage(initialState, key) {
         };
 
         const data = JSON.parse(storageData);
-        console.log(data);
+
 
         return data;
     });

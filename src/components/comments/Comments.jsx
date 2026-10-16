@@ -12,7 +12,7 @@ export default function Comments({
     const [comments, setComments] = useState([]);
 
     useEffect(() => {
-        request(`/comments?car_id=eq.${car_id}&order=created_at.desc`)
+        request.getAll(`/comments?car_id=eq.${car_id}&order=created_at.desc`)
             .then(result => setComments(result))
     }, [car_id, refresh])
 

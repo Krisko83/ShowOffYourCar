@@ -30,7 +30,7 @@ export default function ChangeProfileInfoItem({
     const [menuChangePasswordVisibility, setMenuChangePasswordVisibility] = useState(false);
 
     useEffect(() => {
-        request(`/users?id=eq.${user_id}`)
+        request.getById(`/users?id=eq.${user_id}`)
             .then(result => setUserData(result[0]))
             .catch((err) => {
                 console.log(err.message);
@@ -52,7 +52,7 @@ export default function ChangeProfileInfoItem({
         const data = getUserData(userData, userData.newPassword)
 
         try {
-            await request(`/users?id=eq.${user_id}`, 'PATCH', data)
+            await request.put(`/users?id=eq.${user_id}`, data)
 
             updateUser(userData)
             onClickCancel();
@@ -100,11 +100,11 @@ export default function ChangeProfileInfoItem({
         const newPassword = userData.newPassword;
 
         try {
-            request(`/users?id=eq.${user_id}`, 'PATCH', { password: newPassword })
+            request.updatePassword(`/users?id=eq.${user_id}`, { password: newPassword })
 
             onClickCancel()
         } catch (error) {
-            console.log(error.message);
+            alert(error.message);
 
         }
     }

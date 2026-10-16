@@ -12,7 +12,7 @@ export default function LikeCar({
     const [liked, setLiked] = useState(false);
 
     useEffect(() => {
-        request(`/likes?user_id=eq.${user_id}&car_id=eq.${car_id}`)
+        request.getAll(`/likes?user_id=eq.${user_id}&car_id=eq.${car_id}`)
             .then(result => {
                 if (result.length === 1) {
                     setLiked(true)
@@ -23,13 +23,16 @@ export default function LikeCar({
 
 
     const likeCar = async () => {
-        await request('/likes', 'POST', { user_id, car_id });
+        console.log(car_id,' - ', user_id);
+        await request.post('/likes', { user_id, car_id });
 
         onLikeUnlike();
-    };
+    };  
+
+    
 
     const unlikeCar = async () => {
-        await request(`/likes?user_id=eq.${user_id}&car_id=eq.${car_id}`, 'DELETE');
+        await request.remove(`/likes?user_id=eq.${user_id}&car_id=eq.${car_id}`);
         setLiked(false);
 
         onLikeUnlike();

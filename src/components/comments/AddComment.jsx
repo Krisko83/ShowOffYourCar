@@ -9,7 +9,8 @@ export default function AddComment({
 }) {
     const [commentData, setCommentData] = useState('');
 
-    const { user } = use(UserContext)
+    const { user } = use(UserContext);
+    const user_id = user.user.id
 
     const changeHandler = (e) => {
         setCommentData(state => ({
@@ -19,22 +20,27 @@ export default function AddComment({
     }
 
     const actionHandler = async () => {
-        if(!commentData.content) {
+        if (!commentData.content) {
             return
         };
 
-        
-        const comment = {
-            content: commentData.content,
-            owner_id: user.id,
-            author: user.fullName,
-            car_id,
-            title
-        }
+
+
+
 
 
         try {
-            await request('/comments', 'POST', comment)
+            const userInfo = await request(`/users?id=eq.${user_id}`)
+
+            const comment = {
+                content: commentData.content,
+                owner_id: userInfo.id,
+                author: userInfo.fullName,
+                car_id,
+                title
+            }
+
+            await request.post('/comments', comment)
             setCommentData('')
             onCreate()
 

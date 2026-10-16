@@ -3,18 +3,18 @@ import UserContext from "../../contexts/UserContext.js";
 import { useNavigate } from "react-router";
 
 
-export function UserProvider({
+export default function UserProvider({
     children
 }) {
     const [user, setUser, removeUser] = useLocalStorage(null, 'auth')
     const navigate = useNavigate()
-
-
+ 
+    
     const loginHandler = (userData) => {
         setUser(userData)
     }
 
-    const registerHandler = (userData) => {
+    const registerHandler = (userData) => { 
         setUser(userData)
     }
 

@@ -3,7 +3,6 @@ import { use } from 'react';
 import request from '../../utils/request.js';
 import EyeIcon from './EyeIcon.jsx';
 import UserContext from '../../contexts/UserContext.js';
-import getUserData from '../../utils/userUtils.js';
 import useControlledAuthForms from '../../hooks/useControlledAuthForms.js';
 import styles from "./Register.module.css";
 
@@ -20,9 +19,8 @@ const initialValues = {
 };
 
 
-export default function Register() { 
+export default function Register() {
     const { onRegister } = use(UserContext)
-
     const navigate = useNavigate();
 
     const {
@@ -34,24 +32,28 @@ export default function Register() {
         changeHandler,
         validationHandler,
         actionHandler } = useControlledAuthForms(onSubmit, initialValues, 'register')
-        
 
-    async function onSubmit(user) {
+ 
+    async function onSubmit(userData) {
+        const { email, password } = userData;
+        const { username, fullName, age, country, city, gender } = userData;
+        const userInfo = { username, country, city ,fullName, gender ,age }
+
         try {
-            const response = await request('/users', 'POST', user);
+            const responseData = await request.register({ email, password });
 
-            const data = getUserData(response[0])
-
-            onRegister(data);
-
+            onRegister(responseData); 
+            
+            await request.post('/users', userInfo)
+            
             navigate('/');
 
         } catch (error) {
-            console.log(error);
+            alert(error);
         }
 
     }
- 
+
 
     const errorMessage = (field) => errors[field] && isTouched[field] ? <p className={styles["errorMessage"]}>{errors[field]}</p> : '';
     const inputClass = (field) => errors[field] && isTouched[field] ? "form-group-error" : "form-group";

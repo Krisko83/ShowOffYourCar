@@ -8,10 +8,10 @@ export default function useComments() {
     const [commentedCars, setCommentedCars] = useState([])
     const { user } = use(UserContext);
 
-    const user_id = user.id;
+    const user_id = user.user.id;
 
     useEffect(() => {
-        request(`/comments?owner_id=eq.${user_id}`)
+        request.getById(`/comments?owner_id=eq.${user_id}`)
             .then(result => {
                 setComments(result)
                 const uniqueIds = Array.from(new Set(result.map(comment => comment.car_id)))
@@ -21,7 +21,7 @@ export default function useComments() {
     }, [user_id]);
 
     useEffect(() => {
-        request('/cars')
+        request.getAll('/cars')
             .then(result => {
                 const filteredCars = result.filter(car => uniqueCarIds.includes(car.id))
                 setCommentedCars(filteredCars)

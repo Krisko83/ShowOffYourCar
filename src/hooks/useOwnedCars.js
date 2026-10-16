@@ -8,7 +8,7 @@ export default function useOwnedCars() {
     const user_id = user.id;
 
     useEffect(() => {
-        request(`/cars?owner_id=eq.${user_id}`)
+        request.getById(`/cars?owner_id=eq.${user_id}`)
             .then(result => setOwnedCars(result))
 
     }, [user_id])

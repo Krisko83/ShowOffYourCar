@@ -16,7 +16,7 @@ import CarCommentedList from './components/car-commented/CarCommentedList.jsx'
 import CarOwnedList from './components/car-owned/CarOwnedList.jsx'
 import Login from './components/user/Login.jsx'
 import Register from './components/user/Register.jsx'
-import { UserProvider } from './components/contexts/UserContext.jsx'
+import UserProvider from './components/contexts/UserContext.jsx'
  
 
 

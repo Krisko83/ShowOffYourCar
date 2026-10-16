@@ -1,10 +1,8 @@
 import { Link, useNavigate } from 'react-router';
 import { use } from 'react';
-
 import request from '../../utils/request.js';
 import EyeIcon from './EyeIcon.jsx';
 import UserContext from '../../contexts/UserContext.js';
-import getUserData from '../../utils/userUtils.js';
 import useControlledAuthForms from '../../hooks/useControlledAuthForms.js';
 import styles from './Login.module.css'
 
@@ -33,15 +31,9 @@ export default function Login() {
         const { email, password } = user;
 
         try {
-            const response = await request(`/users?email=eq.${email}`);
+            const responseData = await request.login({ email, password });
 
-            if (response[0].password !== password) {
-                return alert('Email or password are not valid!')
-            }
-
-            const data = getUserData(response[0]);
-
-            onLogin(data);
+            onLogin(responseData);
 
             navigate('/');
 

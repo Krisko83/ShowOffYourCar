@@ -33,19 +33,20 @@ export default function CarDetails() {
     const [likes, setLikes] = useState([]);
 
     const navigate = useNavigate();
-    const user_id = user?.id;
+    const user_id = user.user?.id;
 
     const owner_id = car?.owner_id;
-
+    
+    
 
     useEffect(() => {
-        request(`/cars?id=eq.${car_id}`)
+        request.getById(`/cars?id=eq.${car_id}`)
             .then(res => setCar(res[0]))
             .catch(() => {
                 <NotFound />
             })
 
-        request(`/likes?car_id=eq.${car_id}`)
+        request.getAll(`/likes?car_id=eq.${car_id}`)
             .then(result => setLikes(result))
 
     }, [car_id, refresh]);
@@ -58,7 +59,7 @@ export default function CarDetails() {
             return
         }
 
-        await request(`/cars?id=eq.${car_id}`, 'DELETE');
+        await request.remove(`/cars?id=eq.${car_id}`);
 
         navigate('/');
     }
@@ -165,7 +166,7 @@ export default function CarDetails() {
 
             <section className="car-actions">
                 {
-                    user && user_id === car.owner_id
+                    user && user_id === car.user_id
                         ?
                         <>
                             <Link to={`/cars/${car_id}/edit`} className="action-button edit-button">
