@@ -1,5 +1,6 @@
 import { useState } from "react";
 import request from "../../utils/request.js";
+import useImageIrl from "../../hooks/useImageUrl.js";
 
 export default function AddComment({
     car_id,
@@ -8,7 +9,7 @@ export default function AddComment({
     title
 }) {
     const [commentData, setCommentData] = useState('');
-
+    const avatar = useImageIrl(user_id)
     const changeHandler = (e) => {
         setCommentData(state => ({
             ...state,
@@ -28,7 +29,8 @@ export default function AddComment({
                 car_id,
                 content: commentData.content,
                 author: userInfo[0].fullName,
-                title
+                title,
+                avatar
             }
 
            const createdComment = await request.post('/comments', comment)

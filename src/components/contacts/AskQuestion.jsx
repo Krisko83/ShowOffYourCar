@@ -18,9 +18,6 @@ export default function AskQuestion({
     const [contactMessage, setContactMessage] = useState(defaultValues);
     const [errors, setErrors] = useState({});
     const [isTouched, setIsTouched] = useState(false);
-    // const [successfulMessage, setSuccessfullMessage] = useState('');
-
-    // const navigate = useNavigate();
 
     const changeHandler = (e) => {
         setContactMessage(state => ({
@@ -48,7 +45,7 @@ export default function AskQuestion({
             setTimeout(() => {
                 showMessage('')
             }, 5000)
-           setContactMessage(defaultValues)
+            setContactMessage(defaultValues)
         } catch (error) {
             alert(error)
         }

@@ -1,12 +1,18 @@
 import { Link } from 'react-router';
 import { use } from 'react';
 import UserContext from '../../contexts/UserContext.js';
+import useImageIrl from '../../hooks/useImageUrl.js';
 import './Header.css'
 
 
 export default function Header() {
-    const { user, onLogout } = use(UserContext)
-
+    const { user, onLogout } = use(UserContext);
+    const user_id = user?.user.id;
+ 
+    
+    const imageUrl = useImageIrl(user_id )
+ 
+    
     return (
         <>
             <header className='section site-header'>
@@ -22,7 +28,14 @@ export default function Header() {
                                 ?
                                 <>
                                     <li><Link to="/cars/add-car">Add Car</Link></li>
-                                    <li><Link to="/profile">My Profile</Link></li>
+                                    <li><Link to="/profile">
+                                        {imageUrl ?
+                                            <img src={imageUrl} className="heading-icon-avatar" alt="User image" />
+                                            :
+                                            <span className="heading-icon" aria-hidden="true">👤</span>
+                                        }
+                                        My Profile
+                                    </Link></li>
                                     <li><button onClick={onLogout} className='nav-btn'>Logout</button></li>
                                 </>
                                 :
@@ -38,7 +51,7 @@ export default function Header() {
                 <div className="wrapper">
                     <section className="site-header-text">
                         <h2>Welcome to the Show off your car app!</h2>
-                
+
                         <p>Show off your ride, discover amazing cars, and connect with fellow car enthusiasts.  </p>
                     </section>
                 </div>

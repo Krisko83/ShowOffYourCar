@@ -1,9 +1,10 @@
 const baseUrl = import.meta.env.VITE_BASE_URL;
 const authUrl = import.meta.env.VITE_AUTH_URL;
 const apikey = import.meta.env.VITE_API_KEY;
+const uploadImageUrl = import.meta.env.VITE_UPLOAD_IMAGE_URL
 
 
-async function makeRequest(url, method = 'GET', data = null, opts = {}) {
+async function makeRequest(url, method = 'GET', data = null, opts = {}, image = false) {
     const storageData = localStorage.getItem('auth');
     let user = {};
 
@@ -30,15 +31,32 @@ async function makeRequest(url, method = 'GET', data = null, opts = {}) {
     }
 
     if (data) {
-        options.headers['Content-type'] = 'application/json'
-        options.body = JSON.stringify(data)
+        console.log(data);
+
+        if (image) {
+            options.headers['Content-type'] = data.type;
+            options.body = data;
+        } else {
+            options.headers['Content-type'] = 'application/json'
+            options.body = JSON.stringify(data)
+        }
     }
 
     try {
 
-        const response = await fetch(`${url}`, options)
+        let response = await fetch(`${url}`, options)
+
+        // console.log('from request:', response);
 
 
+        if (response.status === 401) {
+            sessionStorage.removeItem('auth');
+ 
+            const refreshData = await refreshToken(refresh_token);
+
+            sessionStorage.setItem('auth', JSON.stringify({ refreshData }));
+            response = await fetch(`${url}`, options);
+        }
 
         if (!response.ok) {
             throw new Error(`HTTP response error! Error ${response.status}`)
@@ -49,17 +67,10 @@ async function makeRequest(url, method = 'GET', data = null, opts = {}) {
         }
 
         return response.json();
-        
+
     } catch (error) {
-        if (error.status === 401) {
-            const refreshData = await refreshToken(refresh_token);
-            console.log('Token refresh try!', refreshData);
 
-            return sessionStorage.setItem('auth', JSON.stringify({ refreshData }));
-
-        }
-
-        return error.message
+        alert(error.message)
     }
 
 
@@ -95,15 +106,13 @@ async function refreshToken(refresh_token) {
 
 const register = (data) => makeRequest(`${authUrl}/signup`, 'POST', data);
 const login = (data) => makeRequest(`${authUrl}/token?grant_type=password`, 'POST', data);
-
 const updateUser = (data) => makeRequest(`${authUrl}/user`, 'PUT', data);
-
 const getAll = (path) => makeRequest(`${baseUrl}${path}`);
 const getById = (path) => makeRequest(`${baseUrl}${path}`);
 const post = (path, data) => makeRequest(`${baseUrl}${path}`, 'POST', data);
 const remove = (path) => makeRequest(`${baseUrl}${path}`, 'DELETE');
 const update = (path, data) => makeRequest(`${baseUrl}${path}`, 'PATCH', data);
-
+const uploadImage = (name, image) => makeRequest(`${uploadImageUrl}/${name}`, 'POST', image, {}, true)
 
 const request = {
     register,
@@ -113,7 +122,8 @@ const request = {
     post,
     remove,
     update,
-    updateUser
+    updateUser,
+    uploadImage
 }
 
 export default request;

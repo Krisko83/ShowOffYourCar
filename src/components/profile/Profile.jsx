@@ -6,7 +6,8 @@ import request from '../../utils/request.js';
 import CarOwned from '../car-owned/carOwned.jsx';
 import CarCommented from '../car-commented/CarCommented.jsx';
 import './Profile.css';
- 
+import useImageIrl from '../../hooks/useImageUrl.js';
+
 
 const initialValues = {
     fullName: '',
@@ -24,17 +25,19 @@ export default function Profile() {
     const { user } = use(UserContext);
     const [isEditClicked, setIsEditClicked] = useState(false);
     const [userInfo, setUserInfo] = useState(initialValues)
-    const user_id = user.user.id;      
-    
+    const user_id = user.user.id;
+
+    const imageUrl = useImageIrl(user_id)
+
     useEffect(() => {
         request.getById(`/users?user_id=eq.${user_id}`)
             .then(result => setUserInfo(result[0]))
             .catch((err) => {
                 alert(err.message);
-            });         
-            
-        }, [user_id])
- 
+            });
+
+    }, [user_id])
+
     const updateUserProfile = (info) => {
         setUserInfo(info);
     }
@@ -48,7 +51,11 @@ export default function Profile() {
     return (
         <main className="profile-page">
             <header className="profile-heading">
-                <div className="profile-heading-icon" aria-hidden="true">👤</div>
+                {imageUrl ?
+                    <img src={imageUrl} className="heading-icon-profile" alt="User image" />
+                    :
+                    <div className="profile-heading-icon" aria-hidden="true">👤</div>
+                }
                 <div>
                     <h1>My Profile</h1>
                     <p>Manage your personal information and keep your profile up to date.</p>
@@ -71,7 +78,7 @@ export default function Profile() {
 
             <section className="profile-bottom">
                 <CarCommented />
-            
+
                 <div className="personal-info-panel">
                     <div className="section-title">
                         <span className="section-icon" aria-hidden="true">⚙️</span>
@@ -83,7 +90,7 @@ export default function Profile() {
                     <p className="personal-info-description">
                         You can edit your name, contact details, location, and password using the form above.
                     </p>
-                    <button className="change-info-btn" onClick={onClickEdit} >✎ &nbsp; {isEditClicked ? 'Hide Change Menu' :'Change Personal Info'}</button>
+                    <button className="change-info-btn" onClick={onClickEdit} >✎ &nbsp; {isEditClicked ? 'Hide Change Menu' : 'Change Personal Info'}</button>
                 </div>
             </section>
 

@@ -67,7 +67,7 @@ export default function Contacts() {
                 </aside>
 
             </section>
-            <AskedQuestions />
+                <AskedQuestions />
         </main>
     );
 }

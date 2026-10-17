@@ -4,6 +4,7 @@ import request from "../../utils/request.js";
 import getUserData from "../../utils/userUtils.js";
 import ChangePasswordMenu from "./changePasswordMenu.jsx";
 
+
 const initialValues = {
     fullName: '',
     username: '',
@@ -27,6 +28,8 @@ export default function ChangeProfileInfoItem({
     const [userData, setUserData] = useState(initialValues);
     const [errors, setErrors] = useState({});
     const [isTouched, setIsTouched] = useState({});
+    const [previewUrl, setPreviewUrl] = useState(null);
+
     const [menuChangePasswordVisibility, setMenuChangePasswordVisibility] = useState(false);
 
     useEffect(() => {
@@ -36,11 +39,32 @@ export default function ChangeProfileInfoItem({
                 console.log(err.message);
             });
 
-    }, [user_id])
+    }, [user_id]);
 
 
-    const actionHandler = async (e) => {
-        e.preventDefault();
+    const actionHandler = async (formData) => {
+
+        const imageFile = formData.get('image');
+
+        let imageUrl = userData.imageUrl;;
+
+        if (imageFile) {
+            const imageName = imageFile.name;
+
+
+            try {
+                await request.uploadImage(imageName, imageFile);
+
+                imageUrl = `https://ggordfryvhhohlcicpdu.supabase.co/storage/v1/object/public/avatars/${imageName}`;
+
+                setUserData(state => ({
+                    ...state,
+                    imageUrl
+                }))
+            } catch (error) {
+                alert(error)
+            }
+        }
 
         const errors = validation.changeProfileInfo(userData, false)
         setErrors(errors)
@@ -51,9 +75,9 @@ export default function ChangeProfileInfoItem({
         }
 
         const data = getUserData(userData);
-     
+
         try {
-            await request.update(`/users?user_id=eq.${user_id}`, data)
+            await request.update(`/users?user_id=eq.${user_id}`, { ...data, imageUrl })
 
             updateUser(userData)
             onClickCancel();
@@ -110,20 +134,38 @@ export default function ChangeProfileInfoItem({
         }
     }
 
+    const filePreviewHandler = (e) => {
+        const file = e.target.files[0];
+
+        const previewUrl = URL.createObjectURL(file)
+        setPreviewUrl(previewUrl);
+    }
 
     const errorMessage = (field) => errors[field] && isTouched[field] ? <p className="errorMessage">{errors[field]}</p> : '';
     const inputClass = (field) => errors[field] && isTouched[field] ? 'profile-field error' : 'profile-field';
 
     return (
         <>
-            <form className="profile-card" onSubmit={actionHandler} >
+            <form className="profile-card" action={actionHandler} >
                 <aside className="profile-picture-panel">
-                    <div className="profile-avatar" aria-hidden="true">👤</div>
-                    <label className="upload-picture">
+                    <div className="profile-avatar" aria-hidden="true">
+                        {
+                            previewUrl
+                                ?
+                                <img src={previewUrl} alt="preview" className='image' />
+                                :
+                                userData.imageUrl
+                                    ?
+                                    <img src={userData.imageUrl} alt="avatar" className='image' />
+                                    :
+                                    <div>👤</div>
+                        }
+                    </div>
+                    <label id="fileUpload" className="upload-picture">
                         <span className="upload-icon" aria-hidden="true">↑</span>
                         <span>Upload a profile picture</span>
                         <small>JPG, PNG or GIF (max 5 MB)</small>
-                        <input type="file" accept="image/png,image/jpeg,image/gif" />
+                        <input type="file" id="fileUpload" name="image" accept="image/png,image/jpeg,image/gif" onChange={filePreviewHandler} />
                     </label>
                 </aside>
 

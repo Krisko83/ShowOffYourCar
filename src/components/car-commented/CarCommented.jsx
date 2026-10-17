@@ -7,8 +7,7 @@ import useComments from "../../hooks/useCommens.js";
 
 export default function CarCommented() {
     const { commentedCars } = useComments();
-
-
+ 
     return (
         <div className="commented-cars-panel">
             <div className="section-title">

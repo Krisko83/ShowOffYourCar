@@ -27,7 +27,7 @@ export default function useComments() {
                 setCommentedCars(filteredCars)
             })
 
-    }, [uniqueCarIds]);
+    }, [uniqueCarIds]); 
     
 
     return { comments, uniqueCarIds, commentedCars };
