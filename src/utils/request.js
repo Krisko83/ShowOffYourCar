@@ -11,6 +11,7 @@ async function makeRequest(url, method = 'GET', data = null, opts = {}) {
         user = JSON.parse(storageData)
     }
 
+    const refresh_token = user.refresh_token;
 
     const options = {
         headers: {
@@ -33,18 +34,62 @@ async function makeRequest(url, method = 'GET', data = null, opts = {}) {
         options.body = JSON.stringify(data)
     }
 
-    const response = await fetch(`${url}`, options)
+    try {
 
-    if (!response.ok) {
-        throw new Error(`HTTP response error! Error ${response.status}`)
+        const response = await fetch(`${url}`, options)
+
+
+
+        if (!response.ok) {
+            throw new Error(`HTTP response error! Error ${response.status}`)
+        }
+
+        if (response.status === 204) {
+            return null
+        }
+
+        return response.json();
+        
+    } catch (error) {
+        if (error.status === 401) {
+            const refreshData = await refreshToken(refresh_token);
+            console.log('Token refresh try!', refreshData);
+
+            return sessionStorage.setItem('auth', JSON.stringify({ refreshData }));
+
+        }
+
+        return error.message
     }
 
-    if (response.status === 204) {
-        return null
+
+};
+
+async function refreshToken(refresh_token) {
+    try {
+        const response = await fetch(`${authUrl}/token?grant_type=refresh_token`, {
+            method: 'POST',
+            headers: {
+                apikey,
+                'Content-type': 'application/json'
+            },
+            body: JSON.stringify({ refresh_token })
+        })
+
+
+        if (!response.ok) {
+            localStorage.removeItem('auth');
+            throw new Error(response.message || 'Failed to refresh token. Please login');
+        }
+
+        const data = await response.json();
+
+        return data;
+
+    } catch (error) {
+        alert(error)
     }
 
-
-    return response.json();
 };
 
 

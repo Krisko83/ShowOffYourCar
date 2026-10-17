@@ -24,7 +24,7 @@ export default function CarOwned() {
                     :
                     <>
 
-                        <p>You don not have any cars!</p>
+                        <p>You don't have any cars!</p>
 
                         <div className={styles["change-info-btn-cont"]}>
                             <Link to='/cars/add-car' className={styles["change-info-btn"]} >Add your Car!</Link>

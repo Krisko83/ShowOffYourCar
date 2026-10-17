@@ -283,10 +283,49 @@ function changeProfileInfo(values, isPasswords = true) {
     return errors;
 }
 
+function contact(values) {
+    const errors = {};
+
+    if(values.name.length < 5) {
+        errors['name'] = 'Name must be at least 5 characters long!';
+    }
+
+    if (!values.name) {
+        errors['name'] = 'Name is required'
+    }
+
+    if (!emailRegex.test(values.email)) {
+        errors['email'] = 'Please enter a valid email address!';
+    }
+
+    if (!values.email) {
+        errors['email'] = 'Email is required'
+    }
+
+      if (values.subject.length < 3) {
+        errors['subject'] = 'Subject must be at least 3 characters long!'
+    }
+
+    if (!values.subject) {
+        errors['subject'] = 'Subject is required'
+    }
+
+    if (values.message.length < 10) {
+        errors['message'] = 'Message must be at least 10 characters long!'
+    }
+
+    if (!values.message) {
+        errors['message'] = 'Message is required'
+    }
+
+
+    return errors;
+}
 
 export const validation = {
     register,
     login,
     addEdit,
     changeProfileInfo,
+    contact
 }
