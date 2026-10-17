@@ -32,7 +32,7 @@ export default function CarEdit() {
 
     async function onSubmit(car) {
         try {
-            request.update(`/cars?id=eq.${car_id}`, car);
+          await request.update(`/cars?id=eq.${car_id}`, car);
 
             navigate(`/cars/${car_id}/details`);
         } catch (error) {
@@ -49,7 +49,8 @@ export default function CarEdit() {
             errors={errors}
             carData={carData}
             isTouched={isTouched}
-            actionHandler={actionHandler} edit
+            actionHandler={actionHandler}
+            edit
         />
     )
 

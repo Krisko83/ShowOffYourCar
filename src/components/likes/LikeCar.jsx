@@ -7,7 +7,7 @@ export default function LikeCar({
     user_id,
     car_id,
     onLikeUnlike,
-    refresh,     
+    refresh,
 }) {
     const [liked, setLiked] = useState(false);
 
@@ -23,13 +23,12 @@ export default function LikeCar({
 
 
     const likeCar = async () => {
-        console.log(car_id,' - ', user_id);
-        await request.post('/likes', { user_id, car_id });
+        await request.post('/likes', { car_id });
 
         onLikeUnlike();
-    };  
+    };
 
-    
+
 
     const unlikeCar = async () => {
         await request.remove(`/likes?user_id=eq.${user_id}&car_id=eq.${car_id}`);

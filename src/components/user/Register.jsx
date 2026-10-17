@@ -33,19 +33,18 @@ export default function Register() {
         validationHandler,
         actionHandler } = useControlledAuthForms(onSubmit, initialValues, 'register')
 
- 
+
     async function onSubmit(userData) {
-        const { email, password } = userData;
-        const { username, fullName, age, country, city, gender } = userData;
-        const userInfo = { username, country, city ,fullName, gender ,age }
+        const { email, password, username, fullName, age, country, city, gender } = userData;
+        const userInfo = { username, email, country, city, fullName, gender, age }
 
         try {
             const responseData = await request.register({ email, password });
 
-            onRegister(responseData); 
-            
+            onRegister(responseData);
+
             await request.post('/users', userInfo)
-            
+
             navigate('/');
 
         } catch (error) {

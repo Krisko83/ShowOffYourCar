@@ -39,6 +39,8 @@ export default function Login() {
 
         } catch (error) {
             console.log(error);
+            
+            alert('Email or password are incorrect!');
         }
     }
 

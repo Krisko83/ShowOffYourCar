@@ -33,9 +33,9 @@ export default function CarDetails() {
     const [likes, setLikes] = useState([]);
 
     const navigate = useNavigate();
-    const user_id = user.user?.id;
+    const user_id = user?.user.id;
 
-    const owner_id = car?.owner_id;
+    const carOwner_id = car?.user_id;
     
     
 
@@ -189,9 +189,9 @@ export default function CarDetails() {
 
                 <h2>Comments</h2>
 
-                {user && <AddComment car_id={car_id} onCreate={refreshPage} title={`${car.manufacturer}${car.model}`} />}
+                {user && <AddComment car_id={car_id} user_id={user_id} onCreate={refreshPage} title={`${car.manufacturer}${car.model}`} />}
 
-                <Comments car_id={car_id} owner_id={owner_id} refresh={refresh} />
+                <Comments car_id={car_id} carOwner_id={carOwner_id} refresh={refresh} />
 
             </section>
 

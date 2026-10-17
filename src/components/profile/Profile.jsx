@@ -24,8 +24,7 @@ export default function Profile() {
     const { user } = use(UserContext);
     const [isEditClicked, setIsEditClicked] = useState(false);
     const [userInfo, setUserInfo] = useState(initialValues)
-    const user_id = user.user.id;
-     
+    const user_id = user.user.id;      
     
     useEffect(() => {
         request.getById(`/users?user_id=eq.${user_id}`)
@@ -35,9 +34,7 @@ export default function Profile() {
             });         
             
         }, [user_id])
-        
-        console.log(userInfo);
-
+ 
     const updateUserProfile = (info) => {
         setUserInfo(info);
     }
@@ -86,7 +83,7 @@ export default function Profile() {
                     <p className="personal-info-description">
                         You can edit your name, contact details, location, and password using the form above.
                     </p>
-                    <button className="change-info-btn" onClick={onClickEdit} >✎ &nbsp; Change Personal Info</button>
+                    <button className="change-info-btn" onClick={onClickEdit} >✎ &nbsp; {isEditClicked ? 'Hide Change Menu' :'Change Personal Info'}</button>
                 </div>
             </section>
 

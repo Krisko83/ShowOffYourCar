@@ -1,7 +1,7 @@
 import { use } from "react";
 import UserContext from "../contexts/UserContext.js";
 
-export default function getUserData(userData, newPassword) {
+export default function getUserData(userData) {
     const returnValue = {
         id: userData?.id,
         fullName: userData.fullName,
@@ -13,9 +13,9 @@ export default function getUserData(userData, newPassword) {
         gender: userData.gender
     }
 
-    if (newPassword) {
-        returnValue.password = newPassword;
-    }
+    // if (newPassword) {
+    //     returnValue.password = newPassword;
+    // }
 
     return returnValue
 };

@@ -11,7 +11,7 @@ export default function useComments() {
     const user_id = user.user.id;
 
     useEffect(() => {
-        request.getById(`/comments?owner_id=eq.${user_id}`)
+        request.getById(`/comments?user_id=eq.${user_id}`)
             .then(result => {
                 setComments(result)
                 const uniqueIds = Array.from(new Set(result.map(comment => comment.car_id)))

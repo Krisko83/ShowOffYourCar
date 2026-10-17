@@ -1,16 +1,13 @@
-import { use, useState } from "react";
-import UserContext from "../../contexts/UserContext.js";
+import { useState } from "react";
 import request from "../../utils/request.js";
 
 export default function AddComment({
     car_id,
+    user_id,
     onCreate,
     title
 }) {
     const [commentData, setCommentData] = useState('');
-
-    const { user } = use(UserContext);
-    const user_id = user.user.id
 
     const changeHandler = (e) => {
         setCommentData(state => ({
@@ -24,24 +21,18 @@ export default function AddComment({
             return
         };
 
-
-
-
-
-
         try {
-            const userInfo = await request(`/users?id=eq.${user_id}`)
-
+            const userInfo = await request.getById(`/users?user_id=eq.${user_id}`)
+      
             const comment = {
-                content: commentData.content,
-                owner_id: userInfo.id,
-                author: userInfo.fullName,
                 car_id,
+                content: commentData.content,
+                author: userInfo[0].fullName,
                 title
             }
 
-            await request.post('/comments', comment)
-            setCommentData('')
+           const createdComment = await request.post('/comments', comment)
+            setCommentData(createdComment)
             onCreate()
 
         } catch (error) {

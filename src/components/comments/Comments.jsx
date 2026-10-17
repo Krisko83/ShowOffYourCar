@@ -4,11 +4,9 @@ import request from "../../utils/request.js";
 
 export default function Comments({
     car_id,
-    owner_id,
+    carOwner_id,
     refresh
 }) {
-
-
     const [comments, setComments] = useState([]);
 
     useEffect(() => {
@@ -19,9 +17,7 @@ export default function Comments({
 
     return (
         <div className="comments-list">
-
-            {comments.map(comment => <CommentItem key={comment.id} {...comment} isCarOwner={comment.owner_id === owner_id} />)}
-
+            {comments.map(comment => <CommentItem key={comment.id} {...comment} isCarOwner={comment.user_id === carOwner_id} />)}
         </div>
     );
 }

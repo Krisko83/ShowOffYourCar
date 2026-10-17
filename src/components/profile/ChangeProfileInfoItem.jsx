@@ -30,7 +30,7 @@ export default function ChangeProfileInfoItem({
     const [menuChangePasswordVisibility, setMenuChangePasswordVisibility] = useState(false);
 
     useEffect(() => {
-        request.getById(`/users?id=eq.${user_id}`)
+        request.getById(`/users?user_id=eq.${user_id}`)
             .then(result => setUserData(result[0]))
             .catch((err) => {
                 console.log(err.message);
@@ -40,8 +40,9 @@ export default function ChangeProfileInfoItem({
 
 
     const actionHandler = async (e) => {
-        e.preventDefault()
-        const errors = validation.changeProfileInfo(userData, userData.password)
+        e.preventDefault();
+
+        const errors = validation.changeProfileInfo(userData, false)
         setErrors(errors)
 
         if (Object.keys(errors).length > 0) {
@@ -49,10 +50,10 @@ export default function ChangeProfileInfoItem({
             return
         }
 
-        const data = getUserData(userData, userData.newPassword)
-
+        const data = getUserData(userData);
+     
         try {
-            await request.put(`/users?id=eq.${user_id}`, data)
+            await request.update(`/users?user_id=eq.${user_id}`, data)
 
             updateUser(userData)
             onClickCancel();
@@ -74,9 +75,9 @@ export default function ChangeProfileInfoItem({
         setIsTouched(state => ({
             ...state,
             [e.target.name]: true
-        }))   
- 
-        const errors = validation.changeProfileInfo(userData, userData.password)
+        }))
+
+        const errors = validation.changeProfileInfo(userData)
 
         setErrors(errors)
     }
@@ -86,8 +87,8 @@ export default function ChangeProfileInfoItem({
     }
 
 
-    const changePasswordHandler = () => {
-        const errors = validation.changeProfileInfo(userData, userData.password);
+    const changePasswordHandler = async () => {
+        const errors = validation.changeProfileInfo(userData);
 
         setErrors(errors);
 
@@ -96,16 +97,16 @@ export default function ChangeProfileInfoItem({
             return;
         }
 
-
         const newPassword = userData.newPassword;
+        const current_password = userData.inputPassword;
 
         try {
-            request.updatePassword(`/users?id=eq.${user_id}`, { password: newPassword })
+            await request.updateUser({ password: newPassword, current_password })
 
             onClickCancel()
         } catch (error) {
-            alert(error.message);
-
+            console.log(error);
+            alert('Current password is incorect!');
         }
     }
 
@@ -167,7 +168,8 @@ export default function ChangeProfileInfoItem({
                             autoComplete="email"
                             onBlur={validationHandler}
                             value={userData.email}
-                            onChange={changeHandler}
+                            // onChange={changeHandler} 
+                            disabled
                         />
                         {errorMessage('email')}
                     </div>

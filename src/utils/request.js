@@ -51,14 +51,13 @@ async function makeRequest(url, method = 'GET', data = null, opts = {}) {
 const register = (data) => makeRequest(`${authUrl}/signup`, 'POST', data);
 const login = (data) => makeRequest(`${authUrl}/token?grant_type=password`, 'POST', data);
 
-const updateUser = (data) => makeRequest(`${authUrl}/user`, 'PATCH', data);
+const updateUser = (data) => makeRequest(`${authUrl}/user`, 'PUT', data);
 
 const getAll = (path) => makeRequest(`${baseUrl}${path}`);
 const getById = (path) => makeRequest(`${baseUrl}${path}`);
 const post = (path, data) => makeRequest(`${baseUrl}${path}`, 'POST', data);
 const remove = (path) => makeRequest(`${baseUrl}${path}`, 'DELETE');
-const update = (path, data) => makeRequest(`${baseUrl}${path}`, 'PUT', data);
-const updatePassword = (path, data) => makeRequest(`${baseUrl}${path}`, 'PATCH', data);
+const update = (path, data) => makeRequest(`${baseUrl}${path}`, 'PATCH', data);
 
 
 const request = {
@@ -69,7 +68,6 @@ const request = {
     post,
     remove,
     update,
-    updatePassword,
     updateUser
 }
 

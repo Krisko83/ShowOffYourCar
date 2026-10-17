@@ -196,7 +196,7 @@ function addEdit(values) {
     return errors
 }
 
-function changeProfileInfo(values, password) {
+function changeProfileInfo(values, isPasswords = true) {
     const errors = {};
 
 
@@ -248,41 +248,45 @@ function changeProfileInfo(values, password) {
         errors['city'] = 'City must be at least 3 characters long!';
     }
 
-    if (values.newPassword && values.newPassword.length < 8) {
-        errors['newPassword'] = 'Password must be at least 8 characters long!'
-    }
+    if (isPasswords) {
 
-    if (values.repeatNewPassword && values.repeatNewPassword.length < 8) {
-        errors['repeatNewPassword'] = 'Password must be at least 8 characters long!'
-    }
 
-    if (!values.repeatNewPassword) {
-        errors['repeatNewPassword'] = 'Repeate New Password is required!'
-    }
+        if (values.inputPassword && values.inputPassword.length < 8) {
+            errors['inputPassword'] = 'Password must be at least 8 characters long!'
+        }
 
-    if (values.newPassword !== values.repeatNewPassword) {
-        errors['repeatNewPassword'] = 'Password does not match!';
-    }
+        if (values.newPassword && values.newPassword.length < 8) {
+            errors['newPassword'] = 'Password must be at least 8 characters long!'
+        }
 
-    if (!values.newPassword) {
-        errors['newPassword'] = 'New Password is required!'
-    }
+        if (values.newPassword !== values.repeatNewPassword) {
+            errors['repeatNewPassword'] = 'Password does not match!';
+        }
 
-    if (values.inputPassword !== password) {
-        errors['inputPassword'] = 'Password is incorrect!'
-    }
+        if (values.repeatNewPassword && values.repeatNewPassword.length < 8) {
+            errors['repeatNewPassword'] = 'Password must be at least 8 characters long!'
+        }
 
-    if (!values.inputPassword) {
-        errors['inputPassword'] = 'Password is required!'
+        if (!values.newPassword) {
+            errors['newPassword'] = 'New Password is required!'
+        }
+
+        if (!values.inputPassword) {
+            errors['inputPassword'] = 'Current Password is required!'
+        }
+
+        if (!values.repeatNewPassword) {
+            errors['repeatNewPassword'] = 'Repeate New Password is required!'
+        }
     }
 
     return errors;
 }
 
- 
+
 export const validation = {
     register,
     login,
     addEdit,
-    changeProfileInfo, 
+    changeProfileInfo,
 }
