@@ -23,8 +23,8 @@ export default function useControlledCarForm(onSubmit) {
     const [isTouched, setIsTouched] = useState(false);
     const [errors, setErrors] = useState({});
 
-    const { user } = use(UserContext)
-    const owner_id = user.id;
+    const { userData } = use(UserContext)
+    const owner_id = userData?.user.id;
 
 
     const actionHandler = () => {

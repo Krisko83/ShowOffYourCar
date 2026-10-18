@@ -26,14 +26,14 @@ const initialValues = {
 }
 
 export default function CarDetails() {
-    const { user } = use(UserContext);
+    const { userData } = use(UserContext);
     const { car_id } = useParams();
     const [car, setCar] = useState(initialValues);
     const [refresh, setRefresh] = useState(false);
     const [likes, setLikes] = useState([]);
 
     const navigate = useNavigate();
-    const user_id = user?.user.id;
+    const user_id = userData?.user.id;
 
     const carOwner_id = car?.user_id;
     
@@ -166,7 +166,7 @@ export default function CarDetails() {
 
             <section className="car-actions">
                 {
-                    user && user_id === car.user_id
+                    userData && user_id === car.user_id
                         ?
                         <>
                             <Link to={`/cars/${car_id}/edit`} className="action-button edit-button">
@@ -177,8 +177,8 @@ export default function CarDetails() {
                                 Delete
                             </button>
                         </>
-                        : user
-                        &&
+                        : 
+                        userData &&
                         <LikeCar user_id={user_id} car_id={car_id} onLikeUnlike={refreshPage} refresh={refresh} likes={likes.length} />
                 }
 
@@ -189,7 +189,7 @@ export default function CarDetails() {
 
                 <h2>Comments</h2>
 
-                {user && <AddComment car_id={car_id} user_id={user_id} onCreate={refreshPage} title={`${car.manufacturer}${car.model}`} />}
+                {userData && <AddComment car_id={car_id} user_id={user_id} onCreate={refreshPage} title={`${car.manufacturer}${car.model}`} />}
 
                 <Comments car_id={car_id} carOwner_id={carOwner_id} refresh={refresh} />
 

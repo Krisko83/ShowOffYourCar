@@ -3,9 +3,9 @@ import { Navigate, Outlet } from "react-router";
 import UserContext from "../../contexts/UserContext.js";
 
 export default function IsAuth() {
-    const { user } = use(UserContext);
+    const { userData } = use(UserContext);
     
-    if (user) {
+    if (userData) {
         return <Navigate to="/" />
     }
 

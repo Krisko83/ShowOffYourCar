@@ -4,7 +4,7 @@ import UserContext from '../../contexts/UserContext.js';
 import './Footer.css'
 
 export default function Footer() {
-    const { user } = use(UserContext);
+    const { userData } = use(UserContext);
 
     return (
         <footer className="footer" >
@@ -53,7 +53,7 @@ export default function Footer() {
                             <Link to="/cars/add-car">Post Your Car</Link>
                         </li>
 
-                        {!user &&
+                        {!userData &&
                             <>
                                 <li>
                                     <Link to="/user/login">Login</Link>

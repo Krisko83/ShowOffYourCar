@@ -6,9 +6,9 @@ export default function useComments() {
     const [comments, setComments] = useState([])
     const [uniqueCarIds, setUniqueCarIds] = useState([])
     const [commentedCars, setCommentedCars] = useState([])
-    const { user } = use(UserContext);
+    const { userData } = use(UserContext);
 
-    const user_id = user.user.id;
+    const user_id = userData.user.id;
 
     useEffect(() => {
         request.getById(`/comments?user_id=eq.${user_id}`)

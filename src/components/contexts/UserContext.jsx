@@ -7,15 +7,15 @@ import { useNavigate } from "react-router";
 export default function UserProvider({
     children
 }) {
-    const [user, setUser, removeUser] = useLocalStorage(null, 'auth');
+    const [userData, setUser, removeUser] = useLocalStorage(null, 'auth');
     const navigate = useNavigate()
 
-    const loginHandler = (userData) => {
-        setUser(userData)
+    const loginHandler = (inputUserData) => {
+        setUser(inputUserData)
     }
 
-    const registerHandler = (userData) => {
-        setUser(userData)
+    const registerHandler = (inputUserData) => {
+        setUser(inputUserData)
     }
 
     const logoutHandler = () => {
@@ -24,8 +24,8 @@ export default function UserProvider({
     }
 
     const contextValues = {
-        user,
-        isAuthenticated: !!user,
+        userData,
+        isAuthenticated: !!userData,
         onLogin: loginHandler,
         onRegister: registerHandler,
         onLogout: logoutHandler

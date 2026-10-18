@@ -6,10 +6,9 @@ import './Header.css'
 
 
 export default function Header() {
-    const { user, onLogout } = use(UserContext);
-    const user_id = user?.user.id;
+    const { userData, onLogout } = use(UserContext);
+    const user_id = userData?.user.id;
  
-    
     const imageUrl = useImageIrl(user_id);
   
     return (
@@ -23,16 +22,17 @@ export default function Header() {
                             <li><Link to="/cars/gallery">Gallery</Link></li>
                             <li><Link to="/about">About</Link></li>
                             <li><Link to="/contacts">Contact Us</Link></li>
-                            {user
+                            {userData
                                 ?
                                 <>
                                     <li><Link to="/cars/add-car">Add Car</Link></li>
-                                    <li><Link to="/profile">
+                                    <li><Link to="/user/profile">
                                         {imageUrl ?
                                             <img src={imageUrl} className="heading-icon-avatar" alt="User image" />
                                             :
                                             <span className="heading-icon" aria-hidden="true">👤</span>
                                         }
+                                   
                                         My Profile
                                     </Link></li>
                                     <li><button onClick={onLogout} className='nav-btn'>Logout</button></li>

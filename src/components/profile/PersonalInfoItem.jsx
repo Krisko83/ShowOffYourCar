@@ -6,6 +6,7 @@ export default function PersonalInfoItem({
     country,
     city,
     gender,
+    owner
 }) {
 
     return (
@@ -13,7 +14,7 @@ export default function PersonalInfoItem({
             <div className="personal-details-header">
                 <div>
                     <h2>Personal Information</h2>
-                    <p>Your profile details</p>
+                    <p>{owner ? 'Your profile details' : 'Profile details'}</p>
                 </div>
 
                 {/* <button

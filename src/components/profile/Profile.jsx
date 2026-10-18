@@ -22,10 +22,10 @@ const initialValues = {
 };
 
 export default function Profile() {
-    const { user } = use(UserContext);
+    const { userData } = use(UserContext);
     const [isEditClicked, setIsEditClicked] = useState(false);
     const [userInfo, setUserInfo] = useState(initialValues)
-    const user_id = user.user.id;
+    const user_id = userData.user.id;
 
     const imageUrl = useImageIrl(user_id)
 

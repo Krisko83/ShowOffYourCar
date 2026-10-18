@@ -3,9 +3,9 @@ import UserContext from "../contexts/UserContext.js";
 import request from "../utils/request.js";
 
 export default function useOwnedCars() {
-    const { user } = use(UserContext);
+    const { userData } = use(UserContext);
     const [ownedCars, setOwnedCars] = useState([]);
-    const user_id = user.user.id;
+    const user_id = userData?.user.id;
 
     useEffect(() => {
         request.getById(`/cars?user_id=eq.${user_id}`)
