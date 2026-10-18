@@ -10,9 +10,8 @@ export default function Header() {
     const user_id = user?.user.id;
  
     
-    const imageUrl = useImageIrl(user_id )
- 
-    
+    const imageUrl = useImageIrl(user_id);
+  
     return (
         <>
             <header className='section site-header'>

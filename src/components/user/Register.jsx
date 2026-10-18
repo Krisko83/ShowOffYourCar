@@ -41,15 +41,15 @@ export default function Register() {
         try {
             const responseData = await request.register({ email, password });
 
+            await request.post('/users', userInfo)
             onRegister(responseData);
 
-            await request.post('/users', userInfo)
-
             navigate('/');
-
         } catch (error) {
-            alert(error);
+            alert(error.message)
+            return;
         }
+
 
     }
 

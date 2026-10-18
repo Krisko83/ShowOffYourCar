@@ -7,10 +7,8 @@ export default function useImageIrl(user_id) {
     useEffect(() => {
         if(user_id) {
             request.getById(`/users?user_id=eq.${user_id}`)
-            .then(result => {
-                setImageUrl(result[0].imageUrl);                
-            })
-            .catch(err => alert(err))
+            .then(result => setImageUrl(result[0].imageUrl))
+            .catch(err => alert(err.message))
         }
     }, [user_id])
 
