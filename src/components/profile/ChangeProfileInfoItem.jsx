@@ -3,7 +3,7 @@ import { validation } from "../../utils/validation.js";
 import request from "../../utils/request.js";
 import getUserData from "../../utils/userUtils.js";
 import ChangePasswordMenu from "./changePasswordMenu.jsx";
-
+import { v4 as uuid } from 'uuid';
 
 const initialValues = {
     fullName: '',
@@ -49,8 +49,7 @@ export default function ChangeProfileInfoItem({
         let imageUrl = userData.imageUrl;;
 
         if (imageFile) {
-            const imageName = imageFile.name;
-
+            const imageName = `${uuid()}${imageFile.name}`;
 
             try {
                 await request.uploadImage(imageName, imageFile);
@@ -210,7 +209,6 @@ export default function ChangeProfileInfoItem({
                             autoComplete="email"
                             onBlur={validationHandler}
                             value={userData.email}
-                            // onChange={changeHandler} 
                             disabled
                         />
                         {errorMessage('email')}

@@ -1,6 +1,7 @@
 import useLocalStorage from "../../hooks/useLocalStorage.js";
 import UserContext from "../../contexts/UserContext.js";
 import { useNavigate } from "react-router";
+import request from "../../utils/request.js";
 
 
 
@@ -18,9 +19,16 @@ export default function UserProvider({
         setUser(inputUserData)
     }
 
-    const logoutHandler = () => {
-        removeUser('auth')
-        navigate('/')
+    const logoutHandler = async () => {
+        try {
+            await request.logout()
+            
+            removeUser('auth')  
+            navigate('/')
+
+        } catch (error) {
+            alert(error)
+        }
     }
 
     const contextValues = {

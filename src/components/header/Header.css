@@ -89,7 +89,8 @@
 
 
 .heading-icon {
-    display: inline-block;
+    display: flex;
+    justify-content: center;
     place-items: center;
     width: 35px;
     height: 35px;
