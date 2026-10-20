@@ -9,11 +9,11 @@ import useImageUrl from '../../hooks/useImageUrl.js';
 export default function Header() {
     const { userData, onLogout } = use(UserContext);
     const { userImage } = use(UserImageContext);
-    const user_id = userData.user.id
+    const user_id = userData?.user.id
  
     const serverDataImage = useImageUrl(user_id)
  
-    const imageUrl = userImage ? userImage : serverDataImage
+    const avatar = userImage ? userImage : serverDataImage
 
     return (
         <>
@@ -31,8 +31,8 @@ export default function Header() {
                                 <>
                                     <li><Link to="/cars/add-car">Add Car</Link></li>
                                     <li><Link to="/user/profile">
-                                        {imageUrl ?
-                                            <img src={imageUrl} className="heading-icon-avatar" alt="User image" />
+                                        {avatar ?
+                                            <img src={avatar} className="heading-icon-avatar" alt="User image" />
                                             :
                                             <span className="heading-icon" aria-hidden="true">👤</span>
                                         }

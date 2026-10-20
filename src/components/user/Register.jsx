@@ -38,8 +38,8 @@ export default function Register() {
         const { email, password, username, fullName, age, country, city, gender } = userData;
         const userInfo = { username, email, country, city, fullName, gender, age }
 
- 
-        
+
+
         try {
             const responseData = await request.register({ email, password });
 
@@ -50,7 +50,7 @@ export default function Register() {
             navigate('/');
         } catch (error) {
             console.log(error);
-            
+
             alert(error.message)
             return;
         }

@@ -99,10 +99,7 @@ export default function ChangeProfileInfoItem({
 
         const newPassword = userData.newPassword;
         const current_password = userData.inputPassword;
-
-        console.log(newPassword, current_password);
-
-
+ 
         try {
             await request.updateUser({ current_password, password: newPassword })
 

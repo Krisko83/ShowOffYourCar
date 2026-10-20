@@ -5,7 +5,15 @@ import { useNavigate } from 'react-router';
 import './CarAdd.css';
 
 export default function CarAdd() {
-    const { carData, changeHandler, errors, isTouched, validationHandler, actionHandler } = useControlledCarForm(submitHandler)
+    const {
+        carData,
+        changeHandler,
+        errors,
+        isTouched,
+        validationHandler,
+        actionHandler
+    } = useControlledCarForm(submitHandler)
+    
     const navigate = useNavigate();
 
     async function submitHandler(car) {

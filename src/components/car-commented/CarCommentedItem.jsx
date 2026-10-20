@@ -3,8 +3,7 @@ import { Link } from "react-router"
 export default function CarCommentedItem({
     car_id,
     title
-}) {
- 
+}) { 
         
     return (
         <li>
