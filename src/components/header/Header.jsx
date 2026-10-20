@@ -4,16 +4,19 @@ import UserContext from '../../contexts/UserContext.js';
 import UserImageContext from '../../contexts/UserImageContext.js';
 import './Header.css'
 import useImageUrl from '../../hooks/useImageUrl.js';
- 
+
 
 export default function Header() {
     const { userData, onLogout } = use(UserContext);
     const { userImage } = use(UserImageContext);
     const user_id = userData?.user.id
- 
+    //  console.log(userImage);
+
     const serverDataImage = useImageUrl(user_id)
- 
+    // console.log(serverDataImage);
+
     const avatar = userImage ? userImage : serverDataImage
+ 
 
     return (
         <>

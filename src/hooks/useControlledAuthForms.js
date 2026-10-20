@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { validation } from "../utils/validation.js";
-import getUserData from "../utils/userUtils.js";
+// import getUserData from "../utils/userUtils.js";
 
 const visibilityInitials = {
     password: false,
@@ -25,12 +25,13 @@ export default function useControlledAuthForms(onSubmit, initialValues, validati
             return
         }
 
-        const userFormData = {
-            password: userData.password,
-            ...getUserData(userData)
-        }
+        // const userFormData = {
+        //     password: userData.password,
+        //     ...getUserData(userData)
+        // }
 
-        onSubmit(userFormData)
+    
+        onSubmit(userData)
     };
 
 

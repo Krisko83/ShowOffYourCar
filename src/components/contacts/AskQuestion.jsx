@@ -1,9 +1,10 @@
-import { useState } from "react";
-import { validation } from "../../utils/validation.js";
+// import { useState } from "react";
+// import { validation } from "../../utils/validation.js";
 // import { useNavigate } from "react-router";
 import request from "../../utils/request.js";
 import SuccessfullMessage from "./successfulMessage.jsx";
- 
+import useControlledAuthForms from "../../hooks/useControlledAuthForms.js";
+
 
 const defaultValues = {
     name: '',
@@ -16,51 +17,78 @@ export default function AskQuestion({
     showMessage,
     successfulMessage
 }) {
-    const [contactMessage, setContactMessage] = useState(defaultValues);
-    const [errors, setErrors] = useState({});
-    const [isTouched, setIsTouched] = useState(false);
+    // const [contactMessage, setContactMessage] = useState(defaultValues);
+    // const [errors, setErrors] = useState({});
+    // const [isTouched, setIsTouched] = useState(false);
 
-    const changeHandler = (e) => {
-        setContactMessage(state => ({
-            ...state,
-            [e.target.name]: e.target.value
-        }));
+    const {
+        changeHandler,
+        actionHandler,
+        validationHandler,
+        errors,
+        isTouched,
+        userData: contactMessage
+    } = useControlledAuthForms(onSubmit, defaultValues, 'contact')
 
 
-    }
-
-    const actionHandler = async () => {
-        const errors = validation.contact(contactMessage);
-
-        setErrors(errors);
-
-        if (Object.keys(errors).length > 0) {
-            return setIsTouched(errors)
-        }
-
+    async function onSubmit(data) {
+        console.log(data);
+        
         try {
-            await request.post('/contacts', contactMessage)
+            await request.post('/contacts', data)
 
             showMessage(<SuccessfullMessage />)
 
             setTimeout(() => {
                 showMessage('')
             }, 5000)
-            setContactMessage(defaultValues)
+
         } catch (error) {
             alert(error)
         }
     }
+    // const changeHandler = (e) => {
+    //     setContactMessage(state => ({
+    //         ...state,
+    //         [e.target.name]: e.target.value
+    //     }));
 
-    const validationHandler = (e) => {
-        setIsTouched(state => ({
-            ...state,
-            [e.target.name]: true
-        }))
 
-        const errors = validation.contact(contactMessage);
-        setErrors(errors)
-    };
+    // }
+
+    // const actionHandler = async () => {
+    //     const errors = validation.contact(contactMessage);
+
+    //     setErrors(errors);
+
+    //     if (Object.keys(errors).length > 0) {
+    //         return setIsTouched(errors)
+    //     }
+
+    //     try {
+    //         await request.post('/contacts', contactMessage)
+
+    //         showMessage(<SuccessfullMessage />)
+
+    //         setTimeout(() => {
+    //             showMessage('')
+    //         }, 5000)
+    //         setContactMessage(defaultValues)
+    //     } catch (error) {
+    //         alert(error)
+    //     }
+    // }
+
+    // const validationHandler = (e) => {
+    //     setIsTouched(state => ({
+    //         ...state,
+    //         [e.target.name]: true
+    //     }))
+
+    //     const errors = validation.contact(contactMessage);
+    //     setErrors(errors)
+    // };
+
 
 
     const errorMessage = (field) => errors[field] && isTouched[field] ? <p className="errorMessage">{errors[field]}</p> : '';

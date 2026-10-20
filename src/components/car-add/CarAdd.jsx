@@ -19,9 +19,8 @@ export default function CarAdd() {
     async function submitHandler(car) {
 
         try {
-            const res = await request.post('/cars', car);
-            console.log(res);
-
+            await request.post('/cars', car);
+        
             navigate('/');
 
         } catch (error) {

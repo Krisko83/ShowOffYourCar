@@ -6,7 +6,7 @@ import request from '../../utils/request.js';
 import CarOwned from '../car-owned/carOwned.jsx';
 import CarCommented from '../car-commented/CarCommented.jsx';
 import './Profile.css';
-import UserImageContext from '../../contexts/UserImageContext.js';
+// import UserImageContext from '../../contexts/UserImageContext.js';
  
 
 const initialValues = {
@@ -23,7 +23,7 @@ const initialValues = {
 
 export default function Profile() {
     const { userData } = use(UserContext);
-    const { setUserImage } = use(UserImageContext);
+    // const { setUserImage } = use(UserImageContext);
 
     const [isEditClicked, setIsEditClicked] = useState(false);
     const [userInfo, setUserInfo] = useState(initialValues)
@@ -53,7 +53,7 @@ export default function Profile() {
         }
          
         setUserInfo(data)
-        setUserImage(data.imageUrl)
+        // setUserImage(data.imageUrl)
     }
 
 

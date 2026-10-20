@@ -2,13 +2,17 @@ import useLocalStorage from "../../hooks/useLocalStorage.js";
 import UserContext from "../../contexts/UserContext.js";
 import { useNavigate } from "react-router";
 import request from "../../utils/request.js";
+import { use } from "react";
+import UserImageContext from "../../contexts/UserImageContext.js";
 
 export default function UserProvider({
     children
 }) {
     const [userData, setUser, removeUser] = useLocalStorage(null, 'auth');
-    const navigate = useNavigate()
-
+    const navigate = useNavigate();
+    const { setUserImage } = use(UserImageContext)
+ 
+    
     const loginHandler = (inputUserData) => {
         setUser(inputUserData)
     }
@@ -21,7 +25,10 @@ export default function UserProvider({
         try {
             await request.logout()
             
-            removeUser('auth')  
+            removeUser('auth');
+            setUserImage(null)
+ 
+            
             navigate('/')
 
         } catch (error) {

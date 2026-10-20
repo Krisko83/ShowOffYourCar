@@ -35,11 +35,9 @@ export default function Register() {
 
 
     async function onSubmit(userData) {
-        const { email, password, username, fullName, age, country, city, gender } = userData;
+        const { email, password, username, fullName, age, country, city, gender } = userData; 
         const userInfo = { username, email, country, city, fullName, gender, age }
-
-
-
+ 
         try {
             const responseData = await request.register({ email, password });
 

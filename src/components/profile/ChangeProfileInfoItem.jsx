@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { use, useState } from "react";
 import { validation } from "../../utils/validation.js";
 import request from "../../utils/request.js";
 import ChangePasswordMenu from "./changePasswordMenu.jsx";
 import { v4 as uuid } from 'uuid';
+import UserImageContext from "../../contexts/UserImageContext.js";
 
 export default function ChangeProfileInfoItem({
     userData,
@@ -14,7 +15,7 @@ export default function ChangeProfileInfoItem({
     const [isTouched, setIsTouched] = useState({});
     const [previewUrl, setPreviewUrl] = useState(null);
     const [menuChangePasswordVisibility, setMenuChangePasswordVisibility] = useState(false);
-
+    const { setUserImage } = use(UserImageContext);
 
     const actionHandler = async (formData) => {
 
@@ -23,7 +24,7 @@ export default function ChangeProfileInfoItem({
         let userImage = userData.imageUrl;
 
         if (imageFile && imageFile.name !== '') {
- 
+
             const imageName = `${uuid()}${imageFile.name}`;
 
             try {
@@ -35,6 +36,8 @@ export default function ChangeProfileInfoItem({
                     ...state,
                     userImage
                 }))
+
+                setUserImage(userImage);
 
             } catch (error) {
                 alert(error)
@@ -99,7 +102,7 @@ export default function ChangeProfileInfoItem({
 
         const newPassword = userData.newPassword;
         const current_password = userData.inputPassword;
- 
+
         try {
             await request.updateUser({ current_password, password: newPassword })
 
