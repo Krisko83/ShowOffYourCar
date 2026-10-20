@@ -1,6 +1,6 @@
-import { use, useState } from "react";
-import { validation } from "../utils/validation.js"; 
-import UserContext from "../contexts/UserContext.js";
+import { useState } from "react";
+import { validation } from "../utils/validation.js";
+
 
 const initialValues = {
     imageUrl: '',
@@ -23,9 +23,6 @@ export default function useControlledCarForm(onSubmit) {
     const [isTouched, setIsTouched] = useState(false);
     const [errors, setErrors] = useState({});
 
-    const { userData } = use(UserContext)
-    const owner_id = userData?.user.id;
-
 
     const actionHandler = () => {
         const validationErrors = validation.addEdit(carData);
@@ -37,12 +34,8 @@ export default function useControlledCarForm(onSubmit) {
             return;
         };
 
-        const car = {
-            ...carData,
-            owner_id
-        };
 
-        onSubmit(car);
+        onSubmit(carData);
     };
 
     const changeHandler = (e) => {
@@ -64,5 +57,5 @@ export default function useControlledCarForm(onSubmit) {
     };
 
 
-    return { carData, setCarData, changeHandler, validationHandler, errors, isTouched, owner_id, actionHandler ,initialValues}
+    return { carData, setCarData, changeHandler, validationHandler, errors, isTouched, actionHandler, initialValues }
 }

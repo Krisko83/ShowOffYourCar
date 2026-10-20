@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import request from "../../utils/request.js";
 import LikeBtn from "./likeBtn.jsx";
 
@@ -7,42 +7,46 @@ export default function LikeCar({
     user_id,
     car_id,
     onLikeUnlike,
-    refresh,
+    liked
 }) {
-    const [liked, setLiked] = useState(false);
 
     useEffect(() => {
         request.getAll(`/likes?user_id=eq.${user_id}&car_id=eq.${car_id}`)
             .then(result => {
                 if (result.length === 1) {
-                    setLiked(true)
+                    onLikeUnlike(true)
                 }
             })
 
-    }, [user_id, car_id, refresh]);
+    }, [user_id, car_id, onLikeUnlike]);
 
 
     const likeCar = async () => {
-        await request.post('/likes', { car_id });
+        try {
+            await request.post('/likes', { car_id });
 
-        onLikeUnlike();
+            onLikeUnlike(true);
+        } catch (error) {
+            alert(error.message)
+        }
+
     };
-
 
 
     const unlikeCar = async () => {
-        await request.remove(`/likes?user_id=eq.${user_id}&car_id=eq.${car_id}`);
-        setLiked(false);
+        try {
+            await request.remove(`/likes?user_id=eq.${user_id}&car_id=eq.${car_id}`);
 
-        onLikeUnlike();
+            onLikeUnlike(false);
+        } catch (error) {
+            alert(error.message)
+        }
+
     };
-
-
 
 
     return (
         <div className="reaction-buttons">
-            {/* <p className="reaction-button">Likes: {likes}</p> */}
 
             <LikeBtn likeCar={likeCar} liked={liked} unlikeCar={unlikeCar} />
 

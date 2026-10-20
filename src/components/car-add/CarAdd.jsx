@@ -1,8 +1,8 @@
-import './CarAdd.css';
 import CarAddEditItem from '../car-add-edit-item/CarAddEditItem.jsx';
 import useControlledCarForm from '../../hooks/useControlledCarForms.js';
 import request from '../../utils/request.js';
 import { useNavigate } from 'react-router';
+import './CarAdd.css';
 
 export default function CarAdd() {
     const { carData, changeHandler, errors, isTouched, validationHandler, actionHandler } = useControlledCarForm(submitHandler)
@@ -11,9 +11,9 @@ export default function CarAdd() {
     async function submitHandler(car) {
 
         try {
-           const res = await request.post('/cars', car);
+            const res = await request.post('/cars', car);
             console.log(res);
-            
+
             navigate('/');
 
         } catch (error) {

@@ -28,30 +28,33 @@ const initialValues = {
 export default function CarDetails() {
     const { userData } = use(UserContext);
     const [car, setCar] = useState(initialValues);
-    const [refresh, setRefresh] = useState(false);
     const [likes, setLikes] = useState([]);
     const [commentsData, setCommentsData] = useState('');
+    const [liked, setLiked] = useState(false);
 
     const { car_id } = useParams();
 
     const navigate = useNavigate();
     const user_id = userData?.user.id;
-
     const carOwner_id = car?.user_id;
 
 
 
     useEffect(() => {
-        request.getById(`/cars?id=eq.${car_id}`)
-            .then(res => setCar(res[0]))
-            .catch(() => {
-                <NotFound />
-            })
+        try {
+            request.getById(`/cars?id=eq.${car_id}`)
+                .then(res => setCar(res[0]))
+                .catch(() => {
+                    <NotFound />
+                })
 
-        request.getAll(`/likes?car_id=eq.${car_id}`)
-            .then(result => setLikes(result))
+            request.getAll(`/likes?car_id=eq.${car_id}`)
+                .then(result => setLikes(result))
+        } catch (error) {
+            alert(error.message)
+        }
 
-    }, [car_id, refresh]);
+    }, [car_id, liked]);
 
 
     const deleteHandler = async () => {
@@ -67,9 +70,6 @@ export default function CarDetails() {
     }
 
 
-    const refreshPage = () => {
-        setRefresh(state => !state)
-    }
 
     const setComments = (input) => {
         let value = input;
@@ -77,9 +77,13 @@ export default function CarDetails() {
         if (typeof input === 'function') {
             value = input(commentsData)
         }
-
         setCommentsData(value);
     }
+
+    const likeUnlokeCar = (inputValue) => {
+        setLiked(inputValue)
+    }
+
 
     return (
         <main className="details-page">
@@ -190,7 +194,7 @@ export default function CarDetails() {
                         </>
                         :
                         userData &&
-                        <LikeCar user_id={user_id} car_id={car_id} onLikeUnlike={refreshPage} refresh={refresh} likes={likes.length} />
+                        <LikeCar user_id={user_id} car_id={car_id} onLikeUnlike={likeUnlokeCar} liked={liked} />
                 }
 
             </section>
@@ -202,7 +206,7 @@ export default function CarDetails() {
 
                 {userData && <AddComment car_id={car_id} user_id={user_id} onCreate={setComments} title={`${car.manufacturer}${car.model}`} commentData={commentsData} />}
 
-                <Comments car_id={car_id} carOwner_id={carOwner_id} commentsData={commentsData} />
+                <Comments car_id={car_id} carOwner_id={carOwner_id} onCreate={commentsData} />
 
             </section>
 
