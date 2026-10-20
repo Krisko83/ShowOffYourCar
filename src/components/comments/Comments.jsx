@@ -5,14 +5,15 @@ import request from "../../utils/request.js";
 export default function Comments({
     car_id,
     carOwner_id,
-    refresh
+    commentsData
 }) {
     const [comments, setComments] = useState([]);
 
     useEffect(() => {
         request.getAll(`/comments?car_id=eq.${car_id}&order=created_at.desc`)
             .then(result => setComments(result))
-    }, [car_id, refresh])
+    }, [car_id, commentsData])
+
  
     
     return (

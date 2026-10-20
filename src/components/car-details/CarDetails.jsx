@@ -27,17 +27,19 @@ const initialValues = {
 
 export default function CarDetails() {
     const { userData } = use(UserContext);
-    const { car_id } = useParams();
     const [car, setCar] = useState(initialValues);
     const [refresh, setRefresh] = useState(false);
     const [likes, setLikes] = useState([]);
+    const [commentsData, setCommentsData] = useState('');
+
+    const { car_id } = useParams();
 
     const navigate = useNavigate();
     const user_id = userData?.user.id;
 
     const carOwner_id = car?.user_id;
-    
-    
+
+
 
     useEffect(() => {
         request.getById(`/cars?id=eq.${car_id}`)
@@ -69,6 +71,15 @@ export default function CarDetails() {
         setRefresh(state => !state)
     }
 
+    const setComments = (input) => {
+        let value = input;
+
+        if (typeof input === 'function') {
+            value = input(commentsData)
+        }
+
+        setCommentsData(value);
+    }
 
     return (
         <main className="details-page">
@@ -177,7 +188,7 @@ export default function CarDetails() {
                                 Delete
                             </button>
                         </>
-                        : 
+                        :
                         userData &&
                         <LikeCar user_id={user_id} car_id={car_id} onLikeUnlike={refreshPage} refresh={refresh} likes={likes.length} />
                 }
@@ -189,9 +200,9 @@ export default function CarDetails() {
 
                 <h2>Comments</h2>
 
-                {userData && <AddComment car_id={car_id} user_id={user_id} onCreate={refreshPage} title={`${car.manufacturer}${car.model}`} />}
+                {userData && <AddComment car_id={car_id} user_id={user_id} onCreate={setComments} title={`${car.manufacturer}${car.model}`} commentData={commentsData} />}
 
-                <Comments car_id={car_id} carOwner_id={carOwner_id} refresh={refresh} />
+                <Comments car_id={car_id} carOwner_id={carOwner_id} commentsData={commentsData} />
 
             </section>
 

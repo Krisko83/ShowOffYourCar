@@ -1,18 +1,19 @@
-import { useState } from "react";
+// import { useState } from "react";
 import request from "../../utils/request.js";
 import useImageUrl from "../../hooks/useImageUrl.js";
- 
+
 
 export default function AddComment({
     car_id,
     user_id,
+    commentData,
     onCreate,
     title
 }) {
-    const [commentData, setCommentData] = useState('');
-    const avatar = useImageUrl(user_id)
+    const avatar = useImageUrl(user_id);
+
     const changeHandler = (e) => {
-        setCommentData(state => ({
+        onCreate(state => ({
             ...state,
             [e.target.name]: e.target.value
         }))
@@ -25,7 +26,7 @@ export default function AddComment({
 
         try {
             const userInfo = await request.getById(`/users?user_id=eq.${user_id}`)
-      
+
             const comment = {
                 car_id,
                 content: commentData.content,
@@ -34,12 +35,11 @@ export default function AddComment({
                 avatar
             }
 
-           const createdComment = await request.post('/comments', comment)
-            setCommentData(createdComment)
-            onCreate()
+            const createdComment = await request.post('/comments', comment);
+            onCreate(createdComment)
 
         } catch (error) {
-            console.log(error);
+            alert(error);
         }
 
     }
