@@ -18,6 +18,7 @@ import Login from './components/user/Login.jsx'
 import Register from './components/user/Register.jsx'
 import UserProvider from './components/contexts/UserContext.jsx'
 import UserProfile from './components/profile/UserProfile.jsx'
+import HeaderUserImageProvider from './components/contexts/UserImageContext.jsx'
 
 
 
@@ -26,6 +27,7 @@ function App() {
 
   return (
     <UserProvider>
+      <HeaderUserImageProvider>
       <Header />
 
       <Routes>
@@ -54,6 +56,7 @@ function App() {
       </Routes>
 
       <Footer />
+      </HeaderUserImageProvider>
     </UserProvider>
   )
 }

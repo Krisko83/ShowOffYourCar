@@ -3,8 +3,6 @@ import UserContext from "../../contexts/UserContext.js";
 import { useNavigate } from "react-router";
 import request from "../../utils/request.js";
 
-
-
 export default function UserProvider({
     children
 }) {

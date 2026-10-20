@@ -9,6 +9,7 @@ import useControlledCarForm from "../../hooks/useControlledCarForms.js";
 export default function CarEdit() {
     const { car_id } = useParams();
     const navigate = useNavigate();
+    
     const {
         carData,
         setCarData,

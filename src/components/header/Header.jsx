@@ -1,15 +1,19 @@
 import { Link } from 'react-router';
 import { use } from 'react';
 import UserContext from '../../contexts/UserContext.js';
+import UserImageContext from '../../contexts/UserImageContext.js';
 import './Header.css'
 import useImageUrl from '../../hooks/useImageUrl.js';
-
+ 
 
 export default function Header() {
     const { userData, onLogout } = use(UserContext);
-    const user_id = userData?.user.id;
-
-    const userImage = useImageUrl(user_id);
+    const { userImage } = use(UserImageContext);
+    const user_id = userData.user.id
+ 
+    const serverDataImage = useImageUrl(user_id)
+ 
+    const imageUrl = userImage ? userImage : serverDataImage
 
     return (
         <>
@@ -27,8 +31,8 @@ export default function Header() {
                                 <>
                                     <li><Link to="/cars/add-car">Add Car</Link></li>
                                     <li><Link to="/user/profile">
-                                        {userImage ?
-                                            <img src={userImage} className="heading-icon-avatar" alt="User image" />
+                                        {imageUrl ?
+                                            <img src={imageUrl} className="heading-icon-avatar" alt="User image" />
                                             :
                                             <span className="heading-icon" aria-hidden="true">👤</span>
                                         }

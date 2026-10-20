@@ -6,7 +6,8 @@ import request from '../../utils/request.js';
 import CarOwned from '../car-owned/carOwned.jsx';
 import CarCommented from '../car-commented/CarCommented.jsx';
 import './Profile.css';
-
+import UserImageContext from '../../contexts/UserImageContext.js';
+ 
 
 const initialValues = {
     fullName: '',
@@ -22,6 +23,8 @@ const initialValues = {
 
 export default function Profile() {
     const { userData } = use(UserContext);
+    const { setUserImage } = use(UserImageContext);
+
     const [isEditClicked, setIsEditClicked] = useState(false);
     const [userInfo, setUserInfo] = useState(initialValues)
     const user_id = userData.user.id;
@@ -48,9 +51,9 @@ export default function Profile() {
         if (typeof inputData === 'function') {
             data = inputData(userInfo)
         }
-        console.log('From edidUserUnfo: ',data);
-        
+         
         setUserInfo(data)
+        setUserImage(data.imageUrl)
     }
 
 

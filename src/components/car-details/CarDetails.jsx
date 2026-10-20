@@ -33,11 +33,9 @@ export default function CarDetails() {
     const [liked, setLiked] = useState(false);
 
     const { car_id } = useParams();
-
     const navigate = useNavigate();
     const user_id = userData?.user.id;
     const carOwner_id = car?.user_id;
-
 
 
     useEffect(() => {
@@ -64,11 +62,15 @@ export default function CarDetails() {
             return
         }
 
-        await request.remove(`/cars?id=eq.${car_id}`);
+        try {
+            await request.remove(`/cars?id=eq.${car_id}`);
+            
+            navigate('/');
+        } catch (error) {
+            alert(error.message)
+        }
 
-        navigate('/');
     }
-
 
 
     const setComments = (input) => {
@@ -80,7 +82,7 @@ export default function CarDetails() {
         setCommentsData(value);
     }
 
-    const likeUnlokeCar = (inputValue) => {
+    const likeUnlikeCar = (inputValue) => {
         setLiked(inputValue)
     }
 
@@ -194,7 +196,7 @@ export default function CarDetails() {
                         </>
                         :
                         userData &&
-                        <LikeCar user_id={user_id} car_id={car_id} onLikeUnlike={likeUnlokeCar} liked={liked} />
+                        <LikeCar user_id={user_id} car_id={car_id} onLikeUnlike={likeUnlikeCar} liked={liked} />
                 }
 
             </section>
