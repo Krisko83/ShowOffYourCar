@@ -1,5 +1,6 @@
 import { useState } from "react";
 import EyeIcon from "../user/EyeIcon.jsx";
+// import './Profile.css'
 
 export default function ChangePasswordMenu({
     inputPassword,
@@ -15,8 +16,6 @@ export default function ChangePasswordMenu({
 
 
     const [isPasswordsVisible, setIsPasswordsVisible] = useState({ currentPassword: false, newPassword: false, repeatNewPassword: false })
-
-
 
     const showHidePassHandler = (field) => {
 

@@ -1,65 +1,41 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { validation } from "../../utils/validation.js";
 import request from "../../utils/request.js";
-import getUserData from "../../utils/userUtils.js";
 import ChangePasswordMenu from "./changePasswordMenu.jsx";
 import { v4 as uuid } from 'uuid';
 
-const initialValues = {
-    fullName: '',
-    username: '',
-    email: '',
-    age: '',
-    country: '',
-    city: '',
-    gender: '',
-    password: '',
-    inputPassword: '',
-    newPassword: '',
-    repeatNewPassword: ''
-};
-
 export default function ChangeProfileInfoItem({
-    onClickCancel,
-    user_id,
-    updateUser
+    userData,
+    onClickCancelEdit,
+    onEdit
 }) {
 
-    const [userData, setUserData] = useState(initialValues);
     const [errors, setErrors] = useState({});
     const [isTouched, setIsTouched] = useState({});
     const [previewUrl, setPreviewUrl] = useState(null);
-
     const [menuChangePasswordVisibility, setMenuChangePasswordVisibility] = useState(false);
-
-    useEffect(() => {
-        request.getById(`/users?user_id=eq.${user_id}`)
-            .then(result => setUserData(result[0]))
-            .catch((err) => {
-                console.log(err.message);
-            });
-
-    }, [user_id]);
 
 
     const actionHandler = async (formData) => {
 
         const imageFile = formData.get('image');
 
-        let imageUrl = userData.imageUrl;;
+        let userImage = userData.imageUrl;
 
-        if (imageFile) {
+        if (imageFile && imageFile.name !== '') {
+ 
             const imageName = `${uuid()}${imageFile.name}`;
 
             try {
                 await request.uploadImage(imageName, imageFile);
 
-                imageUrl = `https://ggordfryvhhohlcicpdu.supabase.co/storage/v1/object/public/avatars/${imageName}`;
+                userImage = `https://ggordfryvhhohlcicpdu.supabase.co/storage/v1/object/public/avatars/${imageName}`;
 
-                setUserData(state => ({
+                onEdit(state => ({
                     ...state,
-                    imageUrl
+                    userImage
                 }))
+
             } catch (error) {
                 alert(error)
             }
@@ -73,13 +49,13 @@ export default function ChangeProfileInfoItem({
             return
         }
 
-        const data = getUserData(userData);
+        const updatedUserData = { ...userData, imageUrl: userImage }
 
         try {
-            await request.update(`/users?user_id=eq.${user_id}`, { ...data, imageUrl })
+            await request.update(`/users?user_id=eq.${userData.user_id}`, updatedUserData)
 
-            updateUser(userData)
-            onClickCancel();
+            onEdit(updatedUserData)
+            onClickCancelEdit();
         } catch (error) {
             console.log(error.message);
         }
@@ -88,10 +64,11 @@ export default function ChangeProfileInfoItem({
 
     const changeHandler = (e) => {
 
-        setUserData(state => ({
+        onEdit(state => ({
             ...state,
             [e.target.name]: e.target.value
         }))
+
     }
 
     const validationHandler = (e) => {
@@ -123,10 +100,13 @@ export default function ChangeProfileInfoItem({
         const newPassword = userData.newPassword;
         const current_password = userData.inputPassword;
 
-        try {
-            await request.updateUser({ password: newPassword, current_password })
+        console.log(newPassword, current_password);
 
-            onClickCancel()
+
+        try {
+            await request.updateUser({ current_password, password: newPassword })
+
+            onClickCancelEdit()
         } catch (error) {
             console.log(error);
             alert('Current password is incorect!');
@@ -157,7 +137,7 @@ export default function ChangeProfileInfoItem({
                                     ?
                                     <img src={userData.imageUrl} alt="avatar" className='image' />
                                     :
-                                    <div>👤</div>
+                                    <div className="profile-heading-icon" aria-hidden="true">👤</div>
                         }
                     </div>
                     <label id="fileUpload" className="upload-picture">
@@ -199,7 +179,7 @@ export default function ChangeProfileInfoItem({
                         {errorMessage('username')}
                     </div>
 
-                    <div className={inputClass('email')}>
+                    <div className={`${inputClass('email')} disabled-email`}>
                         <label htmlFor="email">Email</label>
                         <input
                             id="email"
@@ -290,7 +270,7 @@ export default function ChangeProfileInfoItem({
                         />
                     }
 
-                    <button className="profile-save-button" onClick={onClickCancel} type="button" >Cancel Changes</button>
+                    <button className="profile-save-button" type="button" onClick={onClickCancelEdit} >Cancel Changes</button>
                     <button className="profile-save-button" type="submit" >Save Changes</button>
                 </section>
             </form>

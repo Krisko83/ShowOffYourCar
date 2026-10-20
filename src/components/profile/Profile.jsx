@@ -6,7 +6,6 @@ import request from '../../utils/request.js';
 import CarOwned from '../car-owned/carOwned.jsx';
 import CarCommented from '../car-commented/CarCommented.jsx';
 import './Profile.css';
-import useImageIrl from '../../hooks/useImageUrl.js';
 
 
 const initialValues = {
@@ -27,8 +26,8 @@ export default function Profile() {
     const [userInfo, setUserInfo] = useState(initialValues)
     const user_id = userData.user.id;
 
-    const imageUrl = useImageIrl(user_id)
-
+    const imageUrl = userInfo.imageUrl;
+ 
     useEffect(() => {
         request.getById(`/users?user_id=eq.${user_id}`)
             .then(result => setUserInfo(result[0]))
@@ -36,16 +35,23 @@ export default function Profile() {
                 alert(err.message);
             });
 
-    }, [user_id])
+    }, [user_id]);
 
-    const updateUserProfile = (info) => {
-        setUserInfo(info);
-    }
-
-
+ 
     const onClickEdit = () => {
         setIsEditClicked(state => !state);
     };
+
+    const editUserInfo = (inputData) => {
+        let data = inputData;
+
+        if (typeof inputData === 'function') {
+            data = inputData(userInfo)
+        }
+        console.log('From edidUserUnfo: ',data);
+        
+        setUserInfo(data)
+    }
 
 
     return (
@@ -65,9 +71,9 @@ export default function Profile() {
             {isEditClicked
                 ?
                 <ChangeProfileInfoItem
-                    onClickCancel={onClickEdit}
-                    user_id={user_id}
-                    updateUser={updateUserProfile}
+                    onClickCancelEdit={onClickEdit} 
+                    onEdit={editUserInfo}
+                    userData={userInfo}
                 />
                 :
                 <PersonalInfoItem

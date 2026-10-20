@@ -13,8 +13,8 @@ export default function Comments({
         request.getAll(`/comments?car_id=eq.${car_id}&order=created_at.desc`)
             .then(result => setComments(result))
     }, [car_id, refresh])
-
-
+ 
+    
     return (
         <div className="comments-list">
             {comments.map(comment => <CommentItem key={comment.id} {...comment} isCarOwner={comment.user_id === carOwner_id} />)}

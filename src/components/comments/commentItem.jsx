@@ -12,20 +12,25 @@ export default function CommentItem({
     avatar,
     user_id
 }) {
-    const { isAuthenticated , userData } = use(UserContext);
-    
+    const { isAuthenticated, userData } = use(UserContext);
+    const commentOwnerId = user_id;
+ 
+
     return (
         <article className="comment">
 
             <div className="comment-header">
-                <Link to={isAuthenticated && user_id === userData.user.id ? '/user/profile' : `/user/user-profile/${user_id}`}>
-
-                    {avatar ?
-                        <img src={avatar} className="heading-icon" alt="User image" />
-                        :
-                        <span className="heading-icon" aria-hidden="true">👤</span>
-                    }
-                </Link>
+                {isAuthenticated ?
+                    <Link to={isAuthenticated && commentOwnerId === userData.user.id ? '/user/profile' : `/user/user-profile/${commentOwnerId}`}>
+                        {avatar ?
+                            <img src={avatar} className="heading-icon" alt="User image" />
+                            :
+                            <span className="heading-icon" aria-hidden="true">👤</span>
+                        }
+                    </Link>
+                    :
+                    <span className="heading-icon" aria-hidden="true">👤</span>
+                }
                 <strong>{author}{isCarOwner ? <span>  - Car owner!</span> : ''}</strong>
                 <span>{commentTimeAgo(created_at)}</span>
             </div>

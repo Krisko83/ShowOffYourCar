@@ -6,8 +6,8 @@ export default function PersonalInfoItem({
     country,
     city,
     gender,
-    owner
-}) {
+    owner = true
+}) {   
 
     return (
         <section className="personal-details-card">
@@ -17,13 +17,6 @@ export default function PersonalInfoItem({
                     <p>{owner ? 'Your profile details' : 'Profile details'}</p>
                 </div>
 
-                {/* <button
-                    type="button"
-                    className="change-info-btn"
-                    onClick={onClickEdit}
-                >
-                    ✎ Change Personal Info
-                </button> */}
             </div>
 
             <div className="personal-details-content">
@@ -37,10 +30,14 @@ export default function PersonalInfoItem({
                     <p>{username}</p>
                 </div>
 
-                <div className="personal-detail">
-                    <span>Email</span>
-                    <p>{email}</p>
-                </div>
+                {owner
+                    ?
+                    <div className="personal-detail">
+                        <span>Email</span>
+                        <p>{email}</p>
+                    </div>
+                    : ''
+                }
 
                 <div className="personal-detail">
                     <span>Age</span>
@@ -52,10 +49,12 @@ export default function PersonalInfoItem({
                     <p>{country || 'Not provided'}</p>
                 </div>
 
-                <div className="personal-detail">
+                {owner ? <div className="personal-detail">
                     <span>City</span>
                     <p>{city || 'Not provided'}</p>
                 </div>
+                    : ''
+                }
 
                 <div className="personal-detail">
                     <span>Gender</span>

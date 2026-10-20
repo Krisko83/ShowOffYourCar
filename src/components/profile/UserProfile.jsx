@@ -1,23 +1,21 @@
 import { useParams } from "react-router";
 import PersonalInfoItem from "./PersonalInfoItem.jsx";
-import { use, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import request from "../../utils/request.js";
-import UserContext from "../../contexts/UserContext.js";
 
 
 export default function UserProfile() {
-    const { user_id } = useParams();
+    const { commentOwnerId } = useParams();
     const [user, setUser] = useState({})
-    const { isAuthenticated } = use(UserContext);
 
     const imageUrl = user.imageUrl;
 
     useEffect(() => {
-        request.getById(`/users?user_id=eq.${user_id}`)
+        request.getById(`/users?user_id=eq.${commentOwnerId}`)
             .then(result => setUser(result[0]))
             .catch(err => alert(err.message))
 
-    }, [user_id]);
+    }, [commentOwnerId]);
 
 
     return (
@@ -32,7 +30,7 @@ export default function UserProfile() {
                     <h1>User Profile</h1>
                 </div>
             </header>
-            <PersonalInfoItem {...user} owner={isAuthenticated} />
+            <PersonalInfoItem {...user} owner={false} />
         </main>
     );
 }

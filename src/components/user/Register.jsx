@@ -38,21 +38,23 @@ export default function Register() {
         const { email, password, username, fullName, age, country, city, gender } = userData;
         const userInfo = { username, email, country, city, fullName, gender, age }
 
+ 
+        
         try {
             const responseData = await request.register({ email, password });
 
-            await request.post('/users', userInfo)
             onRegister(responseData);
+
+            await request.post('/users', userInfo)
 
             navigate('/');
         } catch (error) {
+            console.log(error);
+            
             alert(error.message)
             return;
         }
-
-
     }
-
 
     const errorMessage = (field) => errors[field] && isTouched[field] ? <p className={styles["errorMessage"]}>{errors[field]}</p> : '';
     const inputClass = (field) => errors[field] && isTouched[field] ? "form-group-error" : "form-group";

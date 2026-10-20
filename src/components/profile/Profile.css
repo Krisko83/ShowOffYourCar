@@ -7,8 +7,7 @@
     margin-bottom: 30px;
     font-size: 32px;
 }
-
-/* 3 x 3 GRID */
+ 
 
 .car-gallery {
     display: grid;
@@ -106,6 +105,10 @@
     border-radius: 12px;
     background: #fff;
     box-shadow: 0 4px 18px rgb(25 45 75 / 5%);
+}
+
+.profile-field.disabled-email input {
+    background-color: rgba(211, 211, 211, 0.589);
 }
 
 

@@ -47,7 +47,7 @@ function App() {
           <Route path='login' element={<Login />} />
           <Route path='register' element={<Register />} />
         </Route>
-        <Route path='/user/user-profile/:user_id' element={<UserProfile />} />
+        <Route path='/user/user-profile/:commentOwnerId' element={<UserProfile />} />
 
         <Route path='*' element={<NotFound />} />
 
