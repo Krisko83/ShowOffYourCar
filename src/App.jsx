@@ -18,7 +18,7 @@ import Login from './components/user/Login.jsx'
 import Register from './components/user/Register.jsx'
 import UserProvider from './components/contexts/UserContext.jsx'
 import UserProfile from './components/profile/UserProfile.jsx'
-import HeaderUserImageProvider from './components/contexts/UserImageContext.jsx'
+import UserImageProvider from './components/contexts/UserImageContext.jsx'
 
 
 
@@ -26,38 +26,38 @@ import HeaderUserImageProvider from './components/contexts/UserImageContext.jsx'
 function App() {
 
   return (
-    <UserProvider>
-      <HeaderUserImageProvider>
-      <Header />
+    <UserImageProvider>
+      <UserProvider>
+        <Header />
 
-      <Routes>
-        <Route index element={<Home />} />
-        <Route path='/cars/gallery' element={<Gallery />} />
-        <Route path='/about' element={<About />} />
-        <Route path='/contacts' element={<Contacts />} />
-        <Route path='/cars/:car_id/details' element={<CarDetails />} />
+        <Routes>
+          <Route index element={<Home />} />
+          <Route path='/cars/gallery' element={<Gallery />} />
+          <Route path='/about' element={<About />} />
+          <Route path='/contacts' element={<Contacts />} />
+          <Route path='/cars/:car_id/details' element={<CarDetails />} />
 
-        <Route element={<IsGuest />}>
-          <Route path='/cars/:car_id/edit' element={<CarEdit />} />
-          <Route path='/cars/add-car' element={<CarAdd />} />
-          <Route path='/user/profile' element={<Profile />} />
-          <Route path='/user/owned-cars' element={<CarOwnedList />} />
-          <Route path='/user/commented-cars' element={<CarCommentedList />} />
-        </Route>
+          <Route element={<IsGuest />}>
+            <Route path='/cars/:car_id/edit' element={<CarEdit />} />
+            <Route path='/cars/add-car' element={<CarAdd />} />
+            <Route path='/user/profile' element={<Profile />} />
+            <Route path='/user/owned-cars' element={<CarOwnedList />} />
+            <Route path='/user/commented-cars' element={<CarCommentedList />} />
+          </Route>
 
-        <Route path='/user' element={<IsAuth />}>
-          <Route path='login' element={<Login />} />
-          <Route path='register' element={<Register />} />
-        </Route>
-        <Route path='/user/user-profile/:commentOwnerId' element={<UserProfile />} />
+          <Route path='/user' element={<IsAuth />}>
+            <Route path='login' element={<Login />} />
+            <Route path='register' element={<Register />} />
+          </Route>
+          <Route path='/user/user-profile/:commentOwnerId' element={<UserProfile />} />
 
-        <Route path='*' element={<NotFound />} />
+          <Route path='*' element={<NotFound />} />
 
-      </Routes>
+        </Routes>
 
-      <Footer />
-      </HeaderUserImageProvider>
-    </UserProvider>
+        <Footer />
+      </UserProvider>
+    </UserImageProvider>
   )
 }
 

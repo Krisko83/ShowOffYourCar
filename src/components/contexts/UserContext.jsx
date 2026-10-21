@@ -12,7 +12,6 @@ export default function UserProvider({
     const navigate = useNavigate();
     const { setUserImage } = use(UserImageContext)
  
-    
     const loginHandler = (inputUserData) => {
         setUser(inputUserData)
     }
@@ -24,10 +23,10 @@ export default function UserProvider({
     const logoutHandler = async () => {
         try {
             await request.logout()
+            console.log(setUserImage);
             
+            setUserImage(null) 
             removeUser('auth');
-            setUserImage(null)
- 
             
             navigate('/')
 

@@ -2,8 +2,8 @@ import { Link } from 'react-router';
 import { use } from 'react';
 import UserContext from '../../contexts/UserContext.js';
 import UserImageContext from '../../contexts/UserImageContext.js';
-import './Header.css'
 import useImageUrl from '../../hooks/useImageUrl.js';
+import './Header.css'
 
 
 export default function Header() {

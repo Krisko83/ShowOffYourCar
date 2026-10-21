@@ -1,5 +1,5 @@
-import { useState } from "react";
-import HeaderUserImageContext from "../../contexts/UserImageContext.js";
+import { useState } from "react"; 
+import UserImageContext from "../../contexts/UserImageContext.js";
 
 export default function UserImageProvider({
     children
@@ -8,8 +8,8 @@ export default function UserImageProvider({
 
 
     return (
-        <HeaderUserImageContext.Provider value={{ userImage, setUserImage }}>
+        <UserImageContext.Provider value={{ userImage, setUserImage }}>
             {children}
-        </HeaderUserImageContext.Provider>
+        </UserImageContext.Provider>
     );
 }

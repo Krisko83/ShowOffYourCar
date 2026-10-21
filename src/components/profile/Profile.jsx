@@ -22,8 +22,7 @@ const initialValues = {
 };
 
 export default function Profile() {
-    const { userData } = use(UserContext);
-    // const { setUserImage } = use(UserImageContext);
+    const { userData } = use(UserContext); 
 
     const [isEditClicked, setIsEditClicked] = useState(false);
     const [userInfo, setUserInfo] = useState(initialValues)
@@ -52,8 +51,7 @@ export default function Profile() {
             data = inputData(userInfo)
         }
          
-        setUserInfo(data)
-        // setUserImage(data.imageUrl)
+        setUserInfo(data) 
     }
 
 

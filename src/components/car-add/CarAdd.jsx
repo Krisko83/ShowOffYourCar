@@ -1,10 +1,8 @@
-import CarAddEditItem from '../car-add-edit-item/CarAddEditItem.jsx';
-// import useControlledCarForm from '../../hooks/useControlledCarForms.js';
+import CarAddEditItem from '../car-add-edit-item/CarAddEditItem.jsx'; 
 import request from '../../utils/request.js';
 import { useNavigate } from 'react-router';
-import './CarAdd.css';
 import useControlledForm from '../../hooks/useControlledForm.js';
-// import useControlledAuthForms from '../../hooks/useControlledAuthForms.js';
+import './CarAdd.css';
  
 
 const initialValues = {
@@ -23,14 +21,6 @@ const initialValues = {
 }
 
 export default function CarAdd() {
-    // const {
-    //     carData,
-    //     changeHandler,
-    //     errors,
-    //     isTouched,
-    //     validationHandler,
-    //     actionHandler
-    // } = useControlledCarForm(submitHandler)
 
     const {
         data: carData,
