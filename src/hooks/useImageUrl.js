@@ -10,13 +10,13 @@ export default function useImageUrl(user_id) {
         if (user_id) {
             request.getById(`/users?user_id=eq.${user_id}`, { signal: abortController.signal })
                 .then(result => setImageUrl(result[0].imageUrl))
-                .catch(err => alert(err.message))
+                .catch(err => console.log(err.message))
         }
 
         return () => {
             abortController.abort();
         }
-        
+
     }, [user_id])
 
 

@@ -12,7 +12,7 @@ export default function useOwnedCars() {
 
         request.getById(`/cars?user_id=eq.${user_id}`, {signal: abortController.signal})
             .then(result => setOwnedCars(result))
-            .catch(err => alert(err))
+            .catch(err => console.log(err))
 
             return () => {
             abortController.abort();

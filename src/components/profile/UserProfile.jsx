@@ -15,7 +15,7 @@ export default function UserProfile() {
 
         request.getById(`/users?user_id=eq.${commentOwnerId}`, {signal: abortController.signal})
             .then(result => setUser(result[0]))
-            .catch(err => alert(err))
+            .catch(err => console.log(err))
 
         return () => {
             abortController.abort();

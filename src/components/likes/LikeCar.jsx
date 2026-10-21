@@ -19,11 +19,12 @@ export default function LikeCar({
                     onLikeUnlike(true)
                 }
             })
+            .catch(err => console.log(err))
 
         return () => {
             abortController.abort();
         }
-        
+
     }, [user_id, car_id, onLikeUnlike]);
 
 

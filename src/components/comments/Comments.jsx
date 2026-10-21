@@ -14,12 +14,12 @@ export default function Comments({
 
         request.getAll(`/comments?car_id=eq.${car_id}&order=created_at.desc`, {signal: abortController.signal})
             .then(result => setComments(result))
-            .catch(err => alert(err))
+            .catch(err => console.log(err))
 
         return () => {
             abortController.abort();
         }
-        
+
     }, [car_id, onCreate])
 
 

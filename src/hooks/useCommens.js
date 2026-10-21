@@ -19,6 +19,7 @@ export default function useComments() {
                 const uniqueIds = Array.from(new Set(result.map(comment => comment.car_id)))
                 setUniqueCarIds(uniqueIds)
             })
+            .catch(err => console.log(err))
 
         return () => {
             abortController.abort();
@@ -34,6 +35,7 @@ export default function useComments() {
                 const filteredCars = result.filter(car => uniqueCarIds.includes(car.id))
                 setCommentedCars(filteredCars)
             })
+            .catch(err => console.log(err))
 
         return () => {
             abortController.abort();

@@ -40,9 +40,7 @@ export default function CarEdit() {
 
         request.getById(`/cars?id=eq.${car_id}`)
             .then(res => setCarData(res[0]))
-            .catch(() => {
-                <NotFound />
-            })
+            .catch((err) => console.log(err))
 
         return () => {
             abortController.abort();

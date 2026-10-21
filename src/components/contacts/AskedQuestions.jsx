@@ -13,7 +13,7 @@ export default function AskedQuestions({
 
         request.getAll('/contacts?order=created_at.desc&limit=5', { signal: abortController.signal })
             .then(result => setQuestions(result))
-            .catch((err) => alert(err))
+            .catch((err) => console.log(err))
 
         return () => {
             abortController.abort();
