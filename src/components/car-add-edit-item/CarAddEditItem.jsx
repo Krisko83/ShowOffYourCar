@@ -8,7 +8,6 @@ export default function CarAddEditItem({
     edit
 }) {
 
-
     const errorMessage = (field) => errors[field] && isTouched[field] ? <p className="errorMessage">{errors[field]}</p> : '';
     const inputClass = (field) => errors[field] && isTouched[field] ? "form-group-error" : "form-group";
 

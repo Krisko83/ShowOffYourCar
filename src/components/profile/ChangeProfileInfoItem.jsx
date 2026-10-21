@@ -18,7 +18,6 @@ export default function ChangeProfileInfoItem({
     const { setUserImage } = use(UserImageContext);
 
     const actionHandler = async (formData) => {
-
         const imageFile = formData.get('image');
 
         let userImage = userData.imageUrl;
@@ -62,8 +61,8 @@ export default function ChangeProfileInfoItem({
         } catch (error) {
             console.log(error.message);
         }
-
     }
+
 
     const changeHandler = (e) => {
 

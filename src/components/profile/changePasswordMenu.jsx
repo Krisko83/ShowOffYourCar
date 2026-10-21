@@ -27,7 +27,6 @@ export default function ChangePasswordMenu({
 
     return (
 
-
         <>
             <input
                 type="email"

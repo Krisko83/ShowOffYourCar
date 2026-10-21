@@ -2,8 +2,8 @@ import { Link, useNavigate } from 'react-router';
 import { use } from 'react';
 import request from '../../utils/request.js';
 import EyeIcon from './EyeIcon.jsx';
-import UserContext from '../../contexts/UserContext.js';
-import useControlledAuthForms from '../../hooks/useControlledAuthForms.js';
+import UserContext from '../../contexts/UserContext.js'; 
+import useControlledForm from '../../hooks/useControlledForm.js'; 
 import styles from "./Register.module.css";
 
 const initialValues = {
@@ -24,14 +24,14 @@ export default function Register() {
     const navigate = useNavigate();
 
     const {
-        userData,
+        data: userData,
         isPasswordsVisible,
         errors,
         isTouched,
         showHidePassHandler,
         changeHandler,
         validationHandler,
-        actionHandler } = useControlledAuthForms(onSubmit, initialValues, 'register')
+        actionHandler } = useControlledForm(onSubmit, initialValues, 'register')
 
 
     async function onSubmit(userData) {

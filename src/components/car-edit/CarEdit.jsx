@@ -3,23 +3,37 @@ import { useNavigate, useParams } from "react-router";
 import request from "../../utils/request.js";
 import NotFound from "../not-found/NotFound.jsx";
 import CarAddEditItem from "../car-add-edit-item/CarAddEditItem.jsx";
-import useControlledCarForm from "../../hooks/useControlledCarForms.js";
+import useControlledForm from "../../hooks/useControlledForm.js"; 
 
+
+const initialValues = {
+    imageUrl: '',
+    manufacturer: '',
+    model: '',
+    year: '',
+    category: '',
+    power: '',
+    gearbox: '',
+    fuel: '',
+    mileage: '',
+    cubic: '',
+    driveType: '',
+    description: '',
+}
 
 export default function CarEdit() {
     const { car_id } = useParams();
     const navigate = useNavigate();
-    
+ 
     const {
-        carData,
-        setCarData,
+        data: carData,
+        setData: setCarData,
         changeHandler,
         errors,
         isTouched,
         actionHandler,
         validationHandler
-    } = useControlledCarForm(onSubmit);
-
+    } = useControlledForm(onSubmit, initialValues, 'addEdit');
 
     useEffect(() => {
         request.getById(`/cars?id=eq.${car_id}`)
@@ -33,7 +47,7 @@ export default function CarEdit() {
 
     async function onSubmit(car) {
         try {
-          await request.update(`/cars?id=eq.${car_id}`, car);
+            await request.update(`/cars?id=eq.${car_id}`, car);
 
             navigate(`/cars/${car_id}/details`);
         } catch (error) {

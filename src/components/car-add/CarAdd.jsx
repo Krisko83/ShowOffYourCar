@@ -1,26 +1,53 @@
 import CarAddEditItem from '../car-add-edit-item/CarAddEditItem.jsx';
-import useControlledCarForm from '../../hooks/useControlledCarForms.js';
+// import useControlledCarForm from '../../hooks/useControlledCarForms.js';
 import request from '../../utils/request.js';
 import { useNavigate } from 'react-router';
 import './CarAdd.css';
+import useControlledForm from '../../hooks/useControlledForm.js';
+// import useControlledAuthForms from '../../hooks/useControlledAuthForms.js';
+ 
+
+const initialValues = {
+    imageUrl: '',
+    manufacturer: '',
+    model: '',
+    year: '',
+    category: '',
+    power: '',
+    gearbox: '',
+    fuel: '',
+    mileage: '',
+    cubic: '',
+    driveType: '',
+    description: '',
+}
 
 export default function CarAdd() {
+    // const {
+    //     carData,
+    //     changeHandler,
+    //     errors,
+    //     isTouched,
+    //     validationHandler,
+    //     actionHandler
+    // } = useControlledCarForm(submitHandler)
+
     const {
-        carData,
+        data: carData,
         changeHandler,
         errors,
         isTouched,
         validationHandler,
         actionHandler
-    } = useControlledCarForm(submitHandler)
-    
+    } = useControlledForm(submitHandler, initialValues, 'addEdit')
+
     const navigate = useNavigate();
 
     async function submitHandler(car) {
 
         try {
             await request.post('/cars', car);
-        
+
             navigate('/');
 
         } catch (error) {

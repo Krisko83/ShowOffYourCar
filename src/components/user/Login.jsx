@@ -2,10 +2,9 @@ import { Link, useNavigate } from 'react-router';
 import { use } from 'react';
 import request from '../../utils/request.js';
 import EyeIcon from './EyeIcon.jsx';
-import UserContext from '../../contexts/UserContext.js';
-import useControlledAuthForms from '../../hooks/useControlledAuthForms.js';
+import UserContext from '../../contexts/UserContext.js'; 
 import styles from './Login.module.css'
-
+import useControlledForm from '../../hooks/useControlledForm.js';
 
 const initialValues = {
     email: '',
@@ -17,14 +16,14 @@ export default function Login() {
     const navigate = useNavigate();
 
     const {
-        userData,
+        data: userData,
         isPasswordsVisible,
         errors,
         isTouched,
         showHidePassHandler,
         changeHandler,
         validationHandler,
-        actionHandler } = useControlledAuthForms(onSubmit, initialValues, 'login')
+        actionHandler } = useControlledForm(onSubmit, initialValues, 'login')
 
 
     async function onSubmit(user) {

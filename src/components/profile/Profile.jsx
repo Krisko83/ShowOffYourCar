@@ -3,7 +3,7 @@ import UserContext from '../../contexts/UserContext.js';
 import PersonalInfoItem from './PersonalInfoItem.jsx';
 import ChangeProfileInfoItem from './ChangeProfileInfoItem.jsx';
 import request from '../../utils/request.js';
-import CarOwned from '../car-owned/carOwned.jsx';
+import CarOwned from '../car-owned/CarOwned.jsx';
 import CarCommented from '../car-commented/CarCommented.jsx';
 import './Profile.css';
 // import UserImageContext from '../../contexts/UserImageContext.js';

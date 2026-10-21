@@ -1,6 +1,5 @@
 import { useState } from "react";
-import { validation } from "../utils/validation.js";
-// import getUserData from "../utils/userUtils.js";
+import { validation } from "../utils/validation.js"; 
 
 const visibilityInitials = {
     password: false,
@@ -8,8 +7,8 @@ const visibilityInitials = {
 }
 
 
-export default function useControlledAuthForms(onSubmit, initialValues, validationType) {
-    const [userData, setUserData] = useState(initialValues);
+export default function useControlledForm(onSubmit, initialValues, validationType) {
+    const [data, setData] = useState(initialValues);
     const [isPasswordsVisible, setIsPasswordsVisible] = useState(visibilityInitials)
     const [errors, setErrors] = useState({});
     const [isTouched, setIsTouched] = useState({})
@@ -17,7 +16,7 @@ export default function useControlledAuthForms(onSubmit, initialValues, validati
 
     const actionHandler = async () => {
 
-        const errors = validation[validationType](userData)
+        const errors = validation[validationType](data)
         setErrors(errors)
 
         if (Object.keys(errors).length > 0) {
@@ -25,19 +24,13 @@ export default function useControlledAuthForms(onSubmit, initialValues, validati
             return
         }
 
-        // const userFormData = {
-        //     password: userData.password,
-        //     ...getUserData(userData)
-        // }
-
-    
-        onSubmit(userData)
+        onSubmit(data)
     };
 
 
     const changeHandler = (e) => {
 
-        setUserData(state => ({
+        setData(state => ({
             ...state,
             [e.target.name]: e.target.value
         }))
@@ -59,10 +52,10 @@ export default function useControlledAuthForms(onSubmit, initialValues, validati
             [e.target.name]: true
         }))
 
-        const errors = validation.register(userData);
+        const errors = validation[validationType](data);
 
         setErrors(errors);
     }
 
-    return { userData, isPasswordsVisible, errors, isTouched, showHidePassHandler, changeHandler, validationHandler, actionHandler }
+    return { data, setData, isPasswordsVisible, errors, isTouched, showHidePassHandler, changeHandler, validationHandler, actionHandler }
 }

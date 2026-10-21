@@ -64,7 +64,7 @@ export default function CarDetails() {
 
         try {
             await request.remove(`/cars?id=eq.${car_id}`);
-            
+
             navigate('/');
         } catch (error) {
             alert(error.message)

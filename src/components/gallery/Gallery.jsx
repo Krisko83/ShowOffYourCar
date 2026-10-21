@@ -25,7 +25,6 @@ export default function Gallery() {
     }, []);
 
 
-
     let totalPages = Math.ceil(cars.length / limit);
 
     if (filteredCars.length) {
