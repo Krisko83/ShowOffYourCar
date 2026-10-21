@@ -1,28 +1,30 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Pagination from "./Pagination.jsx";
-import request from "../../utils/request.js";
+// import request from "../../utils/request.js";
 import CarItem from "../home/CarItem.jsx";
 import styles from './Gallery.module.css';
 import SearchItem from "../search/SearchItem.jsx";
-
+import useGetAllRequest from "../../hooks/useGetAllRequest.js";
+ 
 export default function Gallery() {
     const [page, setPage] = useState(1);
     const [limit, setLimit] = useState(9);
-    const [cars, setCars] = useState([])
     const [filteredCars, setFilteredCars] = useState([]);
     const [isSearched, setIsSearched] = useState(false);
+    // const [cars, setCars] = useState([])
+    const [cars] = useGetAllRequest('/cars?order=created_at.desc', [])
 
-    useEffect(() => {
-        const abortController = new AbortController();
+    // useEffect(() => {
+    //     const abortController = new AbortController();
 
-        request.getAll('/cars?order=created_at.desc', null, { signal: abortController.signal })
-            .then(setCars)
-            .catch(error => console.log(error))
+    //     request.getAll('/cars?order=created_at.desc', { signal: abortController.signal })
+    //         .then(setCars)
+    //         .catch(error => console.log(error))
 
-        return () => {
-            abortController.abort('Unmounted element');
-        }
-    }, []);
+    //     return () => {
+    //         abortController.abort('Unmounted element');
+    //     }
+    // }, []);
 
 
     let totalPages = Math.ceil(cars.length / limit);

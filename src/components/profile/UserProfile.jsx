@@ -11,9 +11,15 @@ export default function UserProfile() {
     const imageUrl = user.imageUrl;
 
     useEffect(() => {
-        request.getById(`/users?user_id=eq.${commentOwnerId}`)
+        const abortController = new AbortController()
+
+        request.getById(`/users?user_id=eq.${commentOwnerId}`, {signal: abortController.signal})
             .then(result => setUser(result[0]))
-            .catch(err => alert(err.message))
+            .catch(err => alert(err))
+
+        return () => {
+            abortController.abort();
+        }
 
     }, [commentOwnerId]);
 

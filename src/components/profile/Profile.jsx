@@ -6,7 +6,6 @@ import request from '../../utils/request.js';
 import CarOwned from '../car-owned/CarOwned.jsx';
 import CarCommented from '../car-commented/CarCommented.jsx';
 import './Profile.css';
-// import UserImageContext from '../../contexts/UserImageContext.js';
 
 
 const initialValues = {
@@ -27,12 +26,18 @@ export default function Profile() {
 
     const imageUrl = userInfo.imageUrl;
 
+
+
     useEffect(() => {
-        request.getById(`/users?user_id=eq.${user_id}`)
+        const abortController = new AbortController()
+
+        request.getById(`/users?user_id=eq.${user_id}`, {signal: abortController.signal})
             .then(result => setUserInfo(result[0]))
-            .catch((err) => {
-                alert(err.message);
-            });
+            .catch((err) => console.log(err));
+
+        return () => {
+            abortController.abort();
+        }
 
     }, [user_id]);
 

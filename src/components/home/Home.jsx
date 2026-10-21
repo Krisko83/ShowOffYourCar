@@ -1,26 +1,28 @@
-import { useEffect, useState } from "react";
-import request from "../../utils/request.js";
+// import { useEffect, useState } from "react";
+// import request from "../../utils/request.js";
 import CarItem from "./CarItem.jsx";
 import { Link } from "react-router";
 import './Home.css';
+import useGetAllRequest from "../../hooks/useGetAllRequest.js";
+ 
  
 
 export default function Home() {
 
-    const [cars, setCars] = useState([]);
+    const [cars] = useGetAllRequest('/cars?order=created_at.desc&limit=3', []);
  
 
-    useEffect(() => {
-        const abortController = new AbortController();
+    // useEffect(() => {
+    //     const abortController = new AbortController();
 
-        request.getAll('/cars?order=created_at.desc&limit=3', null, { signal: abortController.signal })
-            .then(setCars)
-            .catch(err => alert(err));
+    //     request.getAll('/cars?order=created_at.desc&limit=3', { signal: abortController.signal })
+    //         .then(setCars)
+    //         .catch(err => alert(err));
 
-        return () => {
-            abortController.abort('Unmounted element');
-        }
-    }, [])
+    //     return () => {
+    //         abortController.abort('Unmounted element');
+    //     }
+    // }, [])
  
     return (
         <main className="home">

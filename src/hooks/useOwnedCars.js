@@ -8,9 +8,15 @@ export default function useOwnedCars() {
     const user_id = userData?.user.id;
 
     useEffect(() => {
-        request.getById(`/cars?user_id=eq.${user_id}`)
-            .then(result => setOwnedCars(result))
+        const abortController = new AbortController();
 
+        request.getById(`/cars?user_id=eq.${user_id}`, {signal: abortController.signal})
+            .then(result => setOwnedCars(result))
+            .catch(err => alert(err))
+
+            return () => {
+            abortController.abort();
+        }
     }, [user_id])
     
     return {ownedCars};

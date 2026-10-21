@@ -26,16 +26,11 @@ export default function AskQuestion({
 
 
     async function onSubmit(data) {
-        console.log(data);
 
         try {
             await request.post('/contacts', data)
 
-            showMessage(<SuccessfullMessage />)
-
-            setTimeout(() => {
-                showMessage('')
-            }, 5000)
+            showMessage(<SuccessfullMessage />) 
 
         } catch (error) {
             alert(error)

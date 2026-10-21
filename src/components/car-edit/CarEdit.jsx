@@ -3,7 +3,7 @@ import { useNavigate, useParams } from "react-router";
 import request from "../../utils/request.js";
 import NotFound from "../not-found/NotFound.jsx";
 import CarAddEditItem from "../car-add-edit-item/CarAddEditItem.jsx";
-import useControlledForm from "../../hooks/useControlledForm.js"; 
+import useControlledForm from "../../hooks/useControlledForm.js";
 
 
 const initialValues = {
@@ -24,7 +24,7 @@ const initialValues = {
 export default function CarEdit() {
     const { car_id } = useParams();
     const navigate = useNavigate();
- 
+
     const {
         data: carData,
         setData: setCarData,
@@ -36,11 +36,17 @@ export default function CarEdit() {
     } = useControlledForm(onSubmit, initialValues, 'addEdit');
 
     useEffect(() => {
+        const abortController = new AbortController()
+
         request.getById(`/cars?id=eq.${car_id}`)
             .then(res => setCarData(res[0]))
             .catch(() => {
                 <NotFound />
             })
+
+        return () => {
+            abortController.abort();
+        }
 
     }, [car_id, setCarData]);
 

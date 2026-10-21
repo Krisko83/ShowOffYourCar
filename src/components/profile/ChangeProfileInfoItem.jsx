@@ -4,6 +4,7 @@ import { validation } from "../../utils/validation.js";
 import request from "../../utils/request.js";
 import ChangePasswordMenu from "./changePasswordMenu.jsx";
 import UserImageContext from "../../contexts/UserImageContext.js";
+import getUserData from '../../utils/userUtils.js';
 
 export default function ChangeProfileInfoItem({
     userData,
@@ -96,7 +97,7 @@ export default function ChangeProfileInfoItem({
             return;
         }
 
-        const { newPassword, repeatNewPassword, inputPassword, ...data } = userData;
+        const { newPassword, inputPassword, data } = getUserData(userData);
 
 
         try {

@@ -6,12 +6,13 @@ import './Contacts.css';
 
 
 export default function Contacts() {
-    const [successfulMessage, setSuccessfullMessage] = useState('');
+    const [successfulMessage, setSuccessfullMessage] = useState('');  
 
     const showSuccessfullMessage = (value) => {
         setSuccessfullMessage(value)
-    }
+    }    
 
+    
     return (
         <main className="contact-page">
 
@@ -67,7 +68,7 @@ export default function Contacts() {
                 </aside>
 
             </section>
-                <AskedQuestions />
+                <AskedQuestions onCreate={successfulMessage} />
         </main>
     );
 }

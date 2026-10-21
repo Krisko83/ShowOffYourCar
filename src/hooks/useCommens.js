@@ -11,24 +11,35 @@ export default function useComments() {
     const user_id = userData.user.id;
 
     useEffect(() => {
-        request.getById(`/comments?user_id=eq.${user_id}`)
+        const abortController = new AbortController();
+
+        request.getById(`/comments?user_id=eq.${user_id}`, { signal: abortController.signal })
             .then(result => {
                 setComments(result)
                 const uniqueIds = Array.from(new Set(result.map(comment => comment.car_id)))
                 setUniqueCarIds(uniqueIds)
             })
 
+        return () => {
+            abortController.abort();
+        }
+
     }, [user_id]);
 
     useEffect(() => {
-        request.getAll('/cars')
+        const abortController = new AbortController();
+
+        request.getAll('/cars', { signal: abortController.signal })
             .then(result => {
                 const filteredCars = result.filter(car => uniqueCarIds.includes(car.id))
                 setCommentedCars(filteredCars)
             })
 
-    }, [uniqueCarIds]); 
-    
+        return () => {
+            abortController.abort();
+        }
+    }, [uniqueCarIds]);
+
 
     return { comments, uniqueCarIds, commentedCars };
 }

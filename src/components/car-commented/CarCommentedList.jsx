@@ -1,8 +1,6 @@
- 
-// import { useEffect, useState } from "react";
 import useComments from "../../hooks/useCommens.js";
 import CarItem from "../home/CarItem.jsx";
-// import request from "../../utils/request.js";
+ 
 
 export default function CarCommentedList() {
     const { commentedCars } = useComments(); 

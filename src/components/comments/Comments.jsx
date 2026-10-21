@@ -10,12 +10,20 @@ export default function Comments({
     const [comments, setComments] = useState([]);
 
     useEffect(() => {
-        request.getAll(`/comments?car_id=eq.${car_id}&order=created_at.desc`)
+        const abortController = new AbortController()
+
+        request.getAll(`/comments?car_id=eq.${car_id}&order=created_at.desc`, {signal: abortController.signal})
             .then(result => setComments(result))
+            .catch(err => alert(err))
+
+        return () => {
+            abortController.abort();
+        }
+        
     }, [car_id, onCreate])
 
- 
-    
+
+
     return (
         <div className="comments-list">
             {comments.map(comment => <CommentItem key={comment.id} {...comment} isCarOwner={comment.user_id === carOwner_id} />)}

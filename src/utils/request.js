@@ -22,7 +22,6 @@ async function makeRequest(url, method = 'GET', data = null, opts = {}, image = 
             }),
             "Prefer": 'return=representation',
         },
-
         ...opts
     }
 
@@ -115,8 +114,9 @@ const login = (data) => makeRequest(`${authUrl}/token?grant_type=password`, 'POS
 const logout = () => makeRequest(`${authUrl}/logout`, 'POST')
 const updateUser = (data) => makeRequest(`${authUrl}/user`, 'PUT', data);
 
-const getAll = (path) => makeRequest(`${baseUrl}${path}`);
-const getById = (path) => makeRequest(`${baseUrl}${path}`);
+const getAll = (path, opt) => makeRequest(`${baseUrl}${path}`, 'GET', null, opt);
+const getById = (path, opt) => makeRequest(`${baseUrl}${path}`, 'GET', null, opt);
+
 const post = (path, data) => makeRequest(`${baseUrl}${path}`, 'POST', data);
 const remove = (path) => makeRequest(`${baseUrl}${path}`, 'DELETE');
 const update = (path, data) => makeRequest(`${baseUrl}${path}`, 'PATCH', data);

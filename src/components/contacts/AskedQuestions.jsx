@@ -1,16 +1,24 @@
 import { useEffect, useState } from 'react';
-import './AskedQuestions.css'
 import request from '../../utils/request.js';
 import AskedQuestionItem from './AskedQuestionItem.jsx';
+import './AskedQuestions.css'
 
-export default function AskedQuestions() {
+export default function AskedQuestions({
+    onCreate
+}) {
     const [questions, setQuestions] = useState([])
 
     useEffect(() => {
-        request.getAll('/contacts?order=created_at.desc&limit=5')
-        .then(result => setQuestions(result))
-        .catch((err) => alert(err))
-    }, [])
+        const abortController = new AbortController();
+
+        request.getAll('/contacts?order=created_at.desc&limit=5', { signal: abortController.signal })
+            .then(result => setQuestions(result))
+            .catch((err) => alert(err))
+
+        return () => {
+            abortController.abort();
+        }
+    }, [onCreate])
 
     return (
         <section className="faq-section">
@@ -18,7 +26,7 @@ export default function AskedQuestions() {
                 <h2>Latest Asked Questions</h2>
             </div>
 
-            {questions.map(question => <AskedQuestionItem key={question.id} {...question}/>)}
+            {questions.map(question => <AskedQuestionItem key={question.id} {...question} />)}
 
         </section>
     );

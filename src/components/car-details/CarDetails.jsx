@@ -1,7 +1,6 @@
 import { Link, useNavigate, useParams } from 'react-router';
 import { use, useEffect, useState } from 'react';
-import request from '../../utils/request.js';
-import NotFound from '../not-found/NotFound.jsx';
+import request from '../../utils/request.js'; 
 import AddComment from '../comments/AddComment.jsx';
 import Comments from '../comments/Comments.jsx';
 import UserContext from '../../contexts/UserContext.js';
@@ -39,17 +38,20 @@ export default function CarDetails() {
 
 
     useEffect(() => {
-        try {
-            request.getById(`/cars?id=eq.${car_id}`)
-                .then(res => setCar(res[0]))
-                .catch(() => {
-                    <NotFound />
-                })
+        const abortController = new AbortController()
 
-            request.getAll(`/likes?car_id=eq.${car_id}`)
-                .then(result => setLikes(result))
-        } catch (error) {
-            alert(error.message)
+
+        request.getById(`/cars?id=eq.${car_id}`, { signal: abortController.signal })
+            .then(res => setCar(res[0]))
+            .catch((err) => console.log(err))
+
+        request.getAll(`/likes?car_id=eq.${car_id}`, { signal: abortController.signal })
+            .then(result => setLikes(result))
+            .catch((err) => console.log(err))
+
+
+        return () => {
+            abortController.abort();
         }
 
     }, [car_id, liked]);

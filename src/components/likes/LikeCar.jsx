@@ -11,13 +11,19 @@ export default function LikeCar({
 }) {
 
     useEffect(() => {
-        request.getAll(`/likes?user_id=eq.${user_id}&car_id=eq.${car_id}`)
+        const abortController = new AbortController();
+
+        request.getAll(`/likes?user_id=eq.${user_id}&car_id=eq.${car_id}`, { signal: abortController.signal })
             .then(result => {
                 if (result.length === 1) {
                     onLikeUnlike(true)
                 }
             })
 
+        return () => {
+            abortController.abort();
+        }
+        
     }, [user_id, car_id, onLikeUnlike]);
 
 
