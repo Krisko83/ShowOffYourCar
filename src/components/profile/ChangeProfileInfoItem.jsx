@@ -1,8 +1,8 @@
+import { v4 as uuid } from 'uuid';
 import { use, useState } from "react";
 import { validation } from "../../utils/validation.js";
 import request from "../../utils/request.js";
 import ChangePasswordMenu from "./changePasswordMenu.jsx";
-import { v4 as uuid } from 'uuid';
 import UserImageContext from "../../contexts/UserImageContext.js";
 
 export default function ChangeProfileInfoItem({
@@ -63,14 +63,11 @@ export default function ChangeProfileInfoItem({
         }
     }
 
-
     const changeHandler = (e) => {
-
         onEdit(state => ({
             ...state,
             [e.target.name]: e.target.value
         }))
-
     }
 
     const validationHandler = (e) => {
@@ -99,13 +96,15 @@ export default function ChangeProfileInfoItem({
             return;
         }
 
-        const newPassword = userData.newPassword;
-        const current_password = userData.inputPassword;
+        const { newPassword, repeatNewPassword, inputPassword, ...data } = userData;
+
 
         try {
-            await request.updateUser({ current_password, password: newPassword })
+            await request.updateUser({ password: newPassword, current_password: inputPassword })
 
-            onClickCancelEdit()
+            onEdit(data);
+            onClickCancelEdit();
+
         } catch (error) {
             console.log(error);
             alert('Current password is incorect!');

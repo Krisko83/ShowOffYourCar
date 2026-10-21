@@ -21,8 +21,6 @@ import UserProfile from './components/profile/UserProfile.jsx'
 import UserImageProvider from './components/contexts/UserImageContext.jsx'
 
 
-
-
 function App() {
 
   return (
@@ -49,8 +47,8 @@ function App() {
             <Route path='login' element={<Login />} />
             <Route path='register' element={<Register />} />
           </Route>
-          <Route path='/user/user-profile/:commentOwnerId' element={<UserProfile />} />
 
+          <Route path='/user/user-profile/:commentOwnerId' element={<UserProfile />} />
           <Route path='*' element={<NotFound />} />
 
         </Routes>

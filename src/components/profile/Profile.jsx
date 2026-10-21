@@ -7,7 +7,7 @@ import CarOwned from '../car-owned/CarOwned.jsx';
 import CarCommented from '../car-commented/CarCommented.jsx';
 import './Profile.css';
 // import UserImageContext from '../../contexts/UserImageContext.js';
- 
+
 
 const initialValues = {
     fullName: '',
@@ -16,20 +16,17 @@ const initialValues = {
     age: '',
     country: '',
     city: '',
-    gender: '',
-    password: '',
-
+    gender: ''
 };
 
 export default function Profile() {
-    const { userData } = use(UserContext); 
-
+    const { userData } = use(UserContext);
     const [isEditClicked, setIsEditClicked] = useState(false);
     const [userInfo, setUserInfo] = useState(initialValues)
     const user_id = userData.user.id;
 
     const imageUrl = userInfo.imageUrl;
- 
+
     useEffect(() => {
         request.getById(`/users?user_id=eq.${user_id}`)
             .then(result => setUserInfo(result[0]))
@@ -39,7 +36,7 @@ export default function Profile() {
 
     }, [user_id]);
 
- 
+
     const onClickEdit = () => {
         setIsEditClicked(state => !state);
     };
@@ -50,8 +47,8 @@ export default function Profile() {
         if (typeof inputData === 'function') {
             data = inputData(userInfo)
         }
-         
-        setUserInfo(data) 
+
+        setUserInfo(data)
     }
 
 
@@ -72,7 +69,7 @@ export default function Profile() {
             {isEditClicked
                 ?
                 <ChangeProfileInfoItem
-                    onClickCancelEdit={onClickEdit} 
+                    onClickCancelEdit={onClickEdit}
                     onEdit={editUserInfo}
                     userData={userInfo}
                 />
