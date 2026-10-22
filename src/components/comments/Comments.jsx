@@ -12,7 +12,7 @@ export default function Comments({
     useEffect(() => {
         const abortController = new AbortController()
 
-        request.getAll(`/comments?car_id=eq.${car_id}&order=created_at.desc`, {signal: abortController.signal})
+        request.getAll(`/comments?car_id=eq.${car_id}&order=created_at.desc`, { signal: abortController.signal })
             .then(result => setComments(result))
             .catch(err => console.log(err))
 
@@ -26,7 +26,11 @@ export default function Comments({
 
     return (
         <div className="comments-list">
-            {comments.map(comment => <CommentItem key={comment.id} {...comment} isCarOwner={comment.user_id === carOwner_id} />)}
+            {comments.length ?
+                comments.map(comment => <CommentItem key={comment.id} {...comment} isCarOwner={comment.user_id === carOwner_id} />)
+                :
+                <p>There is no comments yet!</p>
+            }
         </div>
     );
 }

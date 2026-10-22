@@ -1,5 +1,6 @@
 import { Link, useNavigate } from 'react-router';
 import { use } from 'react';
+import { toast } from 'react-toastify';
 import request from '../../utils/request.js';
 import EyeIcon from './EyeIcon.jsx';
 import UserContext from '../../contexts/UserContext.js'; 
@@ -36,10 +37,8 @@ export default function Login() {
 
             navigate('/');
 
-        } catch (error) {
-            console.log(error);
-            
-            alert('Email or password are incorrect!');
+        } catch (error) { 
+            toast.error('Email or password are incorrect!');       
         }
     }
 

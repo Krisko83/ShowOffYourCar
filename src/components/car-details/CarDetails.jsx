@@ -7,6 +7,7 @@ import UserContext from '../../contexts/UserContext.js';
 import LikeCar from '../likes/LikeCar.jsx';
 import extractCorrectOpions from '../../utils/carSpecsUtils.js';
 import './CarDetails.css';
+import useDecumentTitle from '../../hooks/useDocumentTitle.js';
 
 const initialValues = {
     id: '',
@@ -25,6 +26,8 @@ const initialValues = {
 }
 
 export default function CarDetails() {
+    useDecumentTitle('Car Details');
+    
     const { userData } = use(UserContext);
     const [car, setCar] = useState(initialValues);
     const [likes, setLikes] = useState([]);
@@ -35,8 +38,8 @@ export default function CarDetails() {
     const navigate = useNavigate();
     const user_id = userData?.user.id;
     const carOwner_id = car?.user_id;
-
-
+ 
+    
     useEffect(() => {
         const abortController = new AbortController()
 

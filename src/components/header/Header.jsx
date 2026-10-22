@@ -7,7 +7,7 @@ import './Header.css'
 
 
 export default function Header() {
-    const { userData, onLogout } = use(UserContext);
+    const { userData } = use(UserContext);
     const { userImage } = use(UserImageContext);
     const user_id = userData?.user.id
 
@@ -40,7 +40,7 @@ export default function Header() {
 
                                         My Profile
                                     </Link></li>
-                                    <li><button onClick={onLogout} className='nav-btn'>Logout</button></li>
+                                    <li><Link to='/user/logout'>Logout</Link></li>
                                 </>
                                 :
                                 <>

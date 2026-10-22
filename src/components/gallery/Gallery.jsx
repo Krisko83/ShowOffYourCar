@@ -5,8 +5,10 @@ import CarItem from "../home/CarItem.jsx";
 import styles from './Gallery.module.css';
 import SearchItem from "../search/SearchItem.jsx";
 import useGetAllRequest from "../../hooks/useGetAllRequest.js";
+import useDecumentTitle from "../../hooks/useDocumentTitle.js";
  
 export default function Gallery() {
+    useDecumentTitle('Gallery')
     const [page, setPage] = useState(1);
     const [limit, setLimit] = useState(9);
     const [filteredCars, setFilteredCars] = useState([]);

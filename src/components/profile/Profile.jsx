@@ -6,6 +6,7 @@ import request from '../../utils/request.js';
 import CarOwned from '../car-owned/CarOwned.jsx';
 import CarCommented from '../car-commented/CarCommented.jsx';
 import './Profile.css';
+import useDecumentTitle from '../../hooks/useDocumentTitle.js';
 
 
 const initialValues = {
@@ -19,6 +20,7 @@ const initialValues = {
 };
 
 export default function Profile() {
+    useDecumentTitle('My Profile')
     const { userData } = use(UserContext);
     const [isEditClicked, setIsEditClicked] = useState(false);
     const [userInfo, setUserInfo] = useState(initialValues)

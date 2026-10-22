@@ -1,6 +1,8 @@
+import useDecumentTitle from '../../hooks/useDocumentTitle.js';
 import styles from './About.module.css';
 
 export default function About() {
+    useDecumentTitle('About')
     return (
         <main className={styles["about-page"]}>
 

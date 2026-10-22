@@ -1,9 +1,9 @@
 import { useEffect } from "react";
 import { useNavigate, useParams } from "react-router";
 import request from "../../utils/request.js";
-import NotFound from "../not-found/NotFound.jsx";
-import CarAddEditItem from "../car-add-edit-item/CarAddEditItem.jsx";
+ import CarAddEditItem from "../car-add-edit-item/CarAddEditItem.jsx";
 import useControlledForm from "../../hooks/useControlledForm.js";
+import useDecumentTitle from "../../hooks/useDocumentTitle.js";
 
 
 const initialValues = {
@@ -22,6 +22,7 @@ const initialValues = {
 }
 
 export default function CarEdit() {
+    useDecumentTitle('Edit Car')
     const { car_id } = useParams();
     const navigate = useNavigate();
 

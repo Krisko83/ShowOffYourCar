@@ -19,6 +19,8 @@ import Register from './components/user/Register.jsx'
 import UserProvider from './components/contexts/UserContext.jsx'
 import UserProfile from './components/profile/UserProfile.jsx'
 import UserImageProvider from './components/contexts/UserImageContext.jsx'
+import { ToastContainer } from 'react-toastify'
+import Logout from './components/user/Logout.jsx'
 
 
 function App() {
@@ -41,6 +43,8 @@ function App() {
             <Route path='/user/profile' element={<Profile />} />
             <Route path='/user/owned-cars' element={<CarOwnedList />} />
             <Route path='/user/commented-cars' element={<CarCommentedList />} />
+            <Route path='/user/user-profile/:commentOwnerId' element={<UserProfile />} />
+            <Route path='/user/logout' element={<Logout />} />
           </Route>
 
           <Route path='/user' element={<IsAuth />}>
@@ -48,10 +52,11 @@ function App() {
             <Route path='register' element={<Register />} />
           </Route>
 
-          <Route path='/user/user-profile/:commentOwnerId' element={<UserProfile />} />
           <Route path='*' element={<NotFound />} />
 
         </Routes>
+
+        <ToastContainer />
 
         <Footer />
       </UserProvider>

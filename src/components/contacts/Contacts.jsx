@@ -2,17 +2,19 @@ import { useState } from 'react';
 import AskedQuestions from './AskedQuestions.jsx';
 import AskQuestion from './AskQuestion.jsx';
 import './Contacts.css';
+import useDecumentTitle from '../../hooks/useDocumentTitle.js';
 
 
 
 export default function Contacts() {
-    const [successfulMessage, setSuccessfullMessage] = useState('');  
+    useDecumentTitle('Contact Us')
+    const [successfulMessage, setSuccessfullMessage] = useState('');
 
     const showSuccessfullMessage = (value) => {
         setSuccessfullMessage(value)
-    }    
+    }
 
-    
+
     return (
         <main className="contact-page">
 
@@ -68,7 +70,7 @@ export default function Contacts() {
                 </aside>
 
             </section>
-                <AskedQuestions onCreate={successfulMessage} />
+            <AskedQuestions onCreate={successfulMessage} />
         </main>
     );
 }

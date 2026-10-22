@@ -1,8 +1,8 @@
 const driveTypes = {
-    'fwd': 'Front-Wheel Drive',
-    "rwd": 'Rear-Wheel Drive',
-    "awd": 'All-Wheel Drive',
-    "4wd": '4-Wheel Drive'
+    'FWD': 'Front-Wheel Drive',
+    "RWD": 'Rear-Wheel Drive',
+    "AWD": 'All-Wheel Drive',
+    "4WD": '4-Wheel Drive'
 }
 
 

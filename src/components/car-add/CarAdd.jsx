@@ -3,6 +3,8 @@ import request from '../../utils/request.js';
 import { useNavigate } from 'react-router';
 import useControlledForm from '../../hooks/useControlledForm.js';
 import './CarAdd.css';
+import useDecumentTitle from '../../hooks/useDocumentTitle.js';
+import { toast } from 'react-toastify';
  
 
 const initialValues = {
@@ -21,6 +23,7 @@ const initialValues = {
 }
 
 export default function CarAdd() {
+useDecumentTitle('Add Car');
 
     const {
         data: carData,
@@ -38,10 +41,11 @@ export default function CarAdd() {
         try {
             await request.post('/cars', car);
 
+            toast.success('Car is added successfuly!')
             navigate('/');
 
         } catch (error) {
-            alert(error);
+            toast.error('Error adding car.');
         }
 
     }

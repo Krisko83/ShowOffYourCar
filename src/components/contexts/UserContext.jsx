@@ -23,8 +23,7 @@ export default function UserProvider({
     const logoutHandler = async () => {
         try {
             await request.logout()
-            console.log(setUserImage);
-            
+             
             setUserImage(null) 
             removeUser('auth');
             
