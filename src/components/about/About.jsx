@@ -3,6 +3,7 @@ import styles from './About.module.css';
 
 export default function About() {
     useDecumentTitle('About')
+    
     return (
         <main className={styles["about-page"]}>
 

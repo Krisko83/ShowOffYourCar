@@ -1,11 +1,13 @@
 import { Link, useNavigate } from 'react-router';
 import { use } from 'react';
 import { toast } from 'react-toastify';
-import request from '../../utils/request.js';
+// import request from '../../utils/request.js';
 import EyeIcon from './EyeIcon.jsx';
-import UserContext from '../../contexts/UserContext.js'; 
+import UserContext from '../../contexts/UserContext.js';
 import styles from './Login.module.css'
 import useControlledForm from '../../hooks/useControlledForm.js';
+import { authApi } from '../../api/index.js';
+import useDecumentTitle from '../../hooks/useDocumentTitle.js';
 
 const initialValues = {
     email: '',
@@ -13,6 +15,8 @@ const initialValues = {
 }
 
 export default function Login() {
+    useDecumentTitle('Login');
+
     const { onLogin } = use(UserContext)
     const navigate = useNavigate();
 
@@ -31,14 +35,14 @@ export default function Login() {
         const { email, password } = user;
 
         try {
-            const responseData = await request.login({ email, password });
+            const responseData = await authApi.login({ email, password });
 
             onLogin(responseData);
 
             navigate('/');
 
-        } catch (error) { 
-            toast.error('Email or password are incorrect!');       
+        } catch (error) {
+            toast.error('Email or password are incorrect!');
         }
     }
 

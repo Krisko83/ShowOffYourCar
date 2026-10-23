@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
-import request from '../../utils/request.js';
+// import request from '../../utils/request.js';
 import AskedQuestionItem from './AskedQuestionItem.jsx';
 import './AskedQuestions.css'
+import { contactsApi } from '../../api/index.js';
 
 export default function AskedQuestions({
     onCreate
@@ -11,7 +12,7 @@ export default function AskedQuestions({
     useEffect(() => {
         const abortController = new AbortController();
 
-        request.getAll('/contacts?order=created_at.desc&limit=5', { signal: abortController.signal })
+        contactsApi.getAllQuestions('/contacts?order=created_at.desc&limit=5', { signal: abortController.signal })
             .then(result => setQuestions(result))
             .catch((err) => console.log(err))
 

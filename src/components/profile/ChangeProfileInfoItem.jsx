@@ -1,10 +1,11 @@
 import { v4 as uuid } from 'uuid';
 import { use, useState } from "react";
 import { validation } from "../../utils/validation.js";
-import request from "../../utils/request.js";
+// import request from "../../utils/request.js";
 import ChangePasswordMenu from "./changePasswordMenu.jsx";
 import UserImageContext from "../../contexts/UserImageContext.js";
 import getUserData from '../../utils/userUtils.js';
+import { authApi, storageApi, userApi } from '../../api/index.js';
 
 export default function ChangeProfileInfoItem({
     userData,
@@ -28,7 +29,7 @@ export default function ChangeProfileInfoItem({
             const imageName = `${uuid()}${imageFile.name}`;
 
             try {
-                await request.uploadImage(imageName, imageFile);
+                await storageApi.uploadImage(imageName, imageFile);
 
                 userImage = `https://ggordfryvhhohlcicpdu.supabase.co/storage/v1/object/public/avatars/${imageName}`;
 
@@ -55,7 +56,7 @@ export default function ChangeProfileInfoItem({
         const updatedUserData = { ...userData, imageUrl: userImage }
 
         try {
-            await request.update(`/users?user_id=eq.${userData.user_id}`, updatedUserData)
+            await userApi.updateUser(`/users?user_id=eq.${userData.user_id}`, updatedUserData)
 
             onEdit(updatedUserData)
             onClickCancelEdit();
@@ -101,7 +102,7 @@ export default function ChangeProfileInfoItem({
 
 
         try {
-            await request.updateUser({ password: newPassword, current_password: inputPassword })
+            await authApi.updateUser({ password: newPassword, current_password: inputPassword })
 
             onEdit(data);
             onClickCancelEdit();
@@ -142,7 +143,6 @@ export default function ChangeProfileInfoItem({
                     <label id="fileUpload" className="upload-picture">
                         <span className="upload-icon" aria-hidden="true">↑</span>
                         <span>Upload a profile picture</span>
-                        <small>JPG, PNG or GIF (max 5 MB)</small>
                         <input type="file" id="fileUpload" name="image" accept="image/png,image/jpeg,image/gif" onChange={filePreviewHandler} />
                     </label>
                 </aside>

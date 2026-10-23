@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import request from "../utils/request.js";
+// import request from "../utils/request.js";
+import { userApi } from "../api/index.js";
 
 export default function useImageUrl(user_id) {
     const [imageUrl, setImageUrl] = useState(null)
@@ -8,7 +9,7 @@ export default function useImageUrl(user_id) {
         const abortController = new AbortController();
 
         if (user_id) {
-            request.getById(`/users?user_id=eq.${user_id}`, { signal: abortController.signal })
+            userApi.getUserById(`/users?user_id=eq.${user_id}`, { signal: abortController.signal })
                 .then(result => setImageUrl(result[0].imageUrl))
                 .catch(err => console.log(err.message))
         }

@@ -7,7 +7,8 @@ import useDecumentTitle from '../../hooks/useDocumentTitle.js';
 
 
 export default function Contacts() {
-    useDecumentTitle('Contact Us')
+    useDecumentTitle('Contact Us');
+    
     const [successfulMessage, setSuccessfullMessage] = useState('');
 
     const showSuccessfullMessage = (value) => {

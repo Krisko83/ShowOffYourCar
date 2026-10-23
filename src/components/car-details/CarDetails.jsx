@@ -9,6 +9,7 @@ import LikeCar from '../likes/LikeCar.jsx';
 import extractCorrectOpions from '../../utils/carSpecsUtils.js';
 import useDecumentTitle from '../../hooks/useDocumentTitle.js';
 import './CarDetails.css';
+import { carApi, likesApi } from '../../api/index.js';
 
 const initialValues = {
     id: '',
@@ -45,11 +46,11 @@ export default function CarDetails() {
         const abortController = new AbortController()
 
 
-        request.getById(`/cars?id=eq.${car_id}`, { signal: abortController.signal })
+        carApi.getCarById(`/cars?id=eq.${car_id}`, { signal: abortController.signal })
             .then(res => setCar(res[0]))
             .catch((err) => console.log(err))
 
-        request.getAll(`/likes?car_id=eq.${car_id}`, { signal: abortController.signal })
+        likesApi.getAllLikes(`/likes?car_id=eq.${car_id}`, { signal: abortController.signal })
             .then(result => setLikes(result))
             .catch((err) => console.log(err))
 
@@ -69,7 +70,7 @@ export default function CarDetails() {
         }
 
         try {
-            await request.remove(`/cars?id=eq.${car_id}`);
+            await carApi.removeCar(`/cars?id=eq.${car_id}`);
 
             toast.success('Car is removed successfully!')
 

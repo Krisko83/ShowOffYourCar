@@ -14,7 +14,6 @@ export default function ChangePasswordMenu({
     email
 }) {
 
-
     const [isPasswordsVisible, setIsPasswordsVisible] = useState({ currentPassword: false, newPassword: false, repeatNewPassword: false })
 
     const showHidePassHandler = (field) => {

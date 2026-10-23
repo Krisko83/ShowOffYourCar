@@ -1,7 +1,8 @@
 import { useParams } from "react-router";
 import PersonalInfoItem from "./PersonalInfoItem.jsx";
 import { useEffect, useState } from "react";
-import request from "../../utils/request.js";
+// import request from "../../utils/request.js";
+import { userApi } from "../../api/index.js";
 
 
 export default function UserProfile() {
@@ -13,7 +14,7 @@ export default function UserProfile() {
     useEffect(() => {
         const abortController = new AbortController()
 
-        request.getById(`/users?user_id=eq.${commentOwnerId}`, {signal: abortController.signal})
+        userApi.getUserById(`/users?user_id=eq.${commentOwnerId}`, {signal: abortController.signal})
             .then(result => setUser(result[0]))
             .catch(err => console.log(err))
 

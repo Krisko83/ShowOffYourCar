@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import CommentItem from "./CommentItem.jsx";
-import request from "../../utils/request.js";
+// import request from "../../utils/request.js";
 import { toast } from "react-toastify";
+import { commentsApi } from "../../api/index.js";
 
 export default function Comments({
     car_id,
@@ -13,7 +14,7 @@ export default function Comments({
     useEffect(() => {
         const abortController = new AbortController()
 
-        request.getAll(`/comments?car_id=eq.${car_id}&order=created_at.desc`, { signal: abortController.signal })
+        commentsApi.getAllCarsComments(`/comments?car_id=eq.${car_id}&order=created_at.desc`, { signal: abortController.signal })
             .then(result => setComments(result))
             .catch(err => toast.error(err))
 

@@ -1,6 +1,7 @@
 import { use, useEffect, useState } from "react";
 import UserContext from "../contexts/UserContext.js";
-import request from "../utils/request.js";
+// import request from "../utils/request.js";
+import { carApi, commentsApi } from "../api/index.js";
 
 export default function useComments() {
     const [comments, setComments] = useState([])
@@ -13,7 +14,7 @@ export default function useComments() {
     useEffect(() => {
         const abortController = new AbortController();
 
-        request.getById(`/comments?user_id=eq.${user_id}`, { signal: abortController.signal })
+        commentsApi.getCommentsByUserId(`/comments?user_id=eq.${user_id}`, { signal: abortController.signal })
             .then(result => {
                 setComments(result)
                 const uniqueIds = Array.from(new Set(result.map(comment => comment.car_id)))
@@ -30,7 +31,7 @@ export default function useComments() {
     useEffect(() => {
         const abortController = new AbortController();
 
-        request.getAll('/cars', { signal: abortController.signal })
+        carApi.getAllCars('/cars', { signal: abortController.signal })
             .then(result => {
                 const filteredCars = result.filter(car => uniqueCarIds.includes(car.id))
                 setCommentedCars(filteredCars)

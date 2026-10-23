@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import styles from './SearchItem.module.css'
-import request from '../../utils/request.js';
+// import request from '../../utils/request.js';
+import { carApi } from '../../api/index.js';
 
 
 const searchOptions = [ 
@@ -40,7 +41,7 @@ export default function SearchItem({
         };
 
         try { 
-            const cars = await request.getAll(`/cars?${searchParam}=ilike.*${searchValue}*`);
+            const cars = await carApi.getAllCars(`/cars?${searchParam}=ilike.*${searchValue}*`);
  
             filterCars(cars)
 

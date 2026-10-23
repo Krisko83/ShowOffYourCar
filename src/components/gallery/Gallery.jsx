@@ -1,6 +1,5 @@
 import { useState } from "react";
-import Pagination from "./Pagination.jsx";
-// import request from "../../utils/request.js";
+import Pagination from "./Pagination.jsx"; 
 import CarItem from "../home/CarItem.jsx";
 import styles from './Gallery.module.css';
 import SearchItem from "../search/SearchItem.jsx";
@@ -8,27 +7,16 @@ import useGetAllRequest from "../../hooks/useGetAllRequest.js";
 import useDecumentTitle from "../../hooks/useDocumentTitle.js";
  
 export default function Gallery() {
-    useDecumentTitle('Gallery')
+    useDecumentTitle('Gallery');
+
     const [page, setPage] = useState(1);
     const [limit, setLimit] = useState(9);
     const [filteredCars, setFilteredCars] = useState([]);
     const [isSearched, setIsSearched] = useState(false);
-    // const [cars, setCars] = useState([])
+ 
     const [cars] = useGetAllRequest('/cars?order=created_at.desc', [])
 
-    // useEffect(() => {
-    //     const abortController = new AbortController();
-
-    //     request.getAll('/cars?order=created_at.desc', { signal: abortController.signal })
-    //         .then(setCars)
-    //         .catch(error => console.log(error))
-
-    //     return () => {
-    //         abortController.abort('Unmounted element');
-    //     }
-    // }, []);
-
-
+ 
     let totalPages = Math.ceil(cars.length / limit);
 
     if (filteredCars.length) {

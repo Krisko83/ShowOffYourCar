@@ -2,11 +2,12 @@ import { use, useEffect, useState } from 'react';
 import UserContext from '../../contexts/UserContext.js';
 import PersonalInfoItem from './PersonalInfoItem.jsx';
 import ChangeProfileInfoItem from './ChangeProfileInfoItem.jsx';
-import request from '../../utils/request.js';
+// import request from '../../utils/request.js';
 import CarOwned from '../car-owned/CarOwned.jsx';
 import CarCommented from '../car-commented/CarCommented.jsx';
-import './Profile.css';
 import useDecumentTitle from '../../hooks/useDocumentTitle.js';
+import { userApi } from '../../api/index.js';
+import './Profile.css';
 
 
 const initialValues = {
@@ -31,7 +32,7 @@ export default function Profile() {
     useEffect(() => {
         const abortController = new AbortController()
 
-        request.getById(`/users?user_id=eq.${user_id}`, { signal: abortController.signal })
+        userApi.getUserById(`/users?user_id=eq.${user_id}`, { signal: abortController.signal })
             .then(result => setUserInfo(result[0]))
             .catch((err) => console.log(err));
 

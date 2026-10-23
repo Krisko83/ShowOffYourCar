@@ -1,10 +1,9 @@
-const baseUrl = import.meta.env.VITE_BASE_URL;
 const authUrl = import.meta.env.VITE_AUTH_URL;
 const apikey = import.meta.env.VITE_API_KEY;
-const uploadImageUrl = import.meta.env.VITE_UPLOAD_IMAGE_URL
+ 
 
 
-async function makeRequest(url, method = 'GET', data = null, opts = {}, image = false) {
+export default async function request(url, method = 'GET', data = null, opts = {}, image = false) {
     const storageData = localStorage.getItem('auth');
     let user = {};
 
@@ -32,7 +31,7 @@ async function makeRequest(url, method = 'GET', data = null, opts = {}, image = 
     if (data) {
 
         if (image) {
-            options.headers['Content-type'] = data.type;
+            options.headers['Content-type'] = data.type || 'application/octet-stream';
             options.body = data;
         } else {
             options.headers['Content-type'] = 'application/json'
@@ -69,7 +68,7 @@ async function makeRequest(url, method = 'GET', data = null, opts = {}, image = 
         }
 
     }
- 
+
 
     if (!response.ok) {
         if (response.status === 422) {
@@ -84,6 +83,8 @@ async function makeRequest(url, method = 'GET', data = null, opts = {}, image = 
 
     return response.json();
 };
+
+
 
 async function refreshToken(refresh_token) {
 
@@ -107,32 +108,4 @@ async function refreshToken(refresh_token) {
     return data;
 
 };
-
-
-const register = (data) => makeRequest(`${authUrl}/signup`, 'POST', data);
-const login = (data) => makeRequest(`${authUrl}/token?grant_type=password`, 'POST', data);
-const logout = () => makeRequest(`${authUrl}/logout`, 'POST')
-const updateUser = (data) => makeRequest(`${authUrl}/user`, 'PUT', data);
-
-const getAll = (path, opt) => makeRequest(`${baseUrl}${path}`, 'GET', null, opt);
-const getById = (path, opt) => makeRequest(`${baseUrl}${path}`, 'GET', null, opt);
-
-const post = (path, data) => makeRequest(`${baseUrl}${path}`, 'POST', data);
-const remove = (path) => makeRequest(`${baseUrl}${path}`, 'DELETE');
-const update = (path, data) => makeRequest(`${baseUrl}${path}`, 'PATCH', data);
-const uploadImage = (name, image) => makeRequest(`${uploadImageUrl}/${name}`, 'POST', image, {}, true)
-
-const request = {
-    register,
-    login,
-    getAll,
-    getById,
-    post,
-    remove,
-    update,
-    updateUser,
-    uploadImage,
-    logout
-}
-
-export default request;
+ 

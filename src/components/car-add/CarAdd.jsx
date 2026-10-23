@@ -1,10 +1,11 @@
 import CarAddEditItem from '../car-add-edit-item/CarAddEditItem.jsx'; 
-import request from '../../utils/request.js';
+// import request from '../../utils/request.js';
 import { useNavigate } from 'react-router';
 import useControlledForm from '../../hooks/useControlledForm.js';
 import './CarAdd.css';
 import useDecumentTitle from '../../hooks/useDocumentTitle.js';
 import { toast } from 'react-toastify';
+import { carApi } from '../../api/index.js';
  
 
 const initialValues = {
@@ -39,7 +40,7 @@ useDecumentTitle('Add Car');
     async function submitHandler(car) {
 
         try {
-            await request.post('/cars', car);
+            await carApi.createCar('/cars', car);
 
             toast.success('Car is added successfuly!')
             navigate('/');

@@ -5,7 +5,7 @@ import useDecumentTitle from '../../hooks/useDocumentTitle.js';
  
 
 export default function NotFound() {
-    useDecumentTitle('404 Not Found');
+    useDecumentTitle('404 Not Found!');
 
     return (
         <section className={styles['error-page']}>

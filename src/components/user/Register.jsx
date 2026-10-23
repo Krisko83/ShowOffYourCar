@@ -1,10 +1,12 @@
 import { Link, useNavigate } from 'react-router';
 import { use } from 'react';
-import request from '../../utils/request.js';
+// import request from '../../utils/request.js';
 import EyeIcon from './EyeIcon.jsx';
 import UserContext from '../../contexts/UserContext.js'; 
 import useControlledForm from '../../hooks/useControlledForm.js'; 
 import styles from "./Register.module.css";
+import { authApi, userApi } from '../../api/index.js';
+import useDecumentTitle from '../../hooks/useDocumentTitle.js';
 
 const initialValues = {
     fullName: '',
@@ -20,6 +22,8 @@ const initialValues = {
 
 
 export default function Register() {
+        useDecumentTitle('Register');
+    
     const { onRegister } = use(UserContext)
     const navigate = useNavigate();
 
@@ -39,11 +43,11 @@ export default function Register() {
         const userInfo = { username, email, country, city, fullName, gender, age }
  
         try {
-            const responseData = await request.register({ email, password });
+            const responseData = await authApi.register({ email, password });
 
             onRegister(responseData);
 
-            await request.post('/users', userInfo)
+            await userApi.createUserInfo('/users', userInfo)
 
             navigate('/');
         } catch (error) {

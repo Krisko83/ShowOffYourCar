@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import request from "../utils/request.js";
+// import request from "../utils/request.js";
+import { carApi } from "../api/index.js";
 
 
 export default function useGetAllRequest(path, initialValues) {
@@ -9,7 +10,7 @@ export default function useGetAllRequest(path, initialValues) {
     useEffect(() => {
         const abortController = new AbortController();
 
-        request.getAll(path, { signal: abortController.signal })
+        carApi.getAllCars(path, { signal: abortController.signal })
             .then(setData)
             .catch(err => console.log(err))
             

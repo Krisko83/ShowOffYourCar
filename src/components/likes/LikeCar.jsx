@@ -1,6 +1,7 @@
 import { useEffect } from "react";
-import request from "../../utils/request.js";
+// import request from "../../utils/request.js";
 import LikeBtn from "./likeBtn.jsx";
+import { likesApi } from "../../api/index.js";
 
 
 export default function LikeCar({
@@ -13,7 +14,7 @@ export default function LikeCar({
     useEffect(() => {
         const abortController = new AbortController();
 
-        request.getAll(`/likes?user_id=eq.${user_id}&car_id=eq.${car_id}`, { signal: abortController.signal })
+        likesApi.getAllUserLikes(`/likes?user_id=eq.${user_id}&car_id=eq.${car_id}`, { signal: abortController.signal })
             .then(result => {
                 if (result.length === 1) {
                     onLikeUnlike(true)
@@ -30,7 +31,7 @@ export default function LikeCar({
 
     const likeCar = async () => {
         try {
-            await request.post('/likes', { car_id });
+            await likesApi.likeCar('/likes', { car_id });
 
             onLikeUnlike(true);
         } catch (error) {
@@ -42,7 +43,7 @@ export default function LikeCar({
 
     const unlikeCar = async () => {
         try {
-            await request.remove(`/likes?user_id=eq.${user_id}&car_id=eq.${car_id}`);
+            await likesApi.unlikeCar(`/likes?user_id=eq.${user_id}&car_id=eq.${car_id}`);
 
             onLikeUnlike(false);
         } catch (error) {

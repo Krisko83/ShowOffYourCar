@@ -1,9 +1,10 @@
 import useLocalStorage from "../../hooks/useLocalStorage.js";
 import UserContext from "../../contexts/UserContext.js";
 import { useNavigate } from "react-router";
-import request from "../../utils/request.js";
+// import request from "../../utils/request.js";
 import { use } from "react";
 import UserImageContext from "../../contexts/UserImageContext.js";
+import { authApi } from "../../api/index.js";
 
 export default function UserProvider({
     children
@@ -22,7 +23,7 @@ export default function UserProvider({
 
     const logoutHandler = async () => {
         try {
-            await request.logout()
+            await authApi.logout()
              
             setUserImage(null) 
             removeUser('auth');

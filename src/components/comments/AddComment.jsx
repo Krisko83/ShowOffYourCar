@@ -1,7 +1,8 @@
 // import { useState } from "react";
-import request from "../../utils/request.js";
+// import request from "../../utils/request.js";
 import useImageUrl from "../../hooks/useImageUrl.js";
 import { toast } from "react-toastify";
+import { commentsApi, userApi } from "../../api/index.js";
 
 
 export default function AddComment({
@@ -26,7 +27,7 @@ export default function AddComment({
         };
 
         try {
-            const userInfo = await request.getById(`/users?user_id=eq.${user_id}`)
+            const userInfo = await userApi.getUserById(`/users?user_id=eq.${user_id}`)
 
             const comment = {
                 car_id,
@@ -36,7 +37,7 @@ export default function AddComment({
                 avatar
             }
 
-            const createdComment = await request.post('/comments', comment);
+            const createdComment = await commentsApi.createComment('/comments', comment);
 
             toast.success('Your comment is added successfully!')
 

@@ -1,5 +1,6 @@
+import { contactsApi } from "../../api/index.js";
 import useControlledForm from "../../hooks/useControlledForm.js";
-import request from "../../utils/request.js";
+// import request from "../../utils/request.js";
 import SuccessfullMessage from "./successfulMessage.jsx";
 
 
@@ -28,7 +29,7 @@ export default function AskQuestion({
     async function onSubmit(data) {
 
         try {
-            await request.post('/contacts', data)
+            await contactsApi.createQuestion('/contacts', data)
 
             showMessage(<SuccessfullMessage />) 
 

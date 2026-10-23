@@ -1,9 +1,10 @@
 import { useEffect } from "react";
 import { useNavigate, useParams } from "react-router";
-import request from "../../utils/request.js";
+// import request from "../../utils/request.js";
  import CarAddEditItem from "../car-add-edit-item/CarAddEditItem.jsx";
 import useControlledForm from "../../hooks/useControlledForm.js";
 import useDecumentTitle from "../../hooks/useDocumentTitle.js";
+import { carApi } from "../../api/index.js";
 
 
 const initialValues = {
@@ -39,7 +40,7 @@ export default function CarEdit() {
     useEffect(() => {
         const abortController = new AbortController()
 
-        request.getById(`/cars?id=eq.${car_id}`)
+        carApi.getCarById(`/cars?id=eq.${car_id}`)
             .then(res => setCarData(res[0]))
             .catch((err) => console.log(err))
 
@@ -52,7 +53,7 @@ export default function CarEdit() {
 
     async function onSubmit(car) {
         try {
-            await request.update(`/cars?id=eq.${car_id}`, car);
+            await carApi.updateCar(`/cars?id=eq.${car_id}`, car);
 
             navigate(`/cars/${car_id}/details`);
         } catch (error) {
