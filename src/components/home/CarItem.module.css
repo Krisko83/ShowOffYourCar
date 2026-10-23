@@ -83,6 +83,25 @@
     font-size: 21px;
 }
 
+
+.car-link {
+    display: block;
+    color: inherit;
+    text-decoration: none;
+}
+
+.car-link:link,
+.car-link:visited,
+.car-link:hover,
+.car-link:active {
+    color: inherit;
+    text-decoration: none;
+}
+
+.car-link .car-card {
+    color: inherit;
+}
+
 .car-year {
     margin: 5px 0 15px;
     color: #777;
