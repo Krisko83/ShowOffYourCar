@@ -1,6 +1,7 @@
 // import { useState } from "react";
 import request from "../../utils/request.js";
 import useImageUrl from "../../hooks/useImageUrl.js";
+import { toast } from "react-toastify";
 
 
 export default function AddComment({
@@ -36,6 +37,9 @@ export default function AddComment({
             }
 
             const createdComment = await request.post('/comments', comment);
+
+            toast.success('Your comment is added successfully!')
+
             onCreate(createdComment)
 
         } catch (error) {

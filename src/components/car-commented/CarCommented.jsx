@@ -2,7 +2,7 @@ import { Link } from "react-router";
 
 
 import CarCommentedItem from "./carCommentedItem.jsx";
-import useComments from "../../hooks/useCommens.js";
+import useComments from "../../hooks/useComments.js";
 
 
 export default function CarCommented() {

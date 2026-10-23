@@ -3,9 +3,11 @@ import { Link } from "react-router";
 import useOwnedCars from "../../hooks/useOwnedCars.js";
 import styles from "./CarOwned.module.css"
 
-export default function CarOwned() {
+export default function CarOwned({
+    userOwnerId
+}) {
 
-    const { ownedCars } = useOwnedCars()
+    const { ownedCars } = useOwnedCars(userOwnerId)
 
 
     return (
@@ -13,7 +15,7 @@ export default function CarOwned() {
             <div className="section-title">
                 <span className="car-placeholder" aria-hidden="true">🚘</span>
                 <div className="commented-cars-panel">
-                    <h2>Your Owned Cars</h2>
+                    <h2>{userOwnerId ? 'User Owned Cars' : 'Your Owned Cars'}</h2>
                 </div>
             </div>
 

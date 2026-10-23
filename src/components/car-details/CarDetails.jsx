@@ -1,13 +1,14 @@
 import { Link, useNavigate, useParams } from 'react-router';
 import { use, useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
 import request from '../../utils/request.js'; 
 import AddComment from '../comments/AddComment.jsx';
 import Comments from '../comments/Comments.jsx';
 import UserContext from '../../contexts/UserContext.js';
 import LikeCar from '../likes/LikeCar.jsx';
 import extractCorrectOpions from '../../utils/carSpecsUtils.js';
-import './CarDetails.css';
 import useDecumentTitle from '../../hooks/useDocumentTitle.js';
+import './CarDetails.css';
 
 const initialValues = {
     id: '',
@@ -70,9 +71,11 @@ export default function CarDetails() {
         try {
             await request.remove(`/cars?id=eq.${car_id}`);
 
+            toast.success('Car is removed successfully!')
+
             navigate('/');
         } catch (error) {
-            alert(error.message)
+            toast.error('Error removing this car!')
         }
 
     }

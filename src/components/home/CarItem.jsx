@@ -1,5 +1,6 @@
 import { Link } from "react-router";
 import styles from './CarItem.module.css';
+import extractCorrectOpions from "../../utils/carSpecsUtils.js";
 
 export default function CarItem({
     id: car_id,
@@ -24,7 +25,7 @@ export default function CarItem({
                 <div className={styles["car-info"]} >
                     <span>{power} HP</span>
                     <span>{fuel}</span>
-                    <span>{driveType}</span>
+                    <span>{extractCorrectOpions(driveType)}</span>
                 </div>
                 <div className={styles["car-footer"]} >
                     <Link to={`/cars/${car_id}/details`}>

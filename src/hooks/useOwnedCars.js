@@ -2,10 +2,11 @@ import { use, useEffect, useState } from "react";
 import UserContext from "../contexts/UserContext.js";
 import request from "../utils/request.js";
 
-export default function useOwnedCars() {
+export default function useOwnedCars(userId) {
     const { userData } = use(UserContext);
     const [ownedCars, setOwnedCars] = useState([]);
-    const user_id = userData?.user.id;
+
+    const user_id = userId ? userId : userData?.user.id;
 
     useEffect(() => {
         const abortController = new AbortController();

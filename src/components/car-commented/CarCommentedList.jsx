@@ -1,4 +1,4 @@
-import useComments from "../../hooks/useCommens.js";
+import useComments from "../../hooks/useComments.js";
 import CarItem from "../home/CarItem.jsx";
  
 

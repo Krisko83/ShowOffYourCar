@@ -28,12 +28,10 @@ export default function Profile() {
 
     const imageUrl = userInfo.imageUrl;
 
-
-
     useEffect(() => {
         const abortController = new AbortController()
 
-        request.getById(`/users?user_id=eq.${user_id}`, {signal: abortController.signal})
+        request.getById(`/users?user_id=eq.${user_id}`, { signal: abortController.signal })
             .then(result => setUserInfo(result[0]))
             .catch((err) => console.log(err));
 
@@ -85,11 +83,9 @@ export default function Profile() {
                     onClickEdit={onClickEdit}
                     {...userInfo}
                 />
-            }
+            } 
 
             <section className="profile-bottom">
-                <CarCommented />
-
                 <div className="personal-info-panel">
                     <div className="section-title">
                         <span className="section-icon" aria-hidden="true">⚙️</span>
@@ -98,14 +94,26 @@ export default function Profile() {
                             <p>Keep your account details up to date.</p>
                         </div>
                     </div>
+
                     <p className="personal-info-description">
-                        You can edit your name, contact details, location, and password using the form above.
+                        You can edit your name, contact details, location, and
+                        password using the form above.
                     </p>
-                    <button className="change-info-btn" onClick={onClickEdit} >✎ &nbsp; {isEditClicked ? 'Hide Change Menu' : 'Change Personal Info'}</button>
+
+                    <button
+                        className="change-info-btn"
+                        type="button"
+                        onClick={onClickEdit}
+                    >
+                        ✎ &nbsp; {isEditClicked ? 'Hide Change Menu' : 'Change Personal Info'}
+                    </button>
                 </div>
+
+                <CarCommented />
             </section>
 
-            <CarOwned user_id={user_id} />
+
+            <CarOwned />
         </main>
     );
 }

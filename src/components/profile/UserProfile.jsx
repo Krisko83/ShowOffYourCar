@@ -36,7 +36,8 @@ export default function UserProfile() {
                     <h1>User Profile</h1>
                 </div>
             </header>
-            <PersonalInfoItem {...user} owner={false} />
+            
+            <PersonalInfoItem {...user} owner={false} userOwnerId={commentOwnerId} userProfile />
         </main>
     );
 }
