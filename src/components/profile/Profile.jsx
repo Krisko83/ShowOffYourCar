@@ -1,13 +1,12 @@
 import { use, useEffect, useState } from 'react';
-import UserContext from '../../contexts/UserContext.js';
-import PersonalInfoItem from './PersonalInfoItem.jsx';
-import ChangeProfileInfoItem from './ChangeProfileInfoItem.jsx';
-// import request from '../../utils/request.js';
+import UserContext from '../../contexts/UserContext.js'; 
 import CarOwned from '../car-owned/CarOwned.jsx';
 import CarCommented from '../car-commented/CarCommented.jsx';
 import useDecumentTitle from '../../hooks/useDocumentTitle.js';
 import { userApi } from '../../api/index.js';
 import './Profile.css';
+import ChangeProfileInfoItem from './change-profile-Info-Item/ChangeProfileInfoItem.jsx';
+import PersonalInfoItem from './personal-Info-Item/PersonalInfoItem.jsx';
 
 
 const initialValues = {

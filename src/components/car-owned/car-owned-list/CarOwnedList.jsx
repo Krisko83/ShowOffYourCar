@@ -1,6 +1,7 @@
-import CarItem from "../home/CarItem.jsx";
-import useOwnedCars from "../../hooks/useOwnedCars.js";
-import styles from './CarOwned.module.css'
+ 
+import useOwnedCars from "../../../hooks/useOwnedCars.js";
+import CarItem from "../../car-item/CarItem.jsx";
+import styles from './CarOwnedList.module.css'
 
 export default function CarOwnedList() {
     const { ownedCars } = useOwnedCars()

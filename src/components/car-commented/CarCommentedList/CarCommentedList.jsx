@@ -1,5 +1,5 @@
-import useComments from "../../hooks/useComments.js";
-import CarItem from "../home/CarItem.jsx";
+import useComments from "../../../hooks/useComments.js";
+import CarItem from "../../car-item/CarItem.jsx";
  
 
 export default function CarCommentedList() {

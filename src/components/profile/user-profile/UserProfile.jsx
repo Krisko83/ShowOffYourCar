@@ -1,8 +1,7 @@
-import { useParams } from "react-router";
-import PersonalInfoItem from "./PersonalInfoItem.jsx";
-import { useEffect, useState } from "react";
-// import request from "../../utils/request.js";
-import { userApi } from "../../api/index.js";
+import { useParams } from "react-router"; 
+import { useEffect, useState } from "react"; 
+import { userApi } from "../../../api/index.js";
+import PersonalInfoItem from "../personal-Info-Item/PersonalInfoItem.jsx";
 
 
 export default function UserProfile() {

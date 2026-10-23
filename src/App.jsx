@@ -1,4 +1,6 @@
 import { Route, Routes } from 'react-router'
+import { ToastContainer } from 'react-toastify' 
+
 import IsAuth from './components/route-guards/IsAuth.jsx'
 import IsGuest from './components/route-guards/isGuest.jsx'
 import About from './components/about/About.jsx'
@@ -11,17 +13,17 @@ import Home from './components/home/Home.jsx'
 import CarDetails from './components/car-details/CarDetails.jsx'
 import CarEdit from './components/car-edit/CarEdit.jsx'
 import CarAdd from './components/car-add/CarAdd.jsx'
-import Profile from './components/profile/Profile.jsx'
-import CarCommentedList from './components/car-commented/CarCommentedList.jsx'
-import CarOwnedList from './components/car-owned/CarOwnedList.jsx'
-import Login from './components/user/Login.jsx'
-import Register from './components/user/Register.jsx'
-import UserProvider from './components/contexts/UserContext.jsx'
-import UserProfile from './components/profile/UserProfile.jsx'
+import Profile from './components/profile/Profile.jsx' 
+import UserProvider from './components/contexts/UserContext.jsx' 
 import UserImageProvider from './components/contexts/UserImageContext.jsx'
-import { ToastContainer } from 'react-toastify'
-import Logout from './components/user/Logout.jsx'
 import ScrollToTop from './components/scroll-to-top/ScrollToTop.jsx'
+import CarOwnedList from './components/car-owned/car-owned-list/CarOwnedList.jsx'
+import UserProfile from './components/profile/user-profile/UserProfile.jsx'
+import Login from './components/login/Login.jsx'
+import Logout from './components/logout/Logout.jsx'
+import Register from './components/register/Register.jsx'
+import CarCommentedList from './components/car-commented/CarCommentedList/CarCommentedList.jsx'
+ 
 
 
 function App() {
@@ -32,6 +34,7 @@ function App() {
         <Header />
 
         <Routes>
+          
           <Route index element={<Home />} />
           <Route path='/cars/gallery' element={<Gallery />} />
           <Route path='/about' element={<About />} />

@@ -1,11 +1,10 @@
-import CarAddEditItem from '../car-add-edit-item/CarAddEditItem.jsx'; 
-// import request from '../../utils/request.js';
 import { useNavigate } from 'react-router';
 import useControlledForm from '../../hooks/useControlledForm.js';
-import './CarAdd.css';
+import CarAddEditItem from '../car-add-edit-item/CarAddEditItem.jsx';  
 import useDecumentTitle from '../../hooks/useDocumentTitle.js';
 import { toast } from 'react-toastify';
 import { carApi } from '../../api/index.js';
+import './CarAdd.css';
  
 
 const initialValues = {

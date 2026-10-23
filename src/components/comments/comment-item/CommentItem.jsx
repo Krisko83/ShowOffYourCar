@@ -1,8 +1,7 @@
-
-import { Link } from "react-router";
-import commentTimeAgo from "../../utils/commentTimeAgo.js";
-import UserContext from "../../contexts/UserContext.js";
+import { Link } from "react-router"; 
 import { use } from "react";
+import commentTimeAgo from "../../../utils/commentTimeAgo.js";
+import UserContext from "../../../contexts/UserContext.js";
 
 export default function CommentItem({
     author,

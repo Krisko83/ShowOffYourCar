@@ -1,8 +1,7 @@
 import { Link, useNavigate } from 'react-router';
 import { use } from 'react';
-import { toast } from 'react-toastify';
-// import request from '../../utils/request.js';
-import EyeIcon from './EyeIcon.jsx';
+import { toast } from 'react-toastify'; 
+import EyeIcon from '../eye-icon-item/EyeIcon.jsx';
 import UserContext from '../../contexts/UserContext.js';
 import styles from './Login.module.css'
 import useControlledForm from '../../hooks/useControlledForm.js';

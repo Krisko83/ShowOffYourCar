@@ -2,7 +2,7 @@ import { Link, useNavigate, useParams } from 'react-router';
 import { use, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import request from '../../utils/request.js'; 
-import AddComment from '../comments/AddComment.jsx';
+import AddComment from '../comments/add-comment/AddComment.jsx';
 import Comments from '../comments/Comments.jsx';
 import UserContext from '../../contexts/UserContext.js';
 import LikeCar from '../likes/LikeCar.jsx';

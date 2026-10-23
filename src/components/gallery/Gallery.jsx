@@ -1,10 +1,10 @@
-import { useState } from "react";
-import Pagination from "./Pagination.jsx"; 
-import CarItem from "../home/CarItem.jsx";
+import { useState } from "react";  
 import styles from './Gallery.module.css';
 import SearchItem from "../search/SearchItem.jsx";
 import useGetAllRequest from "../../hooks/useGetAllRequest.js";
 import useDecumentTitle from "../../hooks/useDocumentTitle.js";
+import Pagination from "./pagination/Pagination.jsx";
+import CarItem from "../car-item/CarItem.jsx";
  
 export default function Gallery() {
     useDecumentTitle('Gallery');

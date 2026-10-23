@@ -1,11 +1,10 @@
 import { v4 as uuid } from 'uuid';
 import { use, useState } from "react";
-import { validation } from "../../utils/validation.js";
-// import request from "../../utils/request.js";
-import ChangePasswordMenu from "./changePasswordMenu.jsx";
-import UserImageContext from "../../contexts/UserImageContext.js";
-import getUserData from '../../utils/userUtils.js';
-import { authApi, storageApi, userApi } from '../../api/index.js';
+import { validation } from "../../../utils/validation.js"; 
+import UserImageContext from "../../../contexts/UserImageContext.js";
+import getUserData from '../../../utils/userUtils.js';
+import { authApi, storageApi, userApi } from '../../../api/index.js';
+import ChangePasswordMenu from '../change-password-menu/ChangePasswordMenu.jsx';
 
 export default function ChangeProfileInfoItem({
     userData,

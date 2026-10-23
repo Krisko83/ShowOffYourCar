@@ -1,5 +1,6 @@
-import CarOwned from "../car-owned/CarOwned.jsx";
+import CarOwned from "../../car-owned/CarOwned.jsx";
 
+ 
 export default function PersonalInfoItem({
     fullName,
     username,

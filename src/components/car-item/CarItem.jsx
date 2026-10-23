@@ -28,11 +28,6 @@ export default function CarItem({
                         <span>{fuel}</span>
                         <span>{extractCorrectOpions(driveType)}</span>
                     </div>
-                    <div className={styles["car-footer"]} >
-                        {/* <Link to={`/cars/${car_id}/details`}>
-                        Details
-                    </Link> */}
-                    </div>
                 </div>
             </article>
         </Link >

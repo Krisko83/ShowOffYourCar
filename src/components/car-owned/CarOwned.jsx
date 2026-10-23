@@ -1,7 +1,8 @@
-import CarItem from "../home/CarItem.jsx";
+ 
 import { Link } from "react-router";
 import useOwnedCars from "../../hooks/useOwnedCars.js";
 import styles from "./CarOwned.module.css"
+import CarItem from "../car-item/CarItem.jsx";
 
 export default function CarOwned({
     userOwnerId

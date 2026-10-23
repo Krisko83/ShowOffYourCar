@@ -1,8 +1,7 @@
-import { useEffect, useState } from 'react';
-// import request from '../../utils/request.js';
-import AskedQuestionItem from './AskedQuestionItem.jsx';
+import { useEffect, useState } from 'react';  
+import { contactsApi } from '../../../api/index.js';
+import AskedQuestionItem from '../asked-questionI-tem/AskedQuestionItem.jsx';
 import './AskedQuestions.css'
-import { contactsApi } from '../../api/index.js';
 
 export default function AskedQuestions({
     onCreate

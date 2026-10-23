@@ -1,8 +1,7 @@
-import { contactsApi } from "../../api/index.js";
-import useControlledForm from "../../hooks/useControlledForm.js";
-// import request from "../../utils/request.js";
-import SuccessfullMessage from "./successfulMessage.jsx";
-
+import { contactsApi } from "../../../api/index.js";
+import useControlledForm from "../../../hooks/useControlledForm.js";
+import SuccessfullMessage from "../SuccessfulMessage/SuccessfulMessage.jsx";
+ 
 
 const defaultValues = {
     name: '',

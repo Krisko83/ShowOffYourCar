@@ -1,7 +1,6 @@
-import { useEffect } from "react";
-// import request from "../../utils/request.js";
-import LikeBtn from "./likeBtn.jsx";
+import { useEffect } from "react"; 
 import { likesApi } from "../../api/index.js";
+import LikeBtn from "./like-btn/likeBtn.jsx";
 
 
 export default function LikeCar({

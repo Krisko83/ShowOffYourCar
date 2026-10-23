@@ -1,7 +1,6 @@
-// import { Outlet } from "react-router";
 import { Navigate } from "react-router";
-import UserContext from "../../contexts/UserContext.js";
 import { use } from "react";
+import UserContext from "../../contexts/UserContext.js";
 
 export default function Logout() {
     const { onLogout } = use(UserContext)
@@ -9,6 +8,6 @@ export default function Logout() {
     onLogout();
 
     return (
-        <Navigate to='/' />
+        <Navigate to='/user/login' />
     );
 }

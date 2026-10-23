@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import CommentItem from "./CommentItem.jsx";
-// import request from "../../utils/request.js";
+ // import request from "../../utils/request.js";
 import { toast } from "react-toastify";
 import { commentsApi } from "../../api/index.js";
+import CommentItem from "./comment-item/CommentItem.jsx";
 
 export default function Comments({
     car_id,

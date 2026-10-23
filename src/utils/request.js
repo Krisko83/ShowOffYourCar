@@ -1,6 +1,6 @@
 const authUrl = import.meta.env.VITE_AUTH_URL;
 const apikey = import.meta.env.VITE_API_KEY;
- 
+
 
 
 export default async function request(url, method = 'GET', data = null, opts = {}, image = false) {
@@ -29,14 +29,8 @@ export default async function request(url, method = 'GET', data = null, opts = {
     }
 
     if (data) {
-
-        if (image) {
-            options.headers['Content-type'] = data.type || 'application/octet-stream';
-            options.body = data;
-        } else {
-            options.headers['Content-type'] = 'application/json'
-            options.body = JSON.stringify(data)
-        }
+        options.headers['Content-type'] = image ? data.type || 'application/octet-stream' : 'application/json';
+        options.body = image ? data : JSON.stringify(data);
     }
 
     let response = await fetch(`${url}`, options)
@@ -108,4 +102,3 @@ async function refreshToken(refresh_token) {
     return data;
 
 };
- 

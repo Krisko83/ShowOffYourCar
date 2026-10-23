@@ -1,8 +1,6 @@
-// import { useState } from "react";
-// import request from "../../utils/request.js";
-import useImageUrl from "../../hooks/useImageUrl.js";
+import useImageUrl from "../../../hooks/useImageUrl.js";
 import { toast } from "react-toastify";
-import { commentsApi, userApi } from "../../api/index.js";
+import { commentsApi, userApi } from "../../../api/index.js";
 
 
 export default function AddComment({

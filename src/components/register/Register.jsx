@@ -1,7 +1,6 @@
 import { Link, useNavigate } from 'react-router';
-import { use } from 'react';
-// import request from '../../utils/request.js';
-import EyeIcon from './EyeIcon.jsx';
+import { use } from 'react'; 
+import EyeIcon from '../eye-icon-item/EyeIcon.jsx';
 import UserContext from '../../contexts/UserContext.js'; 
 import useControlledForm from '../../hooks/useControlledForm.js'; 
 import styles from "./Register.module.css";
