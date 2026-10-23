@@ -21,6 +21,7 @@ import UserProfile from './components/profile/UserProfile.jsx'
 import UserImageProvider from './components/contexts/UserImageContext.jsx'
 import { ToastContainer } from 'react-toastify'
 import Logout from './components/user/Logout.jsx'
+import ScrollToTop from './components/scroll-to-top/ScrollToTop.jsx'
 
 
 function App() {
@@ -57,6 +58,7 @@ function App() {
         </Routes>
 
         <ToastContainer />
+        <ScrollToTop />
 
         <Footer />
       </UserProvider>
