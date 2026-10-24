@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-// import request from "../utils/request.js";
 import { userApi } from "../api/index.js";
 import { toast } from "react-toastify";
 
@@ -11,11 +10,16 @@ export default function useImageUrl(user_id) {
 
         if (user_id) {
             userApi.getUserById(`/users?user_id=eq.${user_id}`, { signal: abortController.signal })
-                .then(result => setImageUrl(result[0].imageUrl))
+                .then(result => {
+                    if (result.length > 0) {
+                        setImageUrl(result[0].imageUrl)
+                    }
+                })
                 .catch(err => {
-                     if (err.name !== 'AbortError') {
+                    if (err.name !== 'AbortError') {
+                        console.error(err);
                         toast.error('Failed attempt to retrive user image!')
-                     }
+                    }
                 })
         }
 
@@ -26,5 +30,5 @@ export default function useImageUrl(user_id) {
     }, [user_id])
 
 
-    return imageUrl;
+    return [imageUrl, setImageUrl];
 }

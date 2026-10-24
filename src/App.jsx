@@ -1,7 +1,7 @@
 import { Route, Routes } from 'react-router'
-import { ToastContainer } from 'react-toastify' 
+import { ToastContainer } from 'react-toastify'
 
-import IsAuth from './components/route-guards/IsAuth.jsx' 
+import IsAuth from './components/route-guards/IsAuth.jsx'
 import IsGuest from './components/route-guards/IsGuest.jsx'
 import About from './components/about/About.jsx'
 import Gallery from './components/gallery/Gallery.jsx'
@@ -13,58 +13,55 @@ import Home from './components/home/Home.jsx'
 import CarDetails from './components/car-details/CarDetails.jsx'
 import CarEdit from './components/car-edit/CarEdit.jsx'
 import CarAdd from './components/car-add/CarAdd.jsx'
-import Profile from './components/profile/Profile.jsx' 
+import Profile from './components/profile/Profile.jsx'
 import UserProvider from './components/contexts/UserContext.jsx' 
-import UserImageProvider from './components/contexts/UserImageContext.jsx'
 import ScrollToTop from './components/scroll-to-top/ScrollToTop.jsx'
 import CarOwnedList from './components/car-owned/car-owned-list/CarOwnedList.jsx'
 import UserProfile from './components/profile/user-profile/UserProfile.jsx'
 import Login from './components/login/Login.jsx'
 import Logout from './components/logout/Logout.jsx'
 import Register from './components/register/Register.jsx'
-import CarCommentedList from './components/car-commented/CarCommentedList/CarCommentedList.jsx' 
+import CarCommentedList from './components/car-commented/CarCommentedList/CarCommentedList.jsx'
 
 
 function App() {
 
   return (
-    <UserImageProvider>
-      <UserProvider>
-        <Header />
+    <UserProvider>
+      <Header />
 
-        <Routes>
-          
-          <Route index element={<Home />} />
-          <Route path='/cars/gallery' element={<Gallery />} />
-          <Route path='/about' element={<About />} />
-          <Route path='/contacts' element={<Contacts />} />
-          <Route path='/cars/:car_id/details' element={<CarDetails />} />
+      <Routes>
 
-          <Route element={<IsGuest />}>
-            <Route path='/cars/:car_id/edit' element={<CarEdit />} />
-            <Route path='/cars/add-car' element={<CarAdd />} />
-            <Route path='/user/profile' element={<Profile />} />
-            <Route path='/user/owned-cars' element={<CarOwnedList />} />
-            <Route path='/user/commented-cars' element={<CarCommentedList />} />
-            <Route path='/user/user-profile/:commentOwnerId' element={<UserProfile />} />
-            <Route path='/user/logout' element={<Logout />} />
-          </Route>
+        <Route index element={<Home />} />
+        <Route path='/cars/gallery' element={<Gallery />} />
+        <Route path='/about' element={<About />} />
+        <Route path='/contacts' element={<Contacts />} />
+        <Route path='/cars/:car_id/details' element={<CarDetails />} />
 
-          <Route path='/user' element={<IsAuth />}>
-            <Route path='login' element={<Login />} />
-            <Route path='register' element={<Register />} />
-          </Route>
+        <Route element={<IsGuest />}>
+          <Route path='/cars/:car_id/edit' element={<CarEdit />} />
+          <Route path='/cars/add-car' element={<CarAdd />} />
+          <Route path='/user/profile' element={<Profile />} />
+          <Route path='/user/owned-cars' element={<CarOwnedList />} />
+          <Route path='/user/commented-cars' element={<CarCommentedList />} />
+          <Route path='/user/user-profile/:commentOwnerId' element={<UserProfile />} />
+          <Route path='/user/logout' element={<Logout />} />
+        </Route>
 
-          <Route path='*' element={<NotFound />} />
+        <Route path='/user' element={<IsAuth />}>
+          <Route path='login' element={<Login />} />
+          <Route path='register' element={<Register />} />
+        </Route>
 
-        </Routes>
+        <Route path='*' element={<NotFound />} />
 
-        <ToastContainer />
-        <ScrollToTop />
+      </Routes>
 
-        <Footer />
-      </UserProvider>
-    </UserImageProvider>
+      <ToastContainer />
+      <ScrollToTop />
+
+      <Footer />
+    </UserProvider>
   )
 }
 

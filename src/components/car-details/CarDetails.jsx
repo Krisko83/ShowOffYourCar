@@ -7,7 +7,7 @@ import UserContext from '../../contexts/UserContext.js';
 import LikeCar from '../likes/LikeCar.jsx';
 import extractCorrectOpions from '../../utils/carSpecsUtils.js';
 import useDecumentTitle from '../../hooks/useDocumentTitle.js';
-import { carApi, likesApi } from '../../api/index.js';
+import { carApi, likesApi, userApi } from '../../api/index.js';
 import './CarDetails.css';
 
 const initialValues = {
@@ -29,17 +29,17 @@ const initialValues = {
 export default function CarDetails() {
     useDecumentTitle('Car Details');
 
-    const { userData } = use(UserContext);
+    const { userData, isAuthenticated } = use(UserContext);
     const [car, setCar] = useState(initialValues);
     const [likes, setLikes] = useState([]);
     const [commentsData, setCommentsData] = useState('');
     const [liked, setLiked] = useState(false);
+    const [carOwnerData, setCarOwnerData] = useState([])
 
     const { car_id } = useParams();
     const navigate = useNavigate();
     const user_id = userData?.user.id;
-    const carOwner_id = car?.user_id;
-
+    const carOwner_id = car?.user_id; 
 
     useEffect(() => {
         const abortController = new AbortController()
@@ -47,23 +47,36 @@ export default function CarDetails() {
         carApi.getCarById(`/cars?id=eq.${car_id}`, { signal: abortController.signal })
             .then(res => setCar(res[0]))
             .catch(err => {
-                if (err.name !== 'AbortError')
+                if (err.name !== 'AbortError') {
                     toast.error('Failed to retrive this car info. Please try again later!')
+                }
             })
 
         likesApi.getAllLikes(`/likes?car_id=eq.${car_id}`, { signal: abortController.signal })
             .then(result => setLikes(result))
             .catch(err => {
-                if (err.name !== 'AbortError')
+                if (err.name !== 'AbortError') {
                     toast.error('Failed to retrive this car likes. Please try again later!')
+                }
             })
+
+        if (carOwner_id) {
+
+            userApi.getUserById(`/users?user_id=eq.${carOwner_id}`, { signal: abortController.signal })
+                .then(result => setCarOwnerData(result[0]))
+                .catch(err => {
+                    if (err.name !== 'AbortError') {
+                        toast.error('Failed to retrive this car likes. Please try again later!')
+                    }
+                })
+        }
 
 
         return () => {
             abortController.abort();
         }
 
-    }, [car_id, liked]);
+    }, [car_id, liked, carOwner_id]);
 
 
     const deleteHandler = async () => {
@@ -98,6 +111,8 @@ export default function CarDetails() {
     const likeUnlikeCar = (inputValue) => {
         setLiked(inputValue)
     }
+
+
 
 
     return (
@@ -176,6 +191,20 @@ export default function CarDetails() {
 
                     </div>
 
+                </div>
+            </section>
+
+            <section className="description-section likes" >
+                <div className="reaction-buttons">
+                    <p className="reaction-button">Added by:
+                        <Link to={isAuthenticated && carOwner_id === user_id ? '/user/profile' : `/user/user-profile/${carOwnerData.user_id}`}>
+                            {carOwnerData.imageUrl && carOwnerData.imageUrl !== undefined ?
+                                <img src={carOwnerData.imageUrl} className="heading-icon-avatar" alt="User image" />
+                                :
+                                <span className="heading-icon" aria-hidden="true">👤</span>
+                            }
+                        </Link>
+                        {carOwnerData.username}</p>
                 </div>
             </section>
 

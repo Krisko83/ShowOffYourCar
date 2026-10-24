@@ -1,20 +1,14 @@
 import { Link } from 'react-router';
 import { use } from 'react';
 import UserContext from '../../contexts/UserContext.js';
-import UserImageContext from '../../contexts/UserImageContext.js';
-import useImageUrl from '../../hooks/useImageUrl.js';
 import './Header.css'
 
 
 export default function Header() {
-    const { userData } = use(UserContext);
-    const { userImage } = use(UserImageContext);
-    const user_id = userData?.user.id
+    const { userData, userImage } = use(UserContext); 
 
-    const serverDataImage = useImageUrl(user_id)
-
-    const avatar = userImage ? userImage : serverDataImage
-
+    const avatar = userImage;
+ 
 
     return (
         <>

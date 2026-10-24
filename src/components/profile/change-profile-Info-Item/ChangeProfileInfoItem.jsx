@@ -1,11 +1,11 @@
 import { v4 as uuid } from 'uuid';
 import { use, useState } from "react";
-import { validation } from "../../../utils/validation.js"; 
-import UserImageContext from "../../../contexts/UserImageContext.js";
+import { validation } from "../../../utils/validation.js";  
 import getUserData from '../../../utils/userUtils.js';
 import { authApi, storageApi, userApi } from '../../../api/index.js';
 import ChangePasswordMenu from '../change-password-menu/ChangePasswordMenu.jsx';
 import { toast } from 'react-toastify';
+import UserContext from '../../../contexts/UserContext.js';
 
 export default function ChangeProfileInfoItem({
     userData,
@@ -17,7 +17,7 @@ export default function ChangeProfileInfoItem({
     const [isTouched, setIsTouched] = useState({});
     const [previewUrl, setPreviewUrl] = useState(null);
     const [menuChangePasswordVisibility, setMenuChangePasswordVisibility] = useState(false);
-    const { setUserImage } = use(UserImageContext);
+    const { setUserImage } = use(UserContext);
 
     const actionHandler = async (formData) => {
         const imageFile = formData.get('image');

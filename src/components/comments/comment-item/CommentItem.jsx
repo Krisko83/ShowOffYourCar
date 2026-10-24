@@ -18,18 +18,14 @@ export default function CommentItem({
     return (
         <article className="comment">
 
-            <div className="comment-header">
-                {isAuthenticated ?
+            <div className="comment-header">             
                     <Link to={isAuthenticated && commentOwnerId === userData.user.id ? '/user/profile' : `/user/user-profile/${commentOwnerId}`}>
                         {avatar ?
                             <img src={avatar} className="heading-icon" alt="User image" />
                             :
                             <span className="heading-icon" aria-hidden="true">👤</span>
                         }
-                    </Link>
-                    :
-                    <span className="heading-icon" aria-hidden="true">👤</span>
-                }
+                    </Link>            
                 <strong>{author}{isCarOwner ? <span>  - Car owner!</span> : ''}</strong>
                 <span>{commentTimeAgo(created_at)}</span>
             </div>

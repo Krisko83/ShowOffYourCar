@@ -55,9 +55,9 @@ The app is Single-Page-Application, with component-based architecture with featu
 - The api folder contain js files with functions that makes every request to supabase backend for authentication, cars, comments, contacts, likes, storage and user info.
 - The components folder contain all react components for UI and page logic.
 - The hooks folder contain all custom hooks that I'm using in the app.
-- The contexts folder contain UserContext with who i shared authentication info like access_token ,refresh_token, user email etc. with all components in the app.There also are User Image Context that I use to grant access for header to user image if there is an uploaded.
+- The contexts folder contain UserContext with who the app shares authentication info like access_token ,refresh_token, user email, userImage etc. with all components in the app.
 - The utils folder contain all utility function that I use in the app for request, validation and others.
-- App.jsx contains the app router, which is responsible for application routing and providing the contexts to the relevant components.
+- App.jsx contains the app router, which is responsible for application routing and providing the context to the relevant components.
 - main.jsx — serves as the entry point of the React application. It renders the root App component into the DOM and initializes the application.
 
 ## Run the project
@@ -361,9 +361,7 @@ When data is send to the server if no errors user is redirected to details page 
 
 ●	What state/data is shared through Context, and which components consume it?:
 
-- UserImageContext shares user image if it's uploaded. Components that are using it are UserContext, Header, changeProfileInfoItem and UserImageProvider
-
-- UserContext share user authentication data. Component that are using it are CarDetails, CommentItem, UserContext, Footer, Header, Login, Logout, Profile, Register, isAuth and isGuest.
+- UserContext share user authentication data and userImage. Component that are using it are CarDetails, CommentItem, UserContext, Footer, Header, Login, Logout, Profile, Register, isAuth and isGuest.
  
 ### Component Styling
 
