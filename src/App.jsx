@@ -22,8 +22,7 @@ import UserProfile from './components/profile/user-profile/UserProfile.jsx'
 import Login from './components/login/Login.jsx'
 import Logout from './components/logout/Logout.jsx'
 import Register from './components/register/Register.jsx'
-import CarCommentedList from './components/car-commented/CarCommentedList/CarCommentedList.jsx'
- 
+import CarCommentedList from './components/car-commented/CarCommentedList/CarCommentedList.jsx' 
 
 
 function App() {

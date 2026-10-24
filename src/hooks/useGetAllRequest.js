@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
-// import request from "../utils/request.js";
+import { useEffect, useState } from "react"; 
 import { carApi } from "../api/index.js";
+import { toast } from "react-toastify";
 
 
 export default function useGetAllRequest(path, initialValues) {
@@ -12,11 +12,16 @@ export default function useGetAllRequest(path, initialValues) {
 
         carApi.getAllCars(path, { signal: abortController.signal })
             .then(setData)
-            .catch(err => console.log(err))
+            .catch(err => {
+                if (err.name !== 'AbortError') {
+                    toast.error('Failed attempt to retrive all cars. Please try again later!')
+                }
+            })
             
         return () => {
             abortController.abort();
         }
+
     }, [path]);
 
 

@@ -6,6 +6,7 @@ import useControlledForm from '../../hooks/useControlledForm.js';
 import styles from "./Register.module.css";
 import { authApi, userApi } from '../../api/index.js';
 import useDecumentTitle from '../../hooks/useDocumentTitle.js';
+import { toast } from 'react-toastify';
 
 const initialValues = {
     fullName: '',
@@ -48,12 +49,11 @@ export default function Register() {
 
             await userApi.createUserInfo('/users', userInfo)
 
-            navigate('/');
-        } catch (error) {
-            console.log(error);
+            toast.success('Successfull user register!')
 
-            alert(error.message)
-            return;
+            navigate('/');
+        } catch (err) { 
+            toast.error(err.message)         
         }
     }
 

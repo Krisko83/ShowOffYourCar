@@ -7,8 +7,8 @@ import UserContext from '../../contexts/UserContext.js';
 import LikeCar from '../likes/LikeCar.jsx';
 import extractCorrectOpions from '../../utils/carSpecsUtils.js';
 import useDecumentTitle from '../../hooks/useDocumentTitle.js';
-import './CarDetails.css';
 import { carApi, likesApi } from '../../api/index.js';
+import './CarDetails.css';
 
 const initialValues = {
     id: '',
@@ -28,7 +28,7 @@ const initialValues = {
 
 export default function CarDetails() {
     useDecumentTitle('Car Details');
-    
+
     const { userData } = use(UserContext);
     const [car, setCar] = useState(initialValues);
     const [likes, setLikes] = useState([]);
@@ -39,19 +39,24 @@ export default function CarDetails() {
     const navigate = useNavigate();
     const user_id = userData?.user.id;
     const carOwner_id = car?.user_id;
- 
-    
+
+
     useEffect(() => {
         const abortController = new AbortController()
 
-
         carApi.getCarById(`/cars?id=eq.${car_id}`, { signal: abortController.signal })
             .then(res => setCar(res[0]))
-            .catch((err) => console.log(err))
+            .catch(err => {
+                if (err.name !== 'AbortError')
+                    toast.error('Failed to retrive this car info. Please try again later!')
+            })
 
         likesApi.getAllLikes(`/likes?car_id=eq.${car_id}`, { signal: abortController.signal })
             .then(result => setLikes(result))
-            .catch((err) => console.log(err))
+            .catch(err => {
+                if (err.name !== 'AbortError')
+                    toast.error('Failed to retrive this car likes. Please try again later!')
+            })
 
 
         return () => {
@@ -74,8 +79,8 @@ export default function CarDetails() {
             toast.success('Car is removed successfully!')
 
             navigate('/');
-        } catch (error) {
-            toast.error('Error removing this car!')
+        } catch {
+            toast.error('Error occur removing this car. Please try again later!')
         }
 
     }

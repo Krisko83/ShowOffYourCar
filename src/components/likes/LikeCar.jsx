@@ -1,6 +1,7 @@
-import { useEffect } from "react"; 
+import { useEffect } from "react";
 import { likesApi } from "../../api/index.js";
 import LikeBtn from "./like-btn/likeBtn.jsx";
+import { toast } from "react-toastify";
 
 
 export default function LikeCar({
@@ -18,8 +19,13 @@ export default function LikeCar({
                 if (result.length === 1) {
                     onLikeUnlike(true)
                 }
+                return
             })
-            .catch(err => console.log(err))
+            .catch(err => {
+                if(err.name !== 'AbortError') {
+                    toast.error('Failed to retrive user likes. Please try again later!')
+                }
+            })
 
         return () => {
             abortController.abort();
@@ -32,9 +38,10 @@ export default function LikeCar({
         try {
             await likesApi.likeCar('/likes', { car_id });
 
+            toast.success('You successfully liked this car!')
             onLikeUnlike(true);
-        } catch (error) {
-            alert(error.message)
+        } catch {
+            toast.error('Failed to like this car. Please try again later!')
         }
 
     };
@@ -43,10 +50,11 @@ export default function LikeCar({
     const unlikeCar = async () => {
         try {
             await likesApi.unlikeCar(`/likes?user_id=eq.${user_id}&car_id=eq.${car_id}`);
+            toast.success('You successfully unliked this car!');
 
             onLikeUnlike(false);
-        } catch (error) {
-            alert(error.message)
+        } catch  {
+            alert('Failed to unlike this car. Please try again later!')
         }
 
     };

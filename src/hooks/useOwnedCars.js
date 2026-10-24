@@ -1,6 +1,7 @@
 import { use, useEffect, useState } from "react";
 import UserContext from "../contexts/UserContext.js";
 import { carApi } from "../api/index.js";
+import { toast } from "react-toastify";
 
 export default function useOwnedCars(userId) {
     const { userData } = use(UserContext);
@@ -13,7 +14,11 @@ export default function useOwnedCars(userId) {
 
         carApi.getAllUserCars(`/cars?user_id=eq.${user_id}`, { signal: abortController.signal })
             .then(result => setOwnedCars(result))
-            .catch(err => console.log(err))
+            .catch(err => {
+                if (err.name !== 'AbortError') {
+                    toast.error('Failed attempt to retrive all cars. Please try again later! ')
+                }
+            })
 
         return () => {
             abortController.abort();

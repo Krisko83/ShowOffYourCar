@@ -1,15 +1,11 @@
-
 import { Link } from "react-router";
 import useOwnedCars from "../../hooks/useOwnedCars.js";
 import styles from "./CarOwned.module.css"
 import CarItem from "../car-item/CarItem.jsx";
-import useDecumentTitle from "../../hooks/useDocumentTitle.js";
 
 export default function CarOwned({
     userOwnerId
 }) {
-    useDecumentTitle('Owned Cars');
-
     const { ownedCars } = useOwnedCars(userOwnerId)
 
 

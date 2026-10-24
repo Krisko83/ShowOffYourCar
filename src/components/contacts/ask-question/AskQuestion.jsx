@@ -1,3 +1,4 @@
+import { toast } from "react-toastify";
 import { contactsApi } from "../../../api/index.js";
 import useControlledForm from "../../../hooks/useControlledForm.js";
 import SuccessfullMessage from "../SuccessfulMessage/SuccessfulMessage.jsx";
@@ -32,8 +33,8 @@ export default function AskQuestion({
 
             showMessage(<SuccessfullMessage />) 
 
-        } catch (error) {
-            alert(error)
+        } catch {
+            toast.error('Error sending your question!')
         }
     }
 

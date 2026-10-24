@@ -7,6 +7,7 @@ import { userApi } from '../../api/index.js';
 import './Profile.css';
 import ChangeProfileInfoItem from './change-profile-Info-Item/ChangeProfileInfoItem.jsx';
 import PersonalInfoItem from './personal-Info-Item/PersonalInfoItem.jsx';
+import { toast } from 'react-toastify';
 
 
 const initialValues = {
@@ -34,7 +35,10 @@ export default function Profile() {
 
         userApi.getUserById(`/users?user_id=eq.${user_id}`, { signal: abortController.signal })
             .then(result => setUserInfo(result[0]))
-            .catch((err) => console.log(err));
+            .catch(err => {
+                if (err.name !== 'AbortError') {
+                toast.error('Failed attempt to retrive user data!')
+            }});
 
         return () => {
             abortController.abort();

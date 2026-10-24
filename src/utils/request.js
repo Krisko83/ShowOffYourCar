@@ -68,7 +68,8 @@ export default async function request(url, method = 'GET', data = null, opts = {
         if (response.status === 422) {
             throw new Error('User already exists!');
         }
-        throw new Error(`HTTP response error! Error ${response.message}`)
+        
+        throw new Error(`HTTP response error! Error ${response.status}`)
     }
 
     if (response.status === 204) {
@@ -94,7 +95,7 @@ async function refreshToken(refresh_token) {
 
     if (!response.ok) {
         localStorage.removeItem('auth');
-        throw new Error(response.message || 'Failed to refresh token. Please login');
+        throw new Error('Failed to refresh token. Please login');
     }
 
     const data = await response.json();

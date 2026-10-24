@@ -1,6 +1,7 @@
 import { use, useEffect, useState } from "react";
-import UserContext from "../contexts/UserContext.js"; 
+import UserContext from "../contexts/UserContext.js";
 import { carApi, commentsApi } from "../api/index.js";
+import { toast } from "react-toastify";
 
 export default function useComments() {
     const [comments, setComments] = useState([])
@@ -19,7 +20,11 @@ export default function useComments() {
                 const uniqueIds = Array.from(new Set(result.map(comment => comment.car_id)))
                 setUniqueCarIds(uniqueIds)
             })
-            .catch(err => console.log(err))
+            .catch(err => {
+                if (err.name !== 'AbortError') {
+                    toast.error('Failed attempt to retrive user comments. Please try again later.')
+                }
+            })
 
         return () => {
             abortController.abort();
@@ -35,7 +40,11 @@ export default function useComments() {
                 const filteredCars = result.filter(car => uniqueCarIds.includes(car.id))
                 setCommentedCars(filteredCars)
             })
-            .catch(err => console.log(err))
+            .catch(err => {
+                if (err.name !== 'AbortError') {
+                    toast.error('Failed attempt to retrive cars. Please try again later.')
+                }
+            })
 
         return () => {
             abortController.abort();

@@ -41,8 +41,8 @@ export default function AddComment({
 
             onCreate(createdComment)
 
-        } catch (error) {
-            alert(error);
+        } catch {
+            toast.error('Error adding your comment!');
         }
 
     }

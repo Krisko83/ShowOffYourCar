@@ -1,9 +1,10 @@
 import useLocalStorage from "../../hooks/useLocalStorage.js";
 import UserContext from "../../contexts/UserContext.js";
-import { useNavigate } from "react-router"; 
+import { useNavigate } from "react-router";
 import { use } from "react";
 import UserImageContext from "../../contexts/UserImageContext.js";
 import { authApi } from "../../api/index.js";
+import { toast } from "react-toastify";
 
 export default function UserProvider({
     children
@@ -11,7 +12,7 @@ export default function UserProvider({
     const [userData, setUser, removeUser] = useLocalStorage(null, 'auth');
     const navigate = useNavigate();
     const { setUserImage } = use(UserImageContext)
- 
+
     const loginHandler = (inputUserData) => {
         setUser(inputUserData)
     }
@@ -23,14 +24,13 @@ export default function UserProvider({
     const logoutHandler = async () => {
         try {
             await authApi.logout()
-             
-            setUserImage(null) 
-            removeUser('auth');
-            
-            navigate('/user/login')
 
-        } catch (error) {
-            alert(error)
+            navigate('/user/login')
+        } catch {            
+            toast.error('Error occur.Please try again!')
+        } finally {
+            setUserImage(null)
+            removeUser('auth');
         }
     }
 

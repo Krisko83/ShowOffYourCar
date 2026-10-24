@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { contactsApi } from '../../../api/index.js';
 import AskedQuestionItem from '../asked-questionI-tem/AskedQuestionItem.jsx';
 import './AskedQuestions.css'
+import { toast } from 'react-toastify';
 
 export default function AskedQuestions({
     onCreate
@@ -13,7 +14,10 @@ export default function AskedQuestions({
 
         contactsApi.getAllQuestions('/contacts?order=created_at.desc&limit=5', { signal: abortController.signal })
             .then(result => setQuestions(result))
-            .catch((err) => console.log(err))
+            .catch(err => {
+                if (err.name !== 'AbortError') {
+                toast.error('Failed attempt to retrive questions!')
+            }})
 
         return () => {
             abortController.abort();

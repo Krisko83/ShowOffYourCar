@@ -5,6 +5,7 @@ import UserImageContext from "../../../contexts/UserImageContext.js";
 import getUserData from '../../../utils/userUtils.js';
 import { authApi, storageApi, userApi } from '../../../api/index.js';
 import ChangePasswordMenu from '../change-password-menu/ChangePasswordMenu.jsx';
+import { toast } from 'react-toastify';
 
 export default function ChangeProfileInfoItem({
     userData,
@@ -38,9 +39,10 @@ export default function ChangeProfileInfoItem({
                 }))
 
                 setUserImage(userImage);
+                toast.success('You successfully upload you image!')
 
-            } catch (error) {
-                alert(error)
+            } catch {
+                toast.error('Failed attempt to upload this picture! Please try again later!')
             }
         }
 
@@ -59,8 +61,8 @@ export default function ChangeProfileInfoItem({
 
             onEdit(updatedUserData)
             onClickCancelEdit();
-        } catch (error) {
-            console.log(error.message);
+        } catch (error){
+            toast.error(error.message);
         }
     }
 
@@ -106,9 +108,8 @@ export default function ChangeProfileInfoItem({
             onEdit(data);
             onClickCancelEdit();
 
-        } catch (error) {
-            console.log(error);
-            alert('Current password is incorect!');
+        } catch {
+            toast.error('Current password is incorect!');
         }
     }
 

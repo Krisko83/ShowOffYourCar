@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
- // import request from "../../utils/request.js";
 import { toast } from "react-toastify";
 import { commentsApi } from "../../api/index.js";
 import CommentItem from "./comment-item/CommentItem.jsx";
@@ -16,7 +15,11 @@ export default function Comments({
 
         commentsApi.getAllCarsComments(`/comments?car_id=eq.${car_id}&order=created_at.desc`, { signal: abortController.signal })
             .then(result => setComments(result))
-            .catch(err => toast.error(err))
+            .catch(err => {
+                if (err.name !== 'AbortError') {
+                    toast.error('Failed to retrive comments from server. Please try agoin later!')
+                }
+            })
 
         return () => {
             abortController.abort();

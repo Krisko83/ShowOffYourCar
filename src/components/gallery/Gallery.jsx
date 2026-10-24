@@ -56,6 +56,7 @@ export default function Gallery() {
 
                 :
 
+                paginatedCars.length ?
                 <>
                     <div className={styles["car-gallery"]}>
                         {paginatedCars.map(car => <CarItem key={car.id} {...car} />)}
@@ -63,6 +64,7 @@ export default function Gallery() {
 
                     <Pagination page={page} setPage={setPage} limit={limit} setPageLimit={setPageLimit} totalPages={totalPages} />
                 </>
+                :  <h3>There is no car records to show!</h3>
             }
 
         </main>

@@ -44,8 +44,8 @@ useDecumentTitle('Add Car');
             toast.success('Car is added successfuly!')
             navigate('/');
 
-        } catch (error) {
-            toast.error('Error adding car.');
+        } catch {
+            toast.error('Error adding car. Please try again later.');
         }
 
     }

@@ -2,6 +2,7 @@ import { useState } from 'react';
 import styles from './SearchItem.module.css'
 // import request from '../../utils/request.js';
 import { carApi } from '../../api/index.js';
+import { toast } from 'react-toastify';
 
 
 const searchOptions = [ 
@@ -45,8 +46,8 @@ export default function SearchItem({
  
             filterCars(cars)
 
-        } catch (error) {
-            alert(error.message)
+        } catch {
+            toast.error('Failed attempt to retrive cars info! Please try again later!')
         }
     };
 

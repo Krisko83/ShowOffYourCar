@@ -1,6 +1,6 @@
 import { Link, useNavigate } from 'react-router';
 import { use } from 'react';
-import { toast } from 'react-toastify'; 
+import { toast } from 'react-toastify';
 import EyeIcon from '../eye-icon-item/EyeIcon.jsx';
 import UserContext from '../../contexts/UserContext.js';
 import styles from './Login.module.css'
@@ -38,10 +38,12 @@ export default function Login() {
 
             onLogin(responseData);
 
+            toast.success('Successfull Login!')
+
             navigate('/');
 
-        } catch (error) {
-            toast.error('Email or password are incorrect!');
+        } catch {
+            toast.error('Invalid email or password!');
         }
     }
 

@@ -1,9 +1,12 @@
  
+import useDecumentTitle from "../../../hooks/useDocumentTitle.js";
 import useOwnedCars from "../../../hooks/useOwnedCars.js";
 import CarItem from "../../car-item/CarItem.jsx";
 import styles from './CarOwnedList.module.css'
 
 export default function CarOwnedList() {
+    useDecumentTitle('Owned Cars');
+    
     const { ownedCars } = useOwnedCars()
  
     return (

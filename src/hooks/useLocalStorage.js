@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { toast } from "react-toastify";
 
 export default function useLocalStorage(initialState, key) {
     const [state, setState] = useState(() => {
@@ -12,8 +13,8 @@ export default function useLocalStorage(initialState, key) {
             const data = JSON.parse(storageData);
             
             return data;
-        } catch (error) {
-            console.log('Error parsing JSON', error);
+        } catch {
+            toast.error(`Error parsing JSON`);
             return initialState
         }
 

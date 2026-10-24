@@ -2,6 +2,7 @@ import { useParams } from "react-router";
 import { useEffect, useState } from "react"; 
 import { userApi } from "../../../api/index.js";
 import PersonalInfoItem from "../personal-Info-Item/PersonalInfoItem.jsx";
+import { toast } from "react-toastify";
 
 
 export default function UserProfile() {
@@ -15,7 +16,10 @@ export default function UserProfile() {
 
         userApi.getUserById(`/users?user_id=eq.${commentOwnerId}`, {signal: abortController.signal})
             .then(result => setUser(result[0]))
-            .catch(err => console.log(err))
+            .catch(err => {
+                if (err.name !== 'AbortError') {
+                toast.error(err)
+            }})
 
         return () => {
             abortController.abort();
