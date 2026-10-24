@@ -78,7 +78,6 @@ function register(values) {
     return errors;
 }
 
-
 function login(values) {
     const errors = {};
 

@@ -2,9 +2,12 @@ import { Link } from "react-router";
  
 import useComments from "../../hooks/useComments.js";
 import CarCommentedItem from "./CarCommentedItem/CarCommentedItem.jsx";
+import useDecumentTitle from "../../hooks/useDocumentTitle.js";
 
 
 export default function CarCommented() {
+    useDecumentTitle('Commented Cars');
+
     const { commentedCars } = useComments();
  
     return (

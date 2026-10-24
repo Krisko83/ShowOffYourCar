@@ -1,6 +1,5 @@
 import { use, useEffect, useState } from "react";
-import UserContext from "../contexts/UserContext.js";
-// import request from "../utils/request.js";
+import UserContext from "../contexts/UserContext.js"; 
 import { carApi, commentsApi } from "../api/index.js";
 
 export default function useComments() {

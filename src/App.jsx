@@ -1,8 +1,8 @@
 import { Route, Routes } from 'react-router'
 import { ToastContainer } from 'react-toastify' 
 
-import IsAuth from './components/route-guards/IsAuth.jsx'
-import IsGuest from './components/route-guards/isGuest.jsx'
+import IsAuth from './components/route-guards/IsAuth.jsx' 
+import IsGuest from './components/route-guards/IsGuest.jsx'
 import About from './components/about/About.jsx'
 import Gallery from './components/gallery/Gallery.jsx'
 import Contacts from './components/contacts/Contacts.jsx'

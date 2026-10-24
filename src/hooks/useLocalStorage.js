@@ -17,7 +17,6 @@ export default function useLocalStorage(initialState, key) {
             return initialState
         }
 
-
     });
 
     const setPersistedState = (value) => {

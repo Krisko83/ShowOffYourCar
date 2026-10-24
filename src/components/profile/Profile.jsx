@@ -20,7 +20,8 @@ const initialValues = {
 };
 
 export default function Profile() {
-    useDecumentTitle('My Profile')
+    useDecumentTitle('My Profile');
+    
     const { userData } = use(UserContext);
     const [isEditClicked, setIsEditClicked] = useState(false);
     const [userInfo, setUserInfo] = useState(initialValues)
