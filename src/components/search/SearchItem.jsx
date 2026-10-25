@@ -16,7 +16,8 @@ const searchOptions = [
 
 export default function SearchItem({
     filterCars,
-    setIsSearched
+    setIsSearched,
+    changePage
 }) {
 
     const [searchParam, setSearchParam] = useState('manufacturer');
@@ -43,8 +44,8 @@ export default function SearchItem({
         try { 
             const cars = await carApi.getAllCars(`/cars?${searchParam}=ilike.*${searchValue}*`);
  
+            changePage(1)
             filterCars(cars)
-
         } catch {
             toast.error('Failed attempt to retrive cars info! Please try again later!')
         }
@@ -124,8 +125,6 @@ export default function SearchItem({
 
     );
 }
-
-
 
 
 

@@ -324,9 +324,7 @@ useLocalStorage used in UserProvider for managing authentication state
 
 useControlledForm used in multiple components like carAdd, carEdit, AskQuestion, login, Register, components
 
-useDecumentTitle used in every page for displaying correct page title
-
-useGetAllRequest used in Gallery and Home components for get all cars request
+useDecumentTitle used in every page for displaying correct page title 
 
 useOwnedCars used in CarOwned component to to get first 3 owned cars. Also used in CarOwnedList component to get all owned cars if there are more then 3.
 
@@ -336,15 +334,15 @@ useComments used in CarCommented and CarCommentedList components to get comments
 
 - useState hook:
 
-used in all custom hooks exept useDecumentTitle
+used in all custom hooks exept useDocumentTitle
 
-used in CarDetails, Comments, Contacts, AskedQuestions,  Gallery, Profile, ChangeProfileInfoItem, ChangePasswordMenu, UserProfile, SearchItem components and UserImageProvider
+used in CarDetails, Comments, Contacts, AskedQuestions, Home, Gallery, Profile, ChangeProfileInfoItem, ChangePasswordMenu, UserProfile, SearchItem components and UserImageProvider
 
 - useEffect hook:
 
-used in useComments, useDecumentTitle, useGetAllRequest, useGetAllRequest, useImageUrl and useOwnedCars custom hooks
+used in useComments, useDecumentTitle, useImageUrl and useOwnedCars custom hooks
 
-used in CarDetails, carEdit, Comments, AskedQuestions, LikeCar, Profile, UserProfile components and custom react component ScrollToTop 
+used in home, Gallery, carEdit, Comments, AskedQuestions, LikeCar, Profile, UserProfile, Pagination components and custom react component ScrollToTop 
 
 
 ●	Give one example of mount / update / unmount behavior in your app.:
