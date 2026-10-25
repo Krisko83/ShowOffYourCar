@@ -1,6 +1,7 @@
-import useImageUrl from "../../../hooks/useImageUrl.js";
 import { toast } from "react-toastify";
 import { commentsApi, userApi } from "../../../api/index.js";
+import { use } from "react";
+import UserContext from "../../../contexts/UserContext.js";
 
 
 export default function AddComment({
@@ -10,7 +11,7 @@ export default function AddComment({
     onCreate,
     title
 }) {
-    const avatar = useImageUrl(user_id);
+    const { userImage: avatar } = use(UserContext);
 
     const changeHandler = (e) => {
         onCreate(state => ({

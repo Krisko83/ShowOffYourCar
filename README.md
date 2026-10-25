@@ -361,7 +361,7 @@ When data is send to the server if no errors user is redirected to details page 
 
 ●	What state/data is shared through Context, and which components consume it?:
 
-- UserContext share user authentication data and userImage. Component that are using it are CarDetails, CommentItem, Footer, Header, Login, Logout, Profile, Register, isAuth and isGuest.
+- UserContext share user authentication data and userImage. Component that are using it are CarDetails, AddComment, CommentItem, Footer, Header, Login, Logout, Profile, Register, isAuth and isGuest.
  
 ### Component Styling
 
