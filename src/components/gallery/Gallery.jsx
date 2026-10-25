@@ -70,10 +70,11 @@ export default function Gallery() {
         setPage(1);
     }
 
-    const filterCars = (filterCars) => {
+    const filterCars = (filterCars, searchPar) => {
         setFilteredCars(filterCars)
         setPage(1)
         setIsSearched(true)
+        setSearchParams({ search: searchPar, page: 1 })
     }
 
     const changePage = (newPage) => {
@@ -84,7 +85,12 @@ export default function Gallery() {
 
     return (
         <main className={styles["gallery-page"]}>
-            <SearchItem filterCars={filterCars} setIsSearched={setIsSearched} changePage={changePage} />
+            <SearchItem
+                filterCars={filterCars}
+                setIsSearched={setIsSearched}
+                changePage={changePage}
+                setSearchParams={setSearchParams}
+            />
 
             <h1>{isSearched ? 'Search results' : 'Car Gallery'}</h1>
 

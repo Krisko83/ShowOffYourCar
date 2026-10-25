@@ -3,8 +3,7 @@ import styles from './SearchItem.module.css'
 import { carApi } from '../../api/index.js';
 import { toast } from 'react-toastify';
 
-
-const searchOptions = [ 
+const searchOptions = [
     { label: "Manufacturer", value: "manufacturer" },
     { label: "Model", value: "model" },
     { label: "Year", value: "year" },
@@ -16,16 +15,15 @@ const searchOptions = [
 
 export default function SearchItem({
     filterCars,
-    setIsSearched,
-    changePage
+    setIsSearched
 }) {
 
-    const [searchParam, setSearchParam] = useState('manufacturer');
+    const [param, setParam] = useState('manufacturer');
     const [searchValue, setSearchValue] = useState('');
 
 
     const setParameter = (e) => {
-        setSearchParam(e.target.value)
+        setParam(e.target.value)
     }
 
     const setSearch = (e) => {
@@ -41,11 +39,10 @@ export default function SearchItem({
             return filterCars([]);
         };
 
-        try { 
-            const cars = await carApi.getAllCars(`/cars?${searchParam}=ilike.*${searchValue}*`);
- 
-            changePage(1)
-            filterCars(cars)
+        try {
+            const cars = await carApi.getAllCars(`/cars?${param}=ilike.*${searchValue}*`);
+
+            filterCars(cars, param)
         } catch {
             toast.error('Failed attempt to retrive cars info! Please try again later!')
         }
@@ -53,7 +50,7 @@ export default function SearchItem({
 
     const clickClearHandler = () => {
         setSearchValue('');
-        setSearchParam('manufacturer');
+        setParam('manufacturer');
         filterCars([]);
         setIsSearched(false)
     }
@@ -67,7 +64,7 @@ export default function SearchItem({
         >
             <select
                 className={styles["search-select"]}
-                value={searchParam}
+                value={param}
                 name="param"
                 onChange={setParameter}
                 aria-label="Search parameter"

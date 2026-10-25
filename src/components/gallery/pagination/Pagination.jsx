@@ -18,7 +18,7 @@ export default function Pagination({
             setSearchParams({ page: 1 }, { replace: true })
         }
         setPage(page)
-
+         
     }, [setPage, page, searchParams, setSearchParams])
 
 
