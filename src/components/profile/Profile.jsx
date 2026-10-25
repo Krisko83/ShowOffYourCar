@@ -26,7 +26,7 @@ export default function Profile() {
     const { userData } = use(UserContext);
     const [isEditClicked, setIsEditClicked] = useState(false);
     const [userInfo, setUserInfo] = useState(initialValues)
-    const user_id = userData.user.id;
+    const user_id = userData?.user.id;
 
     const imageUrl = userInfo.imageUrl;
 
@@ -81,7 +81,7 @@ export default function Profile() {
                 <ChangeProfileInfoItem
                     onClickCancelEdit={onClickEdit}
                     onEdit={editUserInfo}
-                    userData={userInfo}
+                    userInfoData={userInfo}
                 />
                 :
                 <PersonalInfoItem

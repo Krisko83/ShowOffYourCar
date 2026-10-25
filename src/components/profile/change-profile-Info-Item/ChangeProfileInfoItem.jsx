@@ -1,14 +1,14 @@
 import { v4 as uuid } from 'uuid';
 import { use, useState } from "react";
-import { validation } from "../../../utils/validation.js";  
-import getUserData from '../../../utils/userUtils.js';
-import { authApi, storageApi, userApi } from '../../../api/index.js';
-import ChangePasswordMenu from '../change-password-menu/ChangePasswordMenu.jsx';
+import { validation } from "../../../utils/validation.js";
+import { authApi, commentsApi, storageApi, userApi } from '../../../api/index.js';
 import { toast } from 'react-toastify';
+import getUserData from '../../../utils/userUtils.js';
+import ChangePasswordMenu from '../change-password-menu/ChangePasswordMenu.jsx';
 import UserContext from '../../../contexts/UserContext.js';
 
 export default function ChangeProfileInfoItem({
-    userData,
+    userInfoData,
     onClickCancelEdit,
     onEdit
 }) {
@@ -19,10 +19,12 @@ export default function ChangeProfileInfoItem({
     const [menuChangePasswordVisibility, setMenuChangePasswordVisibility] = useState(false);
     const { setUserImage } = use(UserContext);
 
+     const user_id = userInfoData?.user_id;
+     
     const actionHandler = async (formData) => {
         const imageFile = formData.get('image');
 
-        let userImage = userData.imageUrl;
+        let userImage = userInfoData.imageUrl;
 
         if (imageFile && imageFile.name !== '') {
 
@@ -38,6 +40,8 @@ export default function ChangeProfileInfoItem({
                     userImage
                 }))
 
+                await commentsApi.updateCommentAvatar(`/comments?user_id=eq.${user_id}`, { avatar: userImage })
+
                 setUserImage(userImage);
                 toast.success('You successfully upload you image!')
 
@@ -46,7 +50,7 @@ export default function ChangeProfileInfoItem({
             }
         }
 
-        const errors = validation.changeProfileInfo(userData, false)
+        const errors = validation.changeProfileInfo(userInfoData, false)
         setErrors(errors)
 
         if (Object.keys(errors).length > 0) {
@@ -54,14 +58,14 @@ export default function ChangeProfileInfoItem({
             return
         }
 
-        const updatedUserData = { ...userData, imageUrl: userImage }
+        const updatedUserData = { ...userInfoData, imageUrl: userImage }
 
         try {
-            await userApi.updateUser(`/users?user_id=eq.${userData.user_id}`, updatedUserData)
+            await userApi.updateUser(`/users?user_id=eq.${userInfoData.user_id}`, updatedUserData)
 
             onEdit(updatedUserData)
             onClickCancelEdit();
-        } catch (error){
+        } catch (error) {
             toast.error(error.message);
         }
     }
@@ -79,7 +83,7 @@ export default function ChangeProfileInfoItem({
             [e.target.name]: true
         }))
 
-        const errors = validation.changeProfileInfo(userData)
+        const errors = validation.changeProfileInfo(userInfoData)
 
         setErrors(errors)
     }
@@ -90,7 +94,7 @@ export default function ChangeProfileInfoItem({
 
 
     const changePasswordHandler = async () => {
-        const errors = validation.changeProfileInfo(userData);
+        const errors = validation.changeProfileInfo(userInfoData);
 
         setErrors(errors);
 
@@ -99,7 +103,7 @@ export default function ChangeProfileInfoItem({
             return;
         }
 
-        const { newPassword, inputPassword, data } = getUserData(userData);
+        const { newPassword, inputPassword, data } = getUserData(userInfoData);
 
 
         try {
@@ -133,9 +137,9 @@ export default function ChangeProfileInfoItem({
                                 ?
                                 <img src={previewUrl} alt="preview" className='image' />
                                 :
-                                userData.imageUrl
+                                userInfoData.imageUrl
                                     ?
-                                    <img src={userData.imageUrl} alt="avatar" className='image' />
+                                    <img src={userInfoData.imageUrl} alt="avatar" className='image' />
                                     :
                                     <div className="profile-heading-icon" aria-hidden="true">👤</div>
                         }
@@ -157,7 +161,7 @@ export default function ChangeProfileInfoItem({
                             placeholder="Enter your full name"
                             autoComplete="name"
                             onBlur={validationHandler}
-                            value={userData.fullName}
+                            value={userInfoData.fullName}
                             onChange={changeHandler}
                         />
                         {errorMessage('fullName')}
@@ -172,7 +176,7 @@ export default function ChangeProfileInfoItem({
                             placeholder="Enter your username"
                             autoComplete="username"
                             onBlur={validationHandler}
-                            value={userData.username}
+                            value={userInfoData.username}
                             onChange={changeHandler}
                         />
                         {errorMessage('username')}
@@ -187,7 +191,7 @@ export default function ChangeProfileInfoItem({
                             placeholder="Enter your email"
                             autoComplete="email"
                             onBlur={validationHandler}
-                            value={userData.email}
+                            value={userInfoData.email}
                             disabled
                         />
                         {errorMessage('email')}
@@ -203,7 +207,7 @@ export default function ChangeProfileInfoItem({
                             placeholder="Enter your age"
                             autoComplete="No specific value"
                             onBlur={validationHandler}
-                            value={userData.age}
+                            value={userInfoData.age}
                             onChange={changeHandler}
                         />
                         {errorMessage('age')}
@@ -218,7 +222,7 @@ export default function ChangeProfileInfoItem({
                             placeholder="Enter your country"
                             autoComplete="country-name"
                             onBlur={validationHandler}
-                            value={userData.country}
+                            value={userInfoData.country}
                             onChange={changeHandler}
                         />
                         {errorMessage('country')}
@@ -233,7 +237,7 @@ export default function ChangeProfileInfoItem({
                             placeholder="Enter your city"
                             autoComplete="address-level2"
                             onBlur={validationHandler}
-                            value={userData.city}
+                            value={userInfoData.city}
                             onChange={changeHandler}
                         />
                         {errorMessage('city')}
@@ -241,7 +245,7 @@ export default function ChangeProfileInfoItem({
 
                     <div className={`${inputClass('gender')} profile-field-wide`}>
                         <label htmlFor="gender">Gender</label>
-                        <select id="gender" name="gender" value={userData.gender} onChange={changeHandler} onBlur={validationHandler} >
+                        <select id="gender" name="gender" value={userInfoData.gender} onChange={changeHandler} onBlur={validationHandler} >
                             <option value="female">Female</option>
                             <option value="male">Male</option>
                             <option value="other">Other</option>
@@ -265,7 +269,7 @@ export default function ChangeProfileInfoItem({
                             validationHandler={validationHandler}
                             setErrors={setErrors}
                             errors={errors}
-                            {...userData}
+                            {...userInfoData}
                         />
                     }
 
