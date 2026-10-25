@@ -74,11 +74,11 @@ export default function Gallery() {
         setFilteredCars(filterCars)
         setPage(1)
         setIsSearched(true)
-        setSearchParams({ search: searchPar, page: 1 })
+        setSearchParams({ search: searchPar, page: 1 }, { replace: true })
     }
 
     const changePage = (newPage) => {
-        setSearchParams({ page: newPage });
+        setSearchParams({ page: newPage }, {replace: true});
     }
 
 
@@ -88,7 +88,6 @@ export default function Gallery() {
             <SearchItem
                 filterCars={filterCars}
                 setIsSearched={setIsSearched}
-                changePage={changePage}
                 setSearchParams={setSearchParams}
             />
 

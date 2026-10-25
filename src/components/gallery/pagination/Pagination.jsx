@@ -15,7 +15,7 @@ export default function Pagination({
 
     useEffect(() => {
         if (!searchParams.has('page')) {
-            setSearchParams({ page: 1 }, { replace: true })
+            setSearchParams({ page: 1 }, { replace: true})
         }
         setPage(page)
          

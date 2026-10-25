@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import styles from './SearchItem.module.css'
 import { carApi } from '../../api/index.js';
 import { toast } from 'react-toastify';
+import styles from './SearchItem.module.css'
 
 const searchOptions = [
     { label: "Manufacturer", value: "manufacturer" },
@@ -15,7 +15,8 @@ const searchOptions = [
 
 export default function SearchItem({
     filterCars,
-    setIsSearched
+    setIsSearched,
+    setSearchParams 
 }) {
 
     const [param, setParam] = useState('manufacturer');
@@ -34,9 +35,9 @@ export default function SearchItem({
     const submitHandler = async (e) => {
         e.preventDefault();
 
-
         if (searchValue === '') {
-            return filterCars([]);
+            clickClearHandler()
+            return
         };
 
         try {
@@ -49,10 +50,13 @@ export default function SearchItem({
     };
 
     const clickClearHandler = () => {
-        setSearchValue('');
-        setParam('manufacturer');
-        filterCars([]);
-        setIsSearched(false)
+            if(searchValue !== ''){                
+                setSearchValue('');
+                setParam('manufacturer');
+                filterCars([]);
+                setIsSearched(false);
+                setSearchParams();
+            }    
     }
 
 
@@ -100,16 +104,14 @@ export default function SearchItem({
                 onChange={setSearch}
             />
 
-            {searchValue && (
-                <button
-                    type="button"
-                    className={styles["clear-button"]}
-                    onClick={clickClearHandler}
-                    aria-label="Clear search"
-                >
-                    &times;
-                </button>
-            )}
+            <button
+                type="button"
+                className={styles["clear-button"]}
+                onClick={clickClearHandler}
+                aria-label="Clear search"
+            >
+                &times;
+            </button>
 
 
             <button
