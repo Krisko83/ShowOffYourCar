@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';  
 import { contactsApi } from '../../../api/index.js';
 import AskedQuestionItem from '../asked-questionI-tem/AskedQuestionItem.jsx';
-import './AskedQuestions.css'
 import { toast } from 'react-toastify';
+import './AskedQuestions.css'
 
 export default function AskedQuestions({
     onCreate

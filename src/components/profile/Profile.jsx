@@ -4,10 +4,10 @@ import CarOwned from '../car-owned/CarOwned.jsx';
 import CarCommented from '../car-commented/CarCommented.jsx';
 import useDecumentTitle from '../../hooks/useDocumentTitle.js';
 import { userApi } from '../../api/index.js';
-import './Profile.css';
 import ChangeProfileInfoItem from './change-profile-Info-Item/ChangeProfileInfoItem.jsx';
 import PersonalInfoItem from './personal-Info-Item/PersonalInfoItem.jsx';
 import { toast } from 'react-toastify';
+import './Profile.css';
 
 
 const initialValues = {

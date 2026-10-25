@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import styles from './SearchItem.module.css'
-// import request from '../../utils/request.js';
 import { carApi } from '../../api/index.js';
 import { toast } from 'react-toastify';
 

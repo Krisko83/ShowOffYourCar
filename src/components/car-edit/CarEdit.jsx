@@ -1,6 +1,5 @@
 import { useEffect } from "react";
-import { useNavigate, useParams } from "react-router";
-// import request from "../../utils/request.js";
+import { useNavigate, useParams } from "react-router"; 
 import CarAddEditItem from "../car-add-edit-item/CarAddEditItem.jsx";
 import useControlledForm from "../../hooks/useControlledForm.js";
 import useDecumentTitle from "../../hooks/useDocumentTitle.js";

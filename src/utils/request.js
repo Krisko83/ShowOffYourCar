@@ -1,8 +1,6 @@
 const authUrl = import.meta.env.VITE_AUTH_URL;
 const apikey = import.meta.env.VITE_API_KEY;
 
-
-
 export default async function request(url, method = 'GET', data = null, opts = {}, image = false) {
     const storageData = localStorage.getItem('auth');
     let user = {};

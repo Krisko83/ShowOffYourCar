@@ -108,7 +108,7 @@ Describe what a logged-in user can access:
 
 ●	The application uses Supabase authentication system with access_token for indentication with server and refresh_token for renewal of the server session.
  
-●	What happens when the app loads: When the app loads UserProvider uses the custom hook useLocalStorage to check whether any credentials are stores in localStorage. It shares authentiacation state with the rest of the app , allowing the header to access the state using UserContext and render the app with appropiate navigation depending of user is logged in or not.
+●	What happens when the app loads: When the app loads UserProvider uses the custom hook useLocalStorage to check whether any credentials are stores in localStorage. It shares authentiacation state with the rest of the app , allowing the header to access the state using UserContext and render the app with appropiate navigation depending if user is logged in or not.
 
 ●	How authentication status is checked: The custom hook useLocalStorage checks in localStorage if credentials are stored to determine authentication state.
 
@@ -361,7 +361,7 @@ When data is send to the server if no errors user is redirected to details page 
 
 ●	What state/data is shared through Context, and which components consume it?:
 
-- UserContext share user authentication data and userImage. Component that are using it are CarDetails, CommentItem, UserContext, Footer, Header, Login, Logout, Profile, Register, isAuth and isGuest.
+- UserContext share user authentication data and userImage. Component that are using it are CarDetails, CommentItem, Footer, Header, Login, Logout, Profile, Register, isAuth and isGuest.
  
 ### Component Styling
 

@@ -1,117 +1,3 @@
-/* @import url('https://fonts.googleapis.com/css?family=PT+Serif');
-@import url('https://fonts.googleapis.com/css?family=PT+Sans:400,700');
-
-
-.site-header {
-    width: 100%;
-    background-image: url('/img/newCar.jpg');
-    background-repeat: no-repeat;
-    background-position: center top;
-    background-size: cover;
-    padding: 19rem 0 8rem;
-    margin-top: -279px;
-    margin-bottom: 4rem;
-    text-align: center;
-}
-
-.header-wrapper {
-    width: 95%;
-    margin: auto;
-}
-
-.wrapper {
-    width: 100%;
-    margin: auto;
-}
-
-
-.site-nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 5rem;
-}
-
-.navigation {
-    display: flex;
-    gap: 3em;
-    align-items: center;
-}
-
-.navigation li {
-    display: block;
-}
-
-.navigation li a {
-    display: flex;
-    align-items: center;
-    text-decoration: none;
-    color: #FFFFFF;
-    font-size: 27px;
-    /* text-transform: uppercase; */
-/* } */
-
-/* .navigation .nav-btn {
-    font: inherit;
-    text-decoration: none;
-    color: #FFFFFF;
-    font-size: 27px; 
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
-}
-
-.site-nav .logo {
-    display: block;
-    background: url('/img/welcome-img.png') center top;
-    background-size: contain;
-    background-repeat: no-repeat;
-    text-indent: -100vh;
-    width: 8em;
-    height: 5rem;
-}
-
-.site-header-text h2 {
-    color: white;
-    font-size: 5rem;
-    font-weight: 100;
-    line-height: 1.2;
-    text-align: center;
-}
-
-.site-header-text p {
-    color: white;
-    font-size: 3rem;
-    margin: 6rem auto 0;
-    text-align: center;
-}
-
-
-.heading-icon {
-    display: flex;
-    justify-content: center;
-    place-items: center;
-    width: 35px;
-    height: 35px;
-    border-radius: 50%;
-    background: #eaf1fc;
-    font-size: 25px;
-    margin-right: 10px;
-}
-
-.heading-icon-avatar {
-    display: inline-block;
-    place-items: center;
-    width: 28px;
-    height: 28px;
-    border-radius: 50%;
-    background: #eaf1fc;
-    font-size: 25px;
-    margin-right: 10px;
-}  */
-
-
- 
 @import url('https://fonts.googleapis.com/css?family=PT+Serif');
 @import url('https://fonts.googleapis.com/css?family=PT+Sans:400,700');
 
@@ -163,18 +49,7 @@
 
 .navigation li {
     display: block;
-}
-
-/* .navigation li a {
-    display: flex;
-    align-items: center;
-    text-decoration: none;
-    color: #fff;
-    font-family: 'PT Sans', sans-serif;
-    font-size: 1.4rem;
-    font-weight: 700;
-    transition: color 0.2s ease;
-} */
+} 
 
 .navigation li a {
     display: flex;
@@ -259,7 +134,7 @@
     margin-right: 8px;
 }
 
-/* Tablets and smaller laptops */
+/* Tablets*/
 @media (max-width: 1024px) {
     .site-header {
         padding: 17rem 0 6rem;
@@ -293,12 +168,12 @@
         margin-bottom: 2rem;
     }
 
-    /* Hide the logo/car icon */
+ 
     .site-nav .logo {
         display: none;
     }
 
-    /* Move navigation closer to the top */
+ 
     .site-nav {
         justify-content: center;
         gap: 0;
@@ -314,7 +189,7 @@
         margin: 0;
     }
 
-    /* Keep the original navigation text styling */
+ 
  
     .site-header-text {
         width: 92%;
@@ -332,7 +207,7 @@
     }
 }
 
-/* Very narrow phones */
+ 
 @media (max-width: 380px) {
     .site-header {
         padding-top: 1.5rem;

@@ -17,7 +17,6 @@ export default function useImageUrl(user_id) {
                 })
                 .catch(err => {
                     if (err.name !== 'AbortError') {
-                        console.error(err);
                         toast.error('Failed attempt to retrive user image!')
                     }
                 })

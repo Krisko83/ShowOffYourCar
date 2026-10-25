@@ -1,6 +1,5 @@
 import { useState } from "react";
-import EyeIcon from "../../eye-icon-item/EyeIcon.jsx";
- 
+import EyeIcon from "../../eye-icon-item/EyeIcon.jsx"; 
 
 export default function ChangePasswordMenu({
     inputPassword,

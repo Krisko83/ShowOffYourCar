@@ -64,7 +64,7 @@ export default function Gallery() {
 
                     <Pagination page={page} setPage={setPage} limit={limit} setPageLimit={setPageLimit} totalPages={totalPages} />
                 </>
-                :  <h3>There is no car records to show!</h3>
+                :  <h3>There is no records to show!</h3>
             }
 
         </main>

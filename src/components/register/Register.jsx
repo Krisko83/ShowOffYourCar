@@ -1,12 +1,12 @@
 import { Link, useNavigate } from 'react-router';
 import { use } from 'react'; 
+import { toast } from 'react-toastify';
 import EyeIcon from '../eye-icon-item/EyeIcon.jsx';
 import UserContext from '../../contexts/UserContext.js'; 
 import useControlledForm from '../../hooks/useControlledForm.js'; 
 import styles from "./Register.module.css";
 import { authApi, userApi } from '../../api/index.js';
 import useDecumentTitle from '../../hooks/useDocumentTitle.js';
-import { toast } from 'react-toastify';
 
 const initialValues = {
     fullName: '',
