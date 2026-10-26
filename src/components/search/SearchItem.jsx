@@ -16,7 +16,7 @@ const searchOptions = [
 export default function SearchItem({
     filterCars,
     setIsSearched,
-    setSearchParams 
+    setSearchParams
 }) {
 
     const [param, setParam] = useState('manufacturer');
@@ -50,13 +50,11 @@ export default function SearchItem({
     };
 
     const clickClearHandler = () => {
-            if(searchValue !== ''){                
-                setSearchValue('');
-                setParam('manufacturer');
-                filterCars([]);
-                setIsSearched(false);
-                setSearchParams();
-            }    
+        setSearchValue('');
+        setParam('manufacturer');
+        filterCars([]);
+        setIsSearched(false);
+        setSearchParams();
     }
 
 

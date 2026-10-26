@@ -97,7 +97,9 @@ Describe what a logged-in user can access:
 
 ●	Main sections / pages: Home, Gallery, Details, About, Contact Us, Add Car, Edit Car, My Profile, User Profile(The other users profiles with basic info like username, age, Country ,Gender and owned Cars articles) and logout
 
-●	Details pages: User has a access to car info , likes, like/unlike button and can post a comment to the car article. If user is onwer of the car article he has access to edit car where he can change the car info and delete car where he can remove the car from the app.The owner of the article can like his own car only see averall likes.
+● In My profile page authenticated user can see all info for it's account, like full name, email etc. also links to all the cars that he is commented if any ,links to car owned if any.There are button "change personal info" that opens up a form with user data that can be edited only without email. In this form is upload profile section where user can upload image.There is also and password change options that required user to provide current password and newPassword with repeatPassword.This form also has a validation like other forms.
+
+●	Details pages: User has a access to car info , likes, like/unlike button, can post a comment to the car article and field created by with name, image if uploaded rapped in link who redirect to User Profile with basic info or if user click on own name and image is redirected ot his own account. If user is onwer of the car article he has access to edit car where he can change the car info and delete car where he can remove the car from the app.The owner of the article can like his own car only see averall likes.
 
 ●	Create / Edit / Delete actions: Those actions are availeble only for the owner of the car articles. 
 
@@ -114,11 +116,11 @@ Describe what a logged-in user can access:
 
 ●	What happens on successful login or registration: After both successfull login and registration the user is redirected to the home page.
 
-●	What happens on logout: On logout ,logoutHandler first makes request to supabase auth for logout and after successfull logout at the server remove auth credentials from localStorage and userImage if any is cleared from UserImageProvider state.The user is redirected to login page.
+●	What happens on logout: On logout ,logoutHandler first makes request to supabase auth for logout and after successfull logout at the server remove auth credentials from localStorage and user state.The user is redirected to login page.
 
 ### Session Persistence
 
-●	How is the user session stored?: UserProvider using custom hook useLocalStorage stores recieved credentials from the server after login or register requests in localStorage.
+●	How is the user session stored?: UserProvider using custom hook useLocalStorage stores recieved credentials from the server after login or register requests in localStorage and user state.
 
 ●	How is automatic login handled after a page refresh?: On page refresh React initializes again and UserProvider using custom useLocalStorage hook retrive previously stored authentication credentials. If credentials are found ,the authentication state is restored , allowing user to remain logged in. 
 
@@ -183,31 +185,31 @@ Error handling (1): A Not Found page for undefined routes.
 
 There is two nested routing:
 
-For guests users can't access this nested routes:
+For authenticated users can access this nested routes:
 
-/cars/add-car 
+/cars/add-car                                     - for creating a car post
 
-/cars/:car_id/edit 
+/cars/:car_id/edit                                - for editing existing car post
 
-/user/user-profile/:commentOwnerId
+/user/user-profile/:commentOwnerId                - for accessing profile of another user.(Is commentOwnerId becasue I use comment owner id to extract from server the user data and navigate to user profile.This was the easiest way)
 
-/user/profile
+/user/profile                                     - for accessing own account
 
-/user/owned-cars 
+/user/owned-cars                                  - for accessing owned cars in My profile
 
-/user/commented-cars
+/user/commented-cars                              - for accessing commented cars in My profile
 
-/user/logout' 
+/user/logout'                                     - for logout
 
-For authenticated users can't this nested routes:
+For guest users can access this nested routes:
 
-/user/login
+/user/login                                       - for login
 
-/user/register 
+/user/register                                    - for register
 
 ●	Which routes use **URL** parameters (e.g. /catalog/:id)?: 
 
-/cars/:car_id/details' 
+/cars/:car_id/details'                            - for accessing car details
 
 /cars/:car_id/edit'
 
@@ -219,7 +221,7 @@ For authenticated users can't this nested routes:
 
 ●	What data is displayed?:
 
-In catalog page are displayed all cars in the application paginated on pages from 9 articles sorted by date of creation 
+In catalog page are displayed all cars in the application paginated on pages from 9 articles sorted by date of creation. Pagination is server side, the app make request for every page collecting 9 cars.
 
 ●	How does the user interact with the list (filter / sort / search)?:
 
@@ -233,14 +235,14 @@ Navigation to details page is trigger with Link by clicking on article. There is
 
 ●	What data is received via route parameters?:
 
-The details page recieve car_id form parameters to identify which car data should retrive from the server, then makes request to the server for that car using car_id and also another request to retrive likes for the car. The car_id is passed to LikeCar , AddComment and Comments components who makes there own request to for liking the car, add comment and render comments if any.
+The details page recieve car_id form parameters to identify which car data should retrive from the server, then makes request to the server for that car using car_id and also another request to retrive likes for the car. The car_id is passed to LikeCar , AddComment and Comments components who makes there own request to the server to like or unlike the car, add comment and render comments if any. The retrieved data is displayed ,with link to user profile of the creator of the car post ,like count ,edit and delete buttons if user is owner of the post and comments if any.
  
 
 ## 6.Data Source & Backend
 
 ### Backend Type
 
-●	Real backend (Firebase, or custom Node.js/Express + MongoDB): The application uses Supabase for backend.
+●	Real backend (Firebase, or custom Node.js/Express + MongoDB): The application uses Supabase for backend with supabase authentication.
 
 ## 7.Data Operations (CRUD)
 
@@ -250,7 +252,7 @@ All four operations — Create, Read, Update, and Delete — are required for th
 
 - How does the user create new data?: 
 
-User creates data in add car page.The user must be logged in to access it. After the fields in add car page are filled ,the custom validator validates the data and if every fields is correctly filled, the component makes request to the server for creation of new car article. If there a fields with incorrect data component show the fields with errors and do not make request to the server until field is filled correctly.After successful request user is redirected to the home page.
+User creates data in add car page.The user must be logged in to access it. After the fields in add car page are filled ,the custom validator validates the data and if every fields is correctly filled, the component makes request to the server for creation of new car article. If there a fields with incorrect data component app shows the fields with errors and do not make request to the server until field is filled correctly.After successful request user is redirected to the home page and success message is shown via react toastify
 
 
 ### Read (**GET**)
@@ -263,7 +265,7 @@ Data is fetched and displayed this places: Home page, Gallery page, Details page
 
 - How does the author edit an existing record?:
 
-  The author of the car can update the record in Details page clicking Edit button which redirect the user to Edit car page.There after get request to the server the data is automaticly filled into edit car form.The same as create validation proccess is triggering for the edit form and if any errors occurs the component is displaing the error under the wrongly filled field. If there is no error after clicking Edit car button ,component makes 'PATCH' request to the server.If there is no error form the server user is redirected to details of the edited car other wise it shows error message.
+  The author of the car can update the record in Details page clicking Edit button which redirect the user to Edit car page.There after get request to the server the data is automaticly filled into edit car form.The same as create validation proccess is triggering for the edit form and if any errors occurs the component is displaing the error under the wrongly filled field. If there is no error after clicking Edit car button ,component makes 'PATCH' request to the server.If there is no error form the server user is redirected to details of the edited car other wise it shows error message and success message is shown via react toastify.
 
 - How is the UI updated after the change?:
 
@@ -273,7 +275,7 @@ Data is fetched and displayed this places: Home page, Gallery page, Details page
 
 - How does the author delete an existing record?
 
-The author of the car can delete by getting into details of the car.There by clicking delete button on the page appear confirmation dialog with Are you sure you want to delete this car? question and OK ,Cancel options.If Cancel is clicked the dialog disappear and user stays in details page.If OK is clicked details component make delete request to the server.
+The author of the car can delete by getting into details of the car.There by clicking delete button on the page appear confirmation dialog with Are you sure you want to delete this car question and OK ,Cancel options.If Cancel is clicked the dialog disappear and user stays in details page.If OK is clicked details component make delete request to the server and success message is shown via react toastify
 
 - How is the UI updated after the change?
 
@@ -284,6 +286,8 @@ User is redirected to Home page
 ### Forms Used
 
 - List of forms in the application:
+
+All forms in the app are controlled.
 
 Register Page uses form for user registration
 
@@ -328,7 +332,7 @@ useDecumentTitle used in every page for displaying correct page title
 
 useOwnedCars used in CarOwned component to to get first 3 owned cars. Also used in CarOwnedList component to get all owned cars if there are more then 3.
 
-useImageUrl used in AddComments and Header components to get user image if it's uploaded.
+useImageUrl used in User Context to retrieve user image if uploaded and shares with components via UserProvider
 
 useComments used in CarCommented and CarCommentedList components to get comments, uniqueCarIds and commentedCars
 
@@ -336,7 +340,7 @@ useComments used in CarCommented and CarCommentedList components to get comments
 
 used in all custom hooks exept useDocumentTitle
 
-used in CarDetails, Comments, Contacts, AskedQuestions, Home, Gallery, Profile, ChangeProfileInfoItem, ChangePasswordMenu, UserProfile, SearchItem components and UserImageProvider
+used in CarDetails, Comments, Contacts, AskedQuestions, Home, Gallery, Profile, ChangeProfileInfoItem, ChangePasswordMenu, UserProfile, SearchItem components.
 
 - useEffect hook:
 
@@ -363,7 +367,7 @@ When data is send to the server if no errors user is redirected to details page 
  
 ### Component Styling
 
-●	How are components styled? (**CSS** files, **CSS** Modules, styling library): Component are styled with combination of css files and css modules
+●	How are components styled? (**CSS** files, **CSS** Modules, styling library): Component are styled with combination of css files and css modules.ChatGPT helps me with styling of the pages. I choose to use css and css modules because i have knowlidge about it and if something need to change i know how to do it wich is not true about Tailwind , Bootstrap etc.
 
 ## 10.Typical User Flow
 

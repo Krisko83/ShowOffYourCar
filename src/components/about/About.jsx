@@ -9,10 +9,7 @@ export default function About() {
 
             <section className={styles["about-hero"]}>
                 <h1>About Show off you Car?</h1>
-                <h2>
-                    This app is only for learning purposes!
-                </h2>
-
+                
                 <p>
                     A place where car enthusiasts can share their cars,
                     discover new ones and connect with other people
